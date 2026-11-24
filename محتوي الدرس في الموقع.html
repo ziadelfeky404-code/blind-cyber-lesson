@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>التهديدات السيبرانية المتقدمة - درس تفاعلي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12263a; --navy:#0b3d6b; --blue:#0f5aa0; --blue2:#1b6ec2;
+    --sky:#eaf4fe; --sun:#ffcf3f; --sun-dk:#7a5a00;
+    --green:#0b6b34; --green-bg:#e6f6ec; --red:#b3261e; --red-bg:#fdecea;
+    --line:#cfe0f2; --card:#ffffff; --focus:#b35c00;
+    --r:22px; --shadow:0 8px 24px rgba(15,90,160,.12);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; color:var(--ink);
+    font-family:"Tajawal","Segoe UI",Tahoma,Arial,sans-serif;
+    font-size:19px; line-height:1.95; background:#eef6fe;
+  }
+  h1,h2,h3,h4,legend,.display{font-family:"Baloo Bhaijaan 2","Tajawal","Segoe UI",Tahoma,sans-serif; line-height:1.45;}
+  a{color:var(--blue);}
+  a.skip{position:absolute; inset-inline-start:-999px; top:0; z-index:60; background:#000; color:#fff; padding:10px 16px; border-radius:0 0 12px 0;}
+  a.skip:focus{inset-inline-start:0;}
+  :focus-visible{outline:3px solid var(--focus); outline-offset:3px; border-radius:6px;}
+
+  .wrap{max-width:960px; margin:0 auto; padding:0 16px 40px;}
+
+  /* Hero header */
+  .hero{
+    position:relative; color:#fff; padding:26px 24px 34px;
+    background:linear-gradient(140deg,#0b3d6b 0%,#11538f 55%,#1667a8 100%);
+    border-radius:0 0 30px 30px;
+  }
+  .hero .inner{max-width:900px; margin:0 auto; display:flex; gap:18px; align-items:center; flex-wrap:wrap;}
+  .hero h1{margin:.1rem 0 .3rem; font-size:clamp(1.6rem,1.2rem + 2vw,2.4rem); font-weight:800;}
+  .hero p{margin:.15rem 0; color:#eaf4fe; font-size:1rem;}
+  .mascot{width:118px; height:auto; flex:0 0 auto; filter:drop-shadow(0 6px 10px rgba(0,0,0,.25));}
+  .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+  .chip{background:#ffffff; border:2px solid #ffffff; color:#0b3d6b; border-radius:999px; padding:3px 12px; font-size:.82rem; font-weight:700;}
+  .wave{display:block; width:100%; height:26px;}
+
+  main{max-width:960px; margin:0 auto; padding:20px 18px 40px;}
+
+  .card{
+    background:var(--card); border:3px solid var(--line); border-radius:var(--r);
+    padding:22px 24px; box-shadow:var(--shadow);
+  }
+  .card:focus{outline:none;}
+  .card:focus-visible{outline:4px solid var(--focus); outline-offset:3px;}
+
+  .eyebrow{display:inline-block; background:var(--sky); color:var(--blue);
+    font-weight:800; border-radius:999px; padding:2px 14px; font-size:.85rem; margin-bottom:8px;}
+
+  /* Big friendly buttons */
+  .btn{
+    font-family:inherit; font-size:1rem; font-weight:800; cursor:pointer;
+    border:3px solid var(--blue); background:var(--blue); color:#fff;
+    border-radius:999px; padding:12px 26px; min-height:50px;
+    box-shadow:0 4px 0 rgba(11,61,107,.35); transition:transform .06s ease, background .15s;
+  }
+  .btn:hover{background:var(--blue2);}
+  .btn:active{transform:translateY(2px); box-shadow:0 2px 0 rgba(11,61,107,.35);}
+  .btn[disabled]{opacity:.45; cursor:not-allowed; box-shadow:none;}
+  .btn.sun{background:var(--sun); border-color:#e7b400; color:#4a3800; box-shadow:0 4px 0 #b98a00;}
+  .btn.ghost{background:#fff; color:var(--blue);}
+
+  .toolbar{display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap; margin:16px 0;}
+  .toolbar .group{display:flex; gap:12px; flex-wrap:wrap;}
+  .progress{font-weight:800; color:var(--navy);}
+  .bar{height:16px; background:#dcebf9; border-radius:999px; overflow:hidden; border:2px solid var(--line); min-width:180px; flex:1 1 180px;}
+  .bar > i{display:block; height:100%; background:linear-gradient(90deg,var(--sun),#ff9f1c); width:0; transition:width .3s;}
+
+  .autoplay{display:inline-flex; gap:10px; align-items:center; background:#fff; border:3px solid var(--line);
+    border-radius:999px; padding:8px 16px; font-weight:800; cursor:pointer; color:var(--navy);}
+  .autoplay input{width:22px; height:22px; accent-color:var(--blue);}
+
+  /* Slide */
+  .slide{display:block;}
+  .slide[hidden]{display:none;}
+  .slide h2{color:var(--navy); font-size:1.7rem; margin:2px 0 14px;}
+  .slide ul{padding-inline-start:26px;}
+  .slide li{margin:.5rem 0;}
+  .slide li::marker{color:var(--blue2); font-weight:800;}
+
+  .audio-wrap{background:var(--sky); border:3px dashed #a9cdf0; border-radius:18px; padding:12px 16px; margin:4px 0 18px;}
+  .audio-wrap .lbl{display:block; font-weight:800; color:var(--navy); margin-bottom:6px;}
+  audio.narration{width:100%; max-width:560px; height:44px;}
+
+  .email{background:#fff8e7; border:3px solid #ffd98a; border-radius:18px; padding:14px 18px;}
+  .email p{margin:.35rem 0;}
+  .q{background:var(--sky); border-radius:14px; padding:10px 16px; font-weight:700;}
+  details{background:#f4f9ff; border:3px solid var(--line); border-radius:16px; padding:6px 16px; margin-top:10px;}
+  details summary{cursor:pointer; font-weight:800; color:var(--blue); padding:8px 0;}
+
+  /* Quiz */
+  .quiz-item{border:3px solid var(--line); border-radius:var(--r); padding:18px 20px; margin:18px 0; background:#fff;}
+  .quiz-item legend{font-weight:800; color:var(--navy); font-size:1.12rem; padding:0 8px;}
+  .qnum{display:inline-grid; place-items:center; width:34px; height:34px; margin-inline-end:6px;
+    background:var(--sun); color:#4a3800; border-radius:50%; font-weight:800;}
+  .obj{font-weight:600; color:#5b6b7b; font-size:.85rem;}
+  .options{list-style:none; padding:0; margin:12px 0 0; display:grid; gap:10px;}
+  .options label{display:flex; gap:12px; align-items:flex-start; padding:12px 16px; border:3px solid var(--line);
+    border-radius:16px; cursor:pointer; background:#fff; transition:border-color .12s, background .12s;}
+  .options label:hover{background:var(--sky);}
+  .options label:has(input:checked){border-color:var(--blue); background:#e7f1fd; box-shadow:inset 0 0 0 1px var(--blue);}
+  .options input{width:22px; height:22px; margin-top:4px; accent-color:var(--blue); flex:0 0 auto;}
+  .feedback{font-weight:800; margin-top:14px; padding:14px 16px; border-radius:16px; display:none;}
+  .feedback.show{display:block;}
+  .feedback.ok{color:var(--green); background:var(--green-bg); border:3px solid #9ad4b0;}
+  .feedback.err{color:var(--red); background:var(--red-bg); border:3px solid #f0b0ab;}
+  .feedback.ok::before{content:"\2714  ";}
+  .feedback.err::before{content:"\2718  ";}
+
+  details.answer{background:#f3f8ff; border:3px solid var(--line); border-radius:16px; padding:6px 16px; margin-top:14px;}
+  details.answer summary{cursor:pointer; font-weight:800; color:var(--blue); padding:6px 0;}
+
+  .srcnote{color:#4b5b6b; font-size:.88rem; border-top:2px dashed var(--line); margin-top:26px; padding-top:12px;}
+
+  @media (max-width:560px){
+    body{font-size:18px;}
+    .mascot{width:92px;}
+    main{padding:16px 12px 32px;}
+    .card{padding:18px 16px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important; scroll-behavior:auto !important;}
+  }
+  @media print{
+    body{background:#fff;}
+    .toolbar,.autoplay,.btn{display:none !important;}
+    .card{box-shadow:none; border-color:#999;}
+  }
+
+.hero .audio-wrap { margin: 0.6rem 0 0.9rem; }
+
+  /* جملة الربط بين أجزاء الدرس: تتابع منطقي من جزئية للتي بعدها */
+  .bridge{
+    background:#eef6ff; border-inline-start:6px solid var(--blue); border-radius:12px;
+    padding:12px 16px; margin:14px 0 6px; color:#123c60; font-weight:700;
+  }
+
+  /* ---- Embed mode (?embed=1): the parent site supplies header and navigation ---- */
+  html.embed body > header.hero{display:none !important;}
+  html.embed a.skip{display:none !important;}
+  html.embed body{background:#fff;}
+  html.embed main{max-width:1060px; padding-top:24px;}
+  html.embed .sr-embed{
+    position:absolute !important; width:1px; height:1px; margin:-1px; padding:0;
+    overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0;
+  }
+  /* الترحيب المنقول إلى المحتوى: سطر إرشاد مضغوط + إخفاء سطر الحالة المرئي
+     (يبقى في شجرة الوصول لأن #count يعرض رقم الشريحة بصريًا) */
+  html.embed main > .audio-wrap{margin:0 0 6px; padding:8px 12px;}
+  html.embed main > .audio-wrap .lbl{font-size:.92rem; margin-bottom:2px;}
+  html.embed #live{
+    position:absolute !important; width:1px; height:1px; margin:-1px; padding:0;
+    overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0;
+  }
+</style>
+
+<script>
+(function () {
+  if (!/[?&]embed=1/.test(location.search)) { return; }
+  document.documentElement.className += " embed";
+  document.addEventListener("DOMContentLoaded", function () {
+    var h = document.querySelector("body > header h1");
+    var m = document.querySelector("main");
+    if (!h || !m) { return; }
+    var t = document.createElement("h1");
+    t.className = "sr-embed";
+    t.textContent = h.textContent.trim();
+    m.insertBefore(t, m.firstChild);
+    /* في وضع التضمين يُخفى رأس الصفحة كله، ومعه مشغّل «اسمع الترحيب».
+       ننقله إلى أعلى المحتوى حتى يبقى الترحيب الصوتي متاحًا داخل الموقع. */
+    var aw = document.querySelector("body > header .audio-wrap");
+    if (aw) { m.insertBefore(aw, t.nextSibling); }
+  });
+})();
+</script>
+
+</head>
+<body>
+<a class="skip" href="#main">تخطَّ إلى المحتوى الرئيسي</a>
+<header class="hero">
+  <div class="hero-inner">
+    <svg class="mascot" viewBox="0 0 140 152" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="روبوت ودود يحمل درعًا للحماية الرقمية">
+  <line x1="70" y1="12" x2="70" y2="28" stroke="#08324f" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="70" cy="10" r="7" fill="#ffcf3f" stroke="#08324f" stroke-width="4"/>
+  <rect x="30" y="28" width="80" height="62" rx="22" fill="#9ad6ff" stroke="#08324f" stroke-width="5"/>
+  <rect x="42" y="44" width="56" height="36" rx="13" fill="#08324f"/>
+  <circle cx="59" cy="60" r="7" fill="#fff"/>
+  <circle cx="81" cy="60" r="7" fill="#fff"/>
+  <circle cx="60" cy="61" r="3.2" fill="#08324f"/>
+  <circle cx="82" cy="61" r="3.2" fill="#08324f"/>
+  <path d="M60 71 q10 9 20 0" stroke="#ffcf3f" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+  <rect x="40" y="96" width="60" height="48" rx="18" fill="#1b6ec2" stroke="#08324f" stroke-width="5"/>
+  <path d="M70 100 l22 8 v15 q0 15 -22 23 q-22 -8 -22 -23 v-15 z" fill="#ffcf3f" stroke="#08324f" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M62 122 l6 7 l13 -15" stroke="#08324f" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+    <div>
+      <h1>التهديدات السيبرانية المتقدمة</h1>
+      <p>الدرس الثاني - الوحدة الأولى: الذكاء الاصطناعي وحماية بياناتنا الرقمية</p>
+      <p>الصف الثاني الإعدادي - الفصل الدراسي الأول 2025/2026 • متعلمون من ذوي الإعاقة السمعية أو البصرية</p>
+      <div class="audio-wrap">
+        <span class="lbl"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-3px"><path d="M3 9v6h4l5 4V5L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8v-2a3 3 0 0 0 0-4V8z"/></svg> اسمع الترحيب</span>
+        <audio class="narration" controls preload="none" data-a="s01.mp3" src="audio/f/s01.mp3" aria-label="الترحيب بالدرس وشرح الشريحة الأولى"></audio>
+      </div>
+      <div class="chips">
+        <span class="chip">نص كامل وقارئ شاشة</span>
+        <span class="chip">شرح صوتي لكل شريحة</span>
+        <span class="chip">لا يعتمد على اللون وحده</span>
+        <span class="chip">لوحة المفاتيح</span>
+      </div>
+    </div>
+  </div>
+  <svg class="wave" viewBox="0 0 1200 26" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0 12 C 200 26 400 0 600 12 S 1000 26 1200 10 L1200 26 L0 26 Z" fill="#eef6fe"/></svg>
+</header>
+<main id="main">
+  <p id="live" class="progress" role="status" aria-live="polite"></p>
+  <div class="toolbar">
+    <div class="group">
+      <button id="prev" type="button" class="btn">السابق</button>
+      <button id="next" type="button" class="btn sun">التالي</button>
+    </div>
+    <label class="autoplay"><input type="checkbox" id="autoplay"> تشغيل الشرح الصوتي تلقائيًا</label>
+    <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+    <div class="progress" id="count"></div>
+  </div>
+  <div class="card">
+      <section class="slide" id="slide-1" tabindex="-1" aria-labelledby="h-1" hidden>
+        <span class="eyebrow">الأهداف</span>
+        <h2 id="h-1">أهداف الدرس</h2>
+        <p class="bridge">قبل أن نبدأ، نعرض ما سنتعلمه في هذا الدرس.</p>
+        <div class="audio-wrap">
+          <span class="lbl"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-3px"><path d="M3 9v6h4l5 4V5L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8v-2a3 3 0 0 0 0-4V8z"/></svg> اسمع الشرح</span>
+          <audio class="narration" controls preload="none" data-a="s02.mp3" src="audio/f/s02.mp3" aria-label="الشرح الصوتي لهذه الشريحة"></audio>
+        </div>
+        <p>في نهاية الدرس يكون المتعلم قادرًا على أن:</p>
+        <ul>
+            <li>يعرّف مفهوم التهديدات السيبرانية المتقدمة.</li>
+            <li>يشرح مفهوم برامج الفدية (Ransomware) وكيف يمكن أن تهدد الملفات أو الأجهزة.</li>
+            <li>يوضح مفهوم الهندسة الاجتماعية المتقدمة وهدفها.</li>
+            <li>يميّز بين التصيد الاحتيالي الموجه (Spear Phishing)، وانتحال الشخصية (Pretexting)، والاستدراج (Baiting).</li>
+            <li>يفسّر بصورة مبسطة كيف تحدث هجمات الحرمان من الخدمة الموزعة (DDoS).</li>
+            <li>يحدد تصرفات آمنة مناسبة عند مواجهة تهديد سيبراني.</li>
+        </ul>
+      </section>
+      <section class="slide" id="slide-2" tabindex="-1" aria-labelledby="h-2" hidden>
+        <span class="eyebrow">شرح</span>
+        <h2 id="h-2">تمهيد: ماذا نعرف من قبل؟</h2>
+        <p class="bridge">نبدأ بمراجعة ما تعلمناه في الدرس السابق، لنبني عليه.</p>
+        <div class="audio-wrap">
+          <span class="lbl"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-3px"><path d="M3 9v6h4l5 4V5L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8v-2a3 3 0 0 0 0-4V8z"/></svg> اسمع الشرح</span>
+          <audio class="narration" controls preload="none" data-a="s03.mp3" src="audio/f/s03.mp3" aria-label="الشرح الصوتي لهذه الشريحة"></audio>
+        </div>
+        <ul>
+            <li>في الدرس السابق تعلّمنا كيف نحمي بياناتنا وننشئ كلمات مرور قوية.</li>
+            <li>تعلّمنا أيضًا أهمية تحديث البرامج والأنظمة.</li>
+            <li>لكن بعض التهديدات الحديثة لا تستهدف الأجهزة فقط، بل تستهدف الإنسان نفسه.</li>
+            <li>سؤال للنقاش: لماذا قد يكون خداع الشخص أسهل من اختراق جهازه؟</li>
+        </ul>
+      </section>
+      <section class="slide" id="slide-3" tabindex="-1" aria-labelledby="h-3" hidden>
+        <span class="eyebrow">شرح</span>
+        <h2 id="h-3">مفهوم التهديدات السيبرانية المتقدمة</h2>
+        <p class="bridge">ما المقصود بالتهديدات السيبرانية المتقدمة؟ نحدد المفهوم أولًا.</p>
+        <div class="audio-wrap">
+          <span class="lbl"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-3px"><path d="M3 9v6h4l5 4V5L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8v-2a3 3 0 0 0 0-4V8z"/></svg> اسمع الشرح</span>
+          <audio class="narration" controls preload="none" data-a="s03b.mp3" src="audio/f/s03b.mp3" aria-label="الشرح الصوتي لهذه الشريحة"></audio>
+        </div>
+        <ul>
+            <li>هي هجمات رقمية حديثة لا تعتمد على خطأ تقني بسيط فقط.</li>
+            <li>تستهدف البيانات والأجهزة والأشخاص معًا.</li>
+            <li>تعتمد على الخداع والاستهداف الذكي بدلًا من القوة وحدها.</li>
+            <li>من أمثلتها: برامج الفدية، الهندسة الاجتماعية، وهجمات الحرمان من الخدمة.</li>
+        </ul>
+      </section>
+      <section class="slide" id="slide-4" tabindex="-1" aria-labelledby="h-4" hidden>
+        <span class="eyebrow">شرح</span>
+        <h2 id="h-4">برامج الفدية (Ransomware)</h2>
+        <p class="bridge">أول أنواع هذه التهديدات: برامج الفدية.</p>
+        <div class="audio-wrap">
+          <span class="lbl"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-3px"><path d="M3 9v6h4l5 4V5L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8v-2a3 3 0 0 0 0-4V8z"/></svg> اسمع الشرح</span>
+          <audio class="narration" controls preload="none" data-a="s04.mp3" src="audio/f/s04.mp3" aria-label="الشرح الصوتي لهذه الشريحة"></audio>
+        </div>
+        <ul>
+            <li>برامج ضارة تعمل على حجز ملفات الضحية أو جهازه.</li>
+            <li>تطلب غالبًا مبلغًا ماليًا (فدية) مقابل إعادة الوصول.</li>
+            <li>قد تمنع فتح الملفات أو استخدام الجهاز بشكل طبيعي.</li>
+            <li>تنتشر أحيانًا عبر روابط أو مرفقات غير موثوقة.</li>
+            <li>تعتبر تهديدًا خطيرًا لأنها تمسّ الملفات المهمة والبيانات الشخصية.</li>
+        </ul>
+      </section>
+      <section class="slide" id="slide-5" tabindex="-1" aria-labelledby="h-5" hidden>
+        <span class="eyebrow">شرح</span>
+        <h2 id="h-5">كيف نحمي أنفسنا من برامج الفدية؟</h2>
+        <p class="bridge">بعد أن عرفنا برامج الفدية، ننتقل إلى كيفية الحماية منها.</p>
+        <div class="audio-wrap">
+          <span class="lbl"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-3px"><path d="M3 9v6h4l5 4V5L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8v-2a3 3 0 0 0 0-4V8z"/></svg> اسمع الشرح</span>
+          <audio class="narration" controls preload="none" data-a="s04b.mp3" src="audio/f/s04b.mp3" aria-label="الشرح الصوتي لهذه الشريحة"></audio>
+        </div>
+        <ul>
+            <li>الاحتفاظ بنسخ احتياطية من الملفات المهمة.</li>
+            <li>تحديث النظام والبرامج بانتظام.</li>
+            <li>عدم فتح مرفقات أو روابط من مصادر غير موثوقة.</li>
+            <li>الحذر عند تحميل البرامج من مواقع غير رسمية.</li>
+            <li>إبلاغ شخص كبير أو مسؤول الدعم عند الشك في أي رسالة غريبة.</li>
+        </ul>
+      </section>
+      <section class="slide" id="slide-6" tabindex="-1" aria-labelledby="h-6" hidden>
+        <span class="eyebrow">شرح</span>
+        <h2 id="h-6">مفهوم الهندسة الاجتماعية المتقدمة</h2>
+        <p class="bridge">النوع الثاني يستهدف الإنسان نفسه: الهندسة الاجتماعية المتقدمة.</p>
+        <div class="audio-wrap">
+          <span class="lbl"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-3px"><path d="M3 9v6h4l5 4V5L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8v-2a3 3 0 0 0 0-4V8z"/></svg> اسمع الشرح</span>
+          <audio class="narration" controls preload="none" data-a="s04c.mp3" src="audio/f/s04c.mp3" aria-label="الشرح الصوتي لهذه الشريحة"></audio>
+        </div>
+        <ul>
+            <li>الهندسة الاجتماعية ليست اختراقًا للأجهزة أو البرامج، بل اختراق للعقول.</li>
+            <li>هي فن خداع الأشخاص لجعلهم يكشفون معلومات سرية.</li>
+            <li>أو جعلهم يقومون بأفعال تعرّض أمنهم للخطر.</li>
+            <li>تعتمد على الثقة والاستعجال والفضول.</li>
+            <li>من أشهر أساليبها: التصيد الموجه، وانتحال الشخصية، والاستدراج.</li>
+        </ul>
+      </section>
+      <section class="slide" id="slide-7" tabindex="-1" aria-labelledby="h-7" hidden>
+        <span class="eyebrow">شرح</span>
+        <h2 id="h-7">التصيد الاحتيالي الموجه (Spear Phishing)</h2>
+        <p class="bridge">أول أساليب الهندسة الاجتماعية: التصيد الاحتيالي الموجه.</p>
+        <div class="audio-wrap">
+          <span class="lbl"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-3px"><path d="M3 9v6h4l5 4V5L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8v-2a3 3 0 0 0 0-4V8z"/></svg> اسمع الشرح</span>
+          <audio class="narration" controls preload="none" data-a="s05.mp3" src="audio/f/s05.mp3" aria-label="الشرح الصوتي لهذه الشريحة"></audio>
+        </div>
+        <ul>
+            <li>نوع متقدم من التصيد الاحتيالي.</li>
+            <li>يستهدف أشخاصًا محددين أو مؤسسات معينة.</li>
+            <li>يصل عبر رسائل بريد إلكتروني أو رسائل نصية تبدو شخصية ومقنعة.</li>
+            <li>يعتمد المهاجم على جمع بيانات مفصلة عنك من وسائل التواصل الاجتماعي.</li>
+            <li>يجعل الرسالة تبدو من شخص أو جهة تثق بها.</li>
+        </ul>
+      </section>
+      <section class="slide" id="slide-8" tabindex="-1" aria-labelledby="h-8" hidden>
+        <span class="eyebrow">شرح</span>
+        <h2 id="h-8">انتحال الشخصية (Pretexting)</h2>
+        <p class="bridge">الأسلوب الثاني: انتحال الشخصية.</p>
+        <div class="audio-wrap">
+          <span class="lbl"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-3px"><path d="M3 9v6h4l5 4V5L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8v-2a3 3 0 0 0 0-4V8z"/></svg> اسمع الشرح</span>
+          <audio class="narration" controls preload="none" data-a="s06.mp3" src="audio/f/s06.mp3" aria-label="الشرح الصوتي لهذه الشريحة"></audio>
+        </div>
+        <ul>
+            <li>ينشئ المهاجم قصة وهمية أو سيناريو مقنعًا.</li>
+            <li>الهدف خداع الضحية للحصول على معلومات أو دفعها لفعل معين.</li>
+            <li>قد يتظاهر بأنه موظف دعم فني.</li>
+            <li>أو يتظاهر بأنه مسؤول في أحد البنوك.</li>
+            <li>يستغل الثقة بالسلطة والمألوفية.</li>
+        </ul>
+      </section>
+      <section class="slide" id="slide-9" tabindex="-1" aria-labelledby="h-9" hidden>
+        <span class="eyebrow">شرح</span>
+        <h2 id="h-9">الاستدراج (Baiting)</h2>
+        <p class="bridge">الأسلوب الثالث: الاستدراج.</p>
+        <div class="audio-wrap">
+          <span class="lbl"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-3px"><path d="M3 9v6h4l5 4V5L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8v-2a3 3 0 0 0 0-4V8z"/></svg> اسمع الشرح</span>
+          <audio class="narration" controls preload="none" data-a="s07.mp3" src="audio/f/s07.mp3" aria-label="الشرح الصوتي لهذه الشريحة"></audio>
+        </div>
+        <ul>
+            <li>يقدّم المهاجم شيئًا جذابًا لإغراء الضحية.</li>
+            <li>مثال من المصدر: قرص USB مجاني يحتوي على برنامج ضار.</li>
+            <li>الهدف دفع الضحية للنقر عليه أو استخدامه بنفسها.</li>
+            <li>يعتمد على الفضول والرغبة في الحصول على شيء مجاني.</li>
+            <li>القاعدة: لا تستخدم وسائط تخزين مجهولة المصدر.</li>
+        </ul>
+      </section>
+      <section class="slide" id="slide-10" tabindex="-1" aria-labelledby="h-10" hidden>
+        <span class="eyebrow">شرح</span>
+        <h2 id="h-10">هجمات الحرمان من الخدمة الموزعة (DDoS)</h2>
+        <p class="bridge">بعد أساليب خداع الإنسان، ننتقل إلى هجوم يستهدف الخدمة نفسها: هجمات الحرمان من الخدمة الموزعة.</p>
+        <div class="audio-wrap">
+          <span class="lbl"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-3px"><path d="M3 9v6h4l5 4V5L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8v-2a3 3 0 0 0 0-4V8z"/></svg> اسمع الشرح</span>
+          <audio class="narration" controls preload="none" data-a="s08.mp3" src="audio/f/s08.mp3" aria-label="الشرح الصوتي لهذه الشريحة"></audio>
+        </div>
+        <ul>
+            <li>DDoS اختصار لـ Distributed Denial of Service.</li>
+            <li>هي هجمات الحرمان من الخدمة الموزعة.</li>
+            <li>تحدث عندما ترسل أعداد كبيرة من الأجهزة طلبات كثيرة في وقت واحد.</li>
+            <li>تتوجّه هذه الطلبات إلى خادم واحد فلا يستطيع معالجتها.</li>
+            <li>النتيجة: عجز الخادم عن العمل وتوقف الخدمة عن المستخدمين.</li>
+            <li>قد تؤثر على شركات ومؤسسات كاملة.</li>
+        </ul>
+      </section>
+      <section class="slide" id="slide-11" tabindex="-1" aria-labelledby="h-11" hidden>
+        <span class="eyebrow">شرح</span>
+        <h2 id="h-11">خطوات التصرف الآمن</h2>
+        <p class="bridge">بعد أن عرفنا أنواع التهديدات، نرتب التصرفات الآمنة التي نتبعها.</p>
+        <div class="audio-wrap">
+          <span class="lbl"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-3px"><path d="M3 9v6h4l5 4V5L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8v-2a3 3 0 0 0 0-4V8z"/></svg> اسمع الشرح</span>
+          <audio class="narration" controls preload="none" data-a="s08b.mp3" src="audio/f/s08b.mp3" aria-label="الشرح الصوتي لهذه الشريحة"></audio>
+        </div>
+        <ul>
+            <li>تحقق من هوية المصدر قبل الاستجابة لأي رسالة.</li>
+            <li>لا تفتح الروابط أو المرفقات المشبوهة.</li>
+            <li>لا تشارك كلمات المرور أو البيانات الشخصية.</li>
+            <li>استخدم كلمات مرور قوية وحدّث برامجك بانتظام.</li>
+            <li>احتفظ بنسخة احتياطية من ملفاتك المهمة.</li>
+            <li>أبلغ شخصًا مسؤولًا أو جهة موثوقة عند الشك.</li>
+        </ul>
+      </section>
+      <section class="slide" id="slide-12" tabindex="-1" aria-labelledby="h-12" hidden>
+        <span class="eyebrow">موقف تطبيقي</span>
+        <h2 id="h-12">موقف تطبيقي</h2>
+        <p class="bridge">نطبّق ما تعلمناه على موقف من الحياة اليومية.</p>
+        <div class="audio-wrap">
+          <span class="lbl"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-3px"><path d="M3 9v6h4l5 4V5L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8v-2a3 3 0 0 0 0-4V8z"/></svg> اسمع الشرح</span>
+          <audio class="narration" controls preload="none" data-a="s09.mp3" src="audio/f/s09.mp3" aria-label="الشرح الصوتي لهذه الشريحة"></audio>
+        </div>
+        <div class="email" role="group" aria-label="نص الرسالة الافتراضية">
+          <p><strong>من:</strong> <span dir="ltr">الدعم الفني - بنك الأمان (noreply@bank-alaman.example)</span></p>
+          <p><strong>الموضوع:</strong> عاجل: تأكيد بياناتك خلال 10 دقائق</p>
+          <p><strong>نص الرسالة:</strong> عزيزنا العميل، لاحظنا نشاطًا غير معتاد على حسابك. لتجنب إيقاف حسابك، اضغط الرابط وأدخل رمز التحقق وكلمة المرور الآن.</p>
+        </div>
+        <p class="q"><strong>السؤال:</strong> ما التصرف الآمن الصحيح تجاه هذه الرسالة؟</p>
+        <details class="answer"><summary>اعرض التصرف الآمن الصحيح</summary><p>لا أضغط الرابط، وأتحقق من البنك عبر القناة الرسمية، وأبلغ شخصًا مسؤولًا.</p></details>
+      </section>
+      <section class="slide" id="slide-13" tabindex="-1" aria-labelledby="h-13" hidden>
+        <span class="eyebrow">تلخيص</span>
+        <h2 id="h-13">ملخص الدرس</h2>
+        <p class="bridge">نلخص الدرس في نقاط سريعة.</p>
+        <div class="audio-wrap">
+          <span class="lbl"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-3px"><path d="M3 9v6h4l5 4V5L7 9H3z"/><path d="M16 8a5 5 0 0 1 0 8v-2a3 3 0 0 0 0-4V8z"/></svg> اسمع الشرح</span>
+          <audio class="narration" controls preload="none" data-a="s10.mp3" src="audio/f/s10.mp3" aria-label="الشرح الصوتي لهذه الشريحة"></audio>
+        </div>
+        <ul>
+            <li>التهديدات السيبرانية المتقدمة تستهدف الإنسان والبيانات معًا.</li>
+            <li>برامج الفدية تُشفّر الملفات وتطلب فدية، ويمكن الحد من خطرها بالنسخ الاحتياطي والتحديث.</li>
+            <li>الهندسة الاجتماعية تخترق العقول بالخداع، وأشهر أساليبها: التصيد الموجه، وانتحال الشخصية، والاستدراج.</li>
+            <li>هجمات DDoS تُغرق الخادم بطلبات كثيرة فتعطّل الخدمة.</li>
+            <li>الوقاية تبدأ بالتحقق من المصدر وعدم مشاركة البيانات الحساسة.</li>
+        </ul>
+      </section>
+      <section class="slide" id="slide-14" tabindex="-1" aria-labelledby="h-14" hidden>
+        <span class="eyebrow">التقويم الذاتي</span>
+        <h2 id="h-14">اختبر نفسك</h2>
+        <p>اختر إجابة واحدة لكل سؤال، ثم اضغط «تحقق من الإجابة». ستسمع تصفيقًا أو تنبيهًا حسب إجابتك، وبعدها تختار: السؤال التالي، أو إعادة المحاولة، أو اسمع الإجابة الصحيحة.</p>
+        <fieldset class="quiz-item" data-correct="0" data-id="q1">
+          <legend><span class="qnum">1</span>ما الذي يميّز التهديدات السيبرانية المتقدمة عن الهجمات التقليدية؟ <span class="obj">(مفهوم التهديدات المتقدمة)</span></legend>
+          <audio class="narration" controls preload="none" data-a="q1.mp3" src="audio/f/q1.mp3" aria-label="الشرح الصوتي للسؤال 1"></audio>
+          <ul class="options">
+              <li><label><input type="radio" name="q1" value="0"> <span>أنها تستهدف الإنسان والبيانات والأجهزة بأساليب خادعة ومتقدمة</span></label></li>
+              <li><label><input type="radio" name="q1" value="1"> <span>أنها تعتمد على خطأ تقني بسيط فقط</span></label></li>
+              <li><label><input type="radio" name="q1" value="2"> <span>أنها تؤثر على الأجهزة القديمة فقط</span></label></li>
+              <li><label><input type="radio" name="q1" value="3"> <span>أنها لا تحتاج إلى إنترنت</span></label></li>
+          </ul>
+          <p class="quiz-actions">
+            <button type="button" class="btn check">تحقق من الإجابة</button>
+            <button type="button" class="btn ghost nextq" hidden>السؤال التالي</button>
+            <button type="button" class="btn ghost reset" hidden>إعادة المحاولة</button>
+            <button type="button" class="btn ghost reveal" hidden>اسمع الإجابة الصحيحة</button>
+          </p>
+          <p class="feedback" role="status" aria-live="polite"></p>
+          <audio class="fb-audio" preload="none" data-a="q1_fb.mp3" src="audio/f/q1_fb.mp3"></audio>
+          <p class="fb-correct" hidden>صحيح. التهديدات المتقدمة تستهدف الإنسان والبيانات والأجهزة، وتستخدم الخداع والأساليب المتقدمة.</p>
+          <p class="fb-wrong" hidden>غير صحيح. التهديدات المتقدمة لا تقتصر على خطأ تقني بسيط، بل تستهدف الإنسان والبيانات والأجهزة بأساليب خادعة.</p>
+        </fieldset>
+        <fieldset class="quiz-item" data-correct="0" data-id="q2">
+          <legend><span class="qnum">2</span>ما المقصود ببرامج الفدية (Ransomware)؟ <span class="obj">(برامج الفدية)</span></legend>
+          <audio class="narration" controls preload="none" data-a="q2.mp3" src="audio/f/q2.mp3" aria-label="الشرح الصوتي للسؤال 2"></audio>
+          <ul class="options">
+              <li><label><input type="radio" name="q2" value="0"> <span>برامج تُشفّر ملفات الجهاز وتطلب فدية مالية لاستعادتها</span></label></li>
+              <li><label><input type="radio" name="q2" value="1"> <span>برامج تسرّع عمل الجهاز</span></label></li>
+              <li><label><input type="radio" name="q2" value="2"> <span>برامج لحماية كلمات المرور</span></label></li>
+              <li><label><input type="radio" name="q2" value="3"> <span>برامج لتشغيل الألعاب</span></label></li>
+          </ul>
+          <p class="quiz-actions">
+            <button type="button" class="btn check">تحقق من الإجابة</button>
+            <button type="button" class="btn ghost nextq" hidden>السؤال التالي</button>
+            <button type="button" class="btn ghost reset" hidden>إعادة المحاولة</button>
+            <button type="button" class="btn ghost reveal" hidden>اسمع الإجابة الصحيحة</button>
+          </p>
+          <p class="feedback" role="status" aria-live="polite"></p>
+          <audio class="fb-audio" preload="none" data-a="q2_fb.mp3" src="audio/f/q2_fb.mp3"></audio>
+          <p class="fb-correct" hidden>صحيح. برامج الفدية تُشفّر أو تحجز الملفات وتطلب فدية، وقد تهدد الملفات والأجهزة.</p>
+          <p class="fb-wrong" hidden>غير صحيح. برامج الفدية تُشفّر ملفاتك وتطلب فدية لاستعادتها، وليست برامج مفيدة.</p>
+        </fieldset>
+        <fieldset class="quiz-item" data-correct="0" data-id="q3">
+          <legend><span class="qnum">3</span>الهندسة الاجتماعية هي في الأساس اختراق لـ: <span class="obj">(الهندسة الاجتماعية)</span></legend>
+          <audio class="narration" controls preload="none" data-a="q3.mp3" src="audio/f/q3.mp3" aria-label="الشرح الصوتي للسؤال 3"></audio>
+          <ul class="options">
+              <li><label><input type="radio" name="q3" value="0"> <span>عقول الأشخاص وثقتهم</span></label></li>
+              <li><label><input type="radio" name="q3" value="1"> <span>كلمات مرور الخوادم فقط</span></label></li>
+              <li><label><input type="radio" name="q3" value="2"> <span>الأجهزة الطرفية فقط</span></label></li>
+              <li><label><input type="radio" name="q3" value="3"> <span>شبكات الكهرباء</span></label></li>
+          </ul>
+          <p class="quiz-actions">
+            <button type="button" class="btn check">تحقق من الإجابة</button>
+            <button type="button" class="btn ghost nextq" hidden>السؤال التالي</button>
+            <button type="button" class="btn ghost reset" hidden>إعادة المحاولة</button>
+            <button type="button" class="btn ghost reveal" hidden>اسمع الإجابة الصحيحة</button>
+          </p>
+          <p class="feedback" role="status" aria-live="polite"></p>
+          <audio class="fb-audio" preload="none" data-a="q3_fb.mp3" src="audio/f/q3_fb.mp3"></audio>
+          <p class="fb-correct" hidden>صحيح. الهندسة الاجتماعية اختراق للعقول: خداع الأشخاص لجعلهم يكشفون معلومات أو يتصرفون بشكل غير آمن.</p>
+          <p class="fb-wrong" hidden>غير صحيح. الهندسة الاجتماعية تستهدف الإنسان وثقته، وليس الأجهزة أو الشبكات فقط.</p>
+        </fieldset>
+        <fieldset class="quiz-item" data-correct="0" data-id="q4">
+          <legend><span class="qnum">4</span>أي وصف ينطبق على التصيد الاحتيالي الموجه (Spear Phishing)؟ <span class="obj">(التصيد الموجه)</span></legend>
+          <audio class="narration" controls preload="none" data-a="q4.mp3" src="audio/f/q4.mp3" aria-label="الشرح الصوتي للسؤال 4"></audio>
+          <ul class="options">
+              <li><label><input type="radio" name="q4" value="0"> <span>رسالة تبدو شخصية ومقنعة تستهدف شخصًا محددًا بناءً على معلومات عنه</span></label></li>
+              <li><label><input type="radio" name="q4" value="1"> <span>رسالة عامة تُرسل لملايين الأشخاص دون تخصيص</span></label></li>
+              <li><label><input type="radio" name="q4" value="2"> <span>اختراق مباشر لخدمة بنكية</span></label></li>
+              <li><label><input type="radio" name="q4" value="3"> <span>إغراء الضحية بقرص USB مجاني</span></label></li>
+          </ul>
+          <p class="quiz-actions">
+            <button type="button" class="btn check">تحقق من الإجابة</button>
+            <button type="button" class="btn ghost nextq" hidden>السؤال التالي</button>
+            <button type="button" class="btn ghost reset" hidden>إعادة المحاولة</button>
+            <button type="button" class="btn ghost reveal" hidden>اسمع الإجابة الصحيحة</button>
+          </p>
+          <p class="feedback" role="status" aria-live="polite"></p>
+          <audio class="fb-audio" preload="none" data-a="q4_fb.mp3" src="audio/f/q4_fb.mp3"></audio>
+          <p class="fb-correct" hidden>صحيح. التصيد الموجه يستهدف أشخاصًا محددين برسائل مقنعة تعتمد على جمع بيانات عنهم.</p>
+          <p class="fb-wrong" hidden>غير صحيح. التصيد الموجه يستهدف شخصًا محددًا برسالة شخصية ومقنعة، لا رسالة عامة.</p>
+        </fieldset>
+        <fieldset class="quiz-item" data-correct="0" data-id="q5">
+          <legend><span class="qnum">5</span>تظاهر المهاجم بأنه موظف دعم فني ليطلب بياناتك. أي أسلوب يمثل هذا؟ <span class="obj">(انتحال الشخصية)</span></legend>
+          <audio class="narration" controls preload="none" data-a="q5.mp3" src="audio/f/q5.mp3" aria-label="الشرح الصوتي للسؤال 5"></audio>
+          <ul class="options">
+              <li><label><input type="radio" name="q5" value="0"> <span>انتحال الشخصية (Pretexting)</span></label></li>
+              <li><label><input type="radio" name="q5" value="1"> <span>الاستدراج (Baiting)</span></label></li>
+              <li><label><input type="radio" name="q5" value="2"> <span>هجمات DDoS</span></label></li>
+              <li><label><input type="radio" name="q5" value="3"> <span>النسخ الاحتياطي</span></label></li>
+          </ul>
+          <p class="quiz-actions">
+            <button type="button" class="btn check">تحقق من الإجابة</button>
+            <button type="button" class="btn ghost nextq" hidden>السؤال التالي</button>
+            <button type="button" class="btn ghost reset" hidden>إعادة المحاولة</button>
+            <button type="button" class="btn ghost reveal" hidden>اسمع الإجابة الصحيحة</button>
+          </p>
+          <p class="feedback" role="status" aria-live="polite"></p>
+          <audio class="fb-audio" preload="none" data-a="q5_fb.mp3" src="audio/f/q5_fb.mp3"></audio>
+          <p class="fb-correct" hidden>صحيح. انتحال الشخصية هو إنشاء قصة وهمية (كمهندس دعم فني) لخداع الضحية والحصول على معلومات.</p>
+          <p class="fb-wrong" hidden>غير صحيح. تظاهر المهاجم بشخصية موثوقة لخداعك هو انتحال الشخصية (Pretexting).</p>
+        </fieldset>
+        <fieldset class="quiz-item" data-correct="0" data-id="q6">
+          <legend><span class="qnum">6</span>وجد شخص قرص USB مجانيًا في مكان عام فأخذه ووصله بجهازه. أي خطر يمثل هذا؟ <span class="obj">(الاستدراج)</span></legend>
+          <audio class="narration" controls preload="none" data-a="q6.mp3" src="audio/f/q6.mp3" aria-label="الشرح الصوتي للسؤال 6"></audio>
+          <ul class="options">
+              <li><label><input type="radio" name="q6" value="0"> <span>قد يحتوي على برنامج ضار وهو أسلوب الاستدراج (Baiting)</span></label></li>
+              <li><label><input type="radio" name="q6" value="1"> <span>لا يوجد خطر لأن القرص مجاني</span></label></li>
+              <li><label><input type="radio" name="q6" value="2"> <span>القرص يزيد سرعة الجهاز</span></label></li>
+              <li><label><input type="radio" name="q6" value="3"> <span>القرص يحمي الملفات تلقائيًا</span></label></li>
+          </ul>
+          <p class="quiz-actions">
+            <button type="button" class="btn check">تحقق من الإجابة</button>
+            <button type="button" class="btn ghost nextq" hidden>السؤال التالي</button>
+            <button type="button" class="btn ghost reset" hidden>إعادة المحاولة</button>
+            <button type="button" class="btn ghost reveal" hidden>اسمع الإجابة الصحيحة</button>
+          </p>
+          <p class="feedback" role="status" aria-live="polite"></p>
+          <audio class="fb-audio" preload="none" data-a="q6_fb.mp3" src="audio/f/q6_fb.mp3"></audio>
+          <p class="fb-correct" hidden>صحيح. إغراء الضحية بشيء جذاب (كقرص USB مجاني) هو أسلوب الاستدراج Baiting، وقد يحتوي على برنامج ضار.</p>
+          <p class="fb-wrong" hidden>غير صحيح. توصيل قرص مجهول قد يزرع برنامجًا ضارًا؛ وهذا أسلوب الاستدراج Baiting.</p>
+        </fieldset>
+        <fieldset class="quiz-item" data-correct="0" data-id="q7">
+          <legend><span class="qnum">7</span>كيف تحدث هجمة الحرمان من الخدمة الموزعة (DDoS) بصورة مبسطة؟ <span class="obj">(هجمات DDoS)</span></legend>
+          <audio class="narration" controls preload="none" data-a="q7.mp3" src="audio/f/q7.mp3" aria-label="الشرح الصوتي للسؤال 7"></audio>
+          <ul class="options">
+              <li><label><input type="radio" name="q7" value="0"> <span>عدد كبير من الأجهزة يرسل طلبات كثيرة في وقت واحد فيُرهق الخادم ويتوقف</span></label></li>
+              <li><label><input type="radio" name="q7" value="1"> <span>شخص يسرق كلمة مرور واحدة</span></label></li>
+              <li><label><input type="radio" name="q7" value="2"> <span>جهاز واحد يتعطل بسبب فيروس</span></label></li>
+              <li><label><input type="radio" name="q7" value="3"> <span>رسالة تصيد تصل إلى البريد</span></label></li>
+          </ul>
+          <p class="quiz-actions">
+            <button type="button" class="btn check">تحقق من الإجابة</button>
+            <button type="button" class="btn ghost nextq" hidden>السؤال التالي</button>
+            <button type="button" class="btn ghost reset" hidden>إعادة المحاولة</button>
+            <button type="button" class="btn ghost reveal" hidden>اسمع الإجابة الصحيحة</button>
+          </p>
+          <p class="feedback" role="status" aria-live="polite"></p>
+          <audio class="fb-audio" preload="none" data-a="q7_fb.mp3" src="audio/f/q7_fb.mp3"></audio>
+          <p class="fb-correct" hidden>صحيح. في هجمة DDoS تغرق أعداد كبيرة من الأجهزة خادمًا واحدًا بطلبات متزامنة، فيعجز عن الخدمة.</p>
+          <p class="fb-wrong" hidden>غير صحيح. هجمة DDoS تحدث عندما تُغرق أعداد كبيرة من الأجهزة الخادم بطلبات كثيرة، فيتوقف عن الخدمة.</p>
+        </fieldset>
+        <fieldset class="quiz-item" data-correct="0" data-id="q8">
+          <legend><span class="qnum">8</span>وصلتك رسالة تطلب كلمة المرور ورمز التحقق بشكل عاجل. ما التصرف الآمن الأنسب؟ <span class="obj">(التصرف الآمن)</span></legend>
+          <audio class="narration" controls preload="none" data-a="q8.mp3" src="audio/f/q8.mp3" aria-label="الشرح الصوتي للسؤال 8"></audio>
+          <ul class="options">
+              <li><label><input type="radio" name="q8" value="0"> <span>لا أشارك البيانات، وأتحقق من الجهة عبر قناة رسمية، وأبلغ شخصًا مسؤولًا</span></label></li>
+              <li><label><input type="radio" name="q8" value="1"> <span>أشارك البيانات بسرعة لتجنب إيقاف الحساب</span></label></li>
+              <li><label><input type="radio" name="q8" value="2"> <span>أضغط الرابط فورًا لأن الرسالة تبدو عاجلة</span></label></li>
+              <li><label><input type="radio" name="q8" value="3"> <span>أرسل الرسالة لأصدقائي لتجربتها</span></label></li>
+          </ul>
+          <p class="quiz-actions">
+            <button type="button" class="btn check">تحقق من الإجابة</button>
+            <button type="button" class="btn ghost nextq" hidden>السؤال التالي</button>
+            <button type="button" class="btn ghost reset" hidden>إعادة المحاولة</button>
+            <button type="button" class="btn ghost reveal" hidden>اسمع الإجابة الصحيحة</button>
+          </p>
+          <p class="feedback" role="status" aria-live="polite"></p>
+          <audio class="fb-audio" preload="none" data-a="q8_fb.mp3" src="audio/f/q8_fb.mp3"></audio>
+          <p class="fb-correct" hidden>صحيح. لا نشارك بيانات حساسة، ونتحقق من الجهة عبر قناة رسمية، ونبلغ شخصًا موثوقًا. العجلة سمة شائعة في رسائل الخداع.</p>
+          <p class="fb-wrong" hidden>غير صحيح. مشاركة كلمة المرور أو رمز التحقق خطر كبير؛ الصحيح التحقق من المصدر وإبلاغ جهة موثوقة دون الاستجابة للضغط.</p>
+        </fieldset>
+      </section>
+  </div>
+  <p class="srcnote">المحتوى مبنى على كتاب الصف الثاني الإعدادي المعتمد. لا توجد ادعاءات إضافية خارج المصدر. مواضيع برامج الفدية وهجمات DDoS وردت في المصدر في صور/مخططات؛ وقد صيغت هنا بصورة مبسطة وتحتاج مراجعة بشرية.</p>
+</main>
+<script>
+
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var i = 0;
+  var prev = document.getElementById('prev');
+  var next = document.getElementById('next');
+  var count = document.getElementById('count');
+  var bar = document.getElementById('bar');
+  var live = document.getElementById('live');
+  var autoplay = document.getElementById('autoplay');
+  var IS_EMBED = document.documentElement.classList.contains('embed');
+  var IS_FRAMED = false;
+  try { IS_FRAMED = !!(window.parent && window.parent !== window); } catch (e) { IS_FRAMED = false; }
+
+  /* ---------- الصوت: مؤنث (f) أو مذكر (m) ----------
+     الترتيب: ?voice= في الرابط، ثم تفضيل محفوظ، ثم رسالة {hub:'voice'} من الصفحة الأم. */
+  var VOICE = 'f';
+  try {
+    var vq = (location.search.match(/[?&]voice=([mf])(?:&|$)/) || [])[1];
+    if (vq) { VOICE = vq; }
+    else {
+      var prefsRaw = window.localStorage.getItem('hub.sp');
+      if (prefsRaw) {
+        var prefsObj = JSON.parse(prefsRaw);
+        if (prefsObj && (prefsObj.voice === 'm' || prefsObj.voice === 'f')) { VOICE = prefsObj.voice; }
+      }
+    }
+  } catch (e) { /* تجاهل */ }
+
+  function applyVoice() {
+    Array.prototype.forEach.call(document.querySelectorAll('audio[data-a]'), function (a) {
+      var file = a.getAttribute('data-a');
+      var want = 'audio/' + VOICE + '/' + file;
+      if (a.getAttribute('src') === want) { return; }
+      var playing = !a.paused;
+      try { a.pause(); } catch (e) { /* تجاهل */ }
+      a.setAttribute('src', want);
+      try { a.load(); } catch (e) { /* تجاهل */ }
+      if (playing) { try { a.play(); } catch (e2) { /* تجاهل */ } }
+    });
+  }
+
+  function hubPost(msg) {
+    if (!IS_FRAMED) { return; }
+    try { window.parent.postMessage(msg, "*"); } catch (e) { /* تجاهل */ }
+  }
+
+  /* ---------- جسر الحروف: عند العرض داخل الرئيسية، مرّر حروف التحكم المفردة
+     للأم حتى تعمل الاختصارات وأنت داخل الدرس. لا نلمس Tab/الأسهم/Enter/Escape. ---------- */
+  (function () {
+    if (!IS_FRAMED) { return; }
+    var LETTERS = {
+      KeyR: 1, KeyN: 1, KeyS: 1, KeyB: 1, KeyG: 1, KeyT: 1, KeyE: 1,
+      KeyW: 1, KeyC: 1, KeyK: 1, KeyD: 1, KeyA: 1, KeyH: 1, KeyJ: 1
+    };
+    function codeOf(ev) {
+      if (ev.code && LETTERS[ev.code]) { return ev.code; }
+      var k = (ev.key || '').length === 1 ? ev.key.toUpperCase() : '';
+      return (k && LETTERS['Key' + k]) ? 'Key' + k : '';
+    }
+    document.addEventListener('keydown', function (ev) {
+      if (ev.altKey || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.repeat) { return; }
+      var t = ev.target;
+      if (t && (t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' ||
+          (t.tagName === 'INPUT' && t.type === 'text') || t.isContentEditable)) { return; }
+      var code = codeOf(ev);
+      if (!code) { return; }
+      ev.preventDefault();
+      hubPost({ hub: 'key', code: code });
+    }, true);
+  })();
+
+  function stopAllAudio() {
+    Array.prototype.forEach.call(document.querySelectorAll('audio.narration'), function (a) { a.pause(); });
+  }
+
+  /* عند بدء أي تلاوة داخل الدرس نُخبر الصفحة الأم لتوقف صوتها */
+  Array.prototype.forEach.call(document.querySelectorAll('audio.narration'), function (a) {
+    a.addEventListener('play', function () { hubPost({ hub: 'speaking' }); });
+  });
+
+  function slideStep(dir) {
+    var t = i + dir;
+    if (t < 0 || t >= slides.length) {
+      hubPost({ hub: 'edge', dir: dir > 0 ? 'next' : 'prev' });
+      return;
+    }
+    i = t;
+    render();
+  }
+
+  window.addEventListener('message', function (e) {
+    var d = e.data || {};
+    if (d.hub === 'stop') { stopAllAudio(); return; }
+    if (d.hub === 'enter') {
+      if (d.dir === 'next') { i = 0; render(); }
+      else if (d.dir === 'prev') { i = slides.length - 1; render(); }
+      else {
+        try { slides[i].focus(); } catch (err) { /* تجاهل */ }
+        var a = slides[i].querySelector('audio.narration');
+        if (a) { try { a.play(); } catch (err2) { /* تجاهل */ } }
+      }
+      return;
+    }
+    if (d.hub === 'read') { slideStep(d.dir === 'prev' ? -1 : 1); return; }
+    if (d.hub === 'voice') {
+      if (d.voice === 'm' || d.voice === 'f') {
+        VOICE = d.voice;
+        stopAllAudio();
+        applyVoice();
+      }
+      return;
+    }
+  });
+
+  function playCurrent() {
+    if (!autoplay || !autoplay.checked) { return; }
+    var a = slides[i].querySelector('audio.narration');
+    if (a) { try { a.play(); } catch (e) {} }
+  }
+  function render(initial) {
+    slides.forEach(function (s, k) { s.hidden = (k !== i); });
+    prev.disabled = (i === 0);
+    next.disabled = (i === slides.length - 1);
+    count.textContent = 'الشريحة ' + (i + 1) + ' من ' + slides.length;
+    bar.style.width = Math.round(((i + 1) / slides.length) * 100) + '%';
+    live.textContent = 'الشريحة ' + (i + 1) + ' من ' + slides.length;
+    // In embed mode the parent page owns the initial focus, so opening the lesson
+    // must not scroll past the slide toolbar.
+    if (initial) {
+      /* أول دخول: نضع التركيز على زر «اسمع الترحيب» بدل القفز إلى الشريحة،
+         حتى يبدأ المتعلم من البداية ولا يفوتَه الترحيب. */
+      if (!IS_EMBED) {
+        var welcome = document.querySelector('.audio-wrap audio');
+        if (welcome) { try { welcome.focus({ preventScroll: true }); } catch (e) { /* تجاهل */ } }
+      }
+    } else {
+      slides[i].focus();
+    }
+    stopAllAudio();
+    playCurrent();
+  }
+  applyVoice();
+
+  if (autoplay) {
+    autoplay.addEventListener('change', function () {
+      if (autoplay.checked) { playCurrent(); } else { stopAllAudio(); }
+    });
+  }
+  prev.addEventListener('click', function () { if (i > 0) { i--; render(); } });
+  next.addEventListener('click', function () { if (i < slides.length - 1) { i++; render(); } });
+  document.addEventListener('keydown', function (e) {
+    var t = e.target;
+    /* إنتر يختار البديل هنا أيضًا، كما في النشاط التفاعلي */
+    if (t && t.matches && t.matches('input[type=radio]') && e.key === 'Enter') {
+      e.preventDefault();
+      t.checked = true;
+      t.dispatchEvent(new Event('change', { bubbles: true }));
+      return;
+    }
+    /* إنتر على مشغّل الشرح الصوتي يشغّله من البداية (الأسهم تبقى لموضع التشغيل) */
+    if (t && t.matches && t.matches('audio.narration') && e.key === 'Enter') {
+      e.preventDefault();
+      try { t.currentTime = 0; t.play(); } catch (err) { /* تجاهل */ }
+      return;
+    }
+    /* داخل مشغل الصوت أو أي حقل: لا نغيّر الشريحة بالأسهم */
+    if (t && t.closest && t.closest('fieldset, audio, input, select, textarea')) { return; }
+    /* Enter على جسم المستند بعد الدخول إلى الإطار: اقرأ الشريحة الحالية */
+    if (e.key === 'Enter' && !e.altKey && !e.ctrlKey && !e.metaKey &&
+        (document.activeElement === document.body || document.activeElement === document.documentElement)) {
+      e.preventDefault();
+      try { slides[i].focus(); } catch (err) { /* تجاهل */ }
+      var cur = slides[i].querySelector('audio.narration');
+      if (cur) { try { cur.play(); } catch (err2) { /* تجاهل */ } }
+      return;
+    }
+    /* Alt+السهم لأسفل/أعلى للتنقل بين الشرائح بالقراءة (داخل إطار الدرس) */
+    if (e.altKey && !e.ctrlKey && !e.metaKey) {
+      if (e.key === 'ArrowDown') { e.preventDefault(); slideStep(1); return; }
+      if (e.key === 'ArrowUp') { e.preventDefault(); slideStep(-1); return; }
+    }
+    if (e.key === 'ArrowLeft') { if (i < slides.length - 1) { i++; render(); } }
+    else if (e.key === 'ArrowRight') { if (i > 0) { i--; render(); } }
+    else if (e.key === 'Home') { i = 0; render(); }
+    else if (e.key === 'End') { i = slides.length - 1; render(); }
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('.quiz-item'), function (item) {
+    var check = item.querySelector('.check');
+    var reset = item.querySelector('.reset');
+    var reveal = item.querySelector('.reveal');
+    var nextq = item.querySelector('.nextq');
+    var fb = item.querySelector('.feedback');
+    var fbAudio = item.querySelector('.fb-audio');
+    /* ليتمكن القارئ من إعلان رسالة النهاية عند التركيز عليها */
+    fb.tabIndex = -1;
+    var sfxOk = new Audio('audio/hub/clap.mp3');
+    var sfxBad = new Audio('audio/hub/buzz.mp3');
+
+    function playSfx(ok) {
+      try { var a = ok ? sfxOk : sfxBad; a.currentTime = 0; a.play(); } catch (e) { /* تجاهل */ }
+    }
+
+    check.addEventListener('click', function () {
+      var chosen = item.querySelector('input[type=radio]:checked');
+      if (!chosen) {
+        fb.className = 'feedback show err';
+        fb.textContent = 'لم تختر إجابة. اختر أحد البدائل أولًا.';
+        playSfx(false);
+        return;
+      }
+      var ok = Number(chosen.value) === Number(item.dataset.correct);
+      fb.className = 'feedback show ' + (ok ? 'ok' : 'err');
+      fb.textContent = ok ? 'إجابة صحيحة.' : 'إجابة غير صحيحة.';
+      check.disabled = true;
+      reset.hidden = false;
+      reveal.hidden = false;
+      nextq.hidden = false;
+      playSfx(ok);
+    });
+
+    reveal.addEventListener('click', function () {
+      if (fbAudio) {
+        try { fbAudio.currentTime = 0; fbAudio.play(); } catch (e) { /* تجاهل */ }
+      }
+      var p = item.querySelector(fb.classList.contains('ok') ? '.fb-correct' : '.fb-wrong');
+      if (p) {
+        fb.textContent = (fb.classList.contains('ok') ? 'إجابة صحيحة. ' : 'إجابة غير صحيحة. ') + p.textContent;
+      }
+    });
+
+    nextq.addEventListener('click', function () {
+      var all = Array.prototype.slice.call(document.querySelectorAll('.quiz-item'));
+      var idx = all.indexOf(item);
+      var target = all[idx + 1];
+      if (target) {
+        var btn = target.querySelector('.check');
+        if (btn) { btn.focus(); }
+        if (typeof target.scrollIntoView === 'function') { target.scrollIntoView({ block: 'center' }); }
+      } else {
+        fb.textContent = 'انتهت الأسئلة. هذه نهاية الدرس؛ راجع إجاباتك أو استخدم السهم للرجوع إلى أي شريحة.';
+        try { fb.focus(); } catch (e) { /* تجاهل */ }
+      }
+    });
+
+    reset.addEventListener('click', function () {
+      Array.prototype.forEach.call(item.querySelectorAll('input[type=radio]'), function (r) { r.checked = false; });
+      fb.className = 'feedback';
+      fb.textContent = '';
+      check.disabled = false;
+      reset.hidden = true;
+      reveal.hidden = true;
+      nextq.hidden = true;
+      var first = item.querySelector('input[type=radio]');
+      if (first) { first.focus(); }
+    });
+  });
+
+  render(true);
+
+</script>
+</body>
+</html>

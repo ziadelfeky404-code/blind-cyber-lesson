@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الدرس الرقمي: التهديدات السيبرانية المتقدمة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12263a; --navy:#0b3d6b; --blue:#0f5aa0; --blue2:#1b6ec2;
+    --sky:#eaf4fe; --sun:#ffcf3f; --sun-dk:#7a5a00;
+    --green:#0b6b34; --green-bg:#e6f6ec; --red:#b3261e; --red-bg:#fdecea;
+    --line:#cfe0f2; --card:#ffffff; --focus:#b35c00;
+    --r:22px; --shadow:0 8px 24px rgba(15,90,160,.12);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; color:var(--ink);
+    font-family:"Tajawal","Segoe UI",Tahoma,Arial,sans-serif;
+    font-size:19px; line-height:1.95; background:#eef6fe;
+  }
+  h1,h2,h3,h4,legend,.display{font-family:"Baloo Bhaijaan 2","Tajawal","Segoe UI",Tahoma,sans-serif; line-height:1.45;}
+  a{color:var(--blue);}
+  a.skip{position:absolute; inset-inline-start:-999px; top:0; z-index:60; background:#000; color:#fff; padding:10px 16px; border-radius:0 0 12px 0;}
+  a.skip:focus{inset-inline-start:0;}
+  :focus-visible{outline:3px solid var(--focus); outline-offset:3px; border-radius:6px;}
+
+  .wrap{max-width:960px; margin:0 auto; padding:0 16px 40px;}
+
+  /* Hero header */
+  .hero{
+    position:relative; color:#fff; padding:26px 24px 34px;
+    background:linear-gradient(140deg,#0b3d6b 0%,#11538f 55%,#1667a8 100%);
+    border-radius:0 0 30px 30px;
+  }
+  .hero .inner{max-width:900px; margin:0 auto; display:flex; gap:18px; align-items:center; flex-wrap:wrap;}
+  .hero h1{margin:.1rem 0 .3rem; font-size:clamp(1.6rem,1.2rem + 2vw,2.4rem); font-weight:800;}
+  .hero p{margin:.15rem 0; color:#eaf4fe; font-size:1rem;}
+  .mascot{width:118px; height:auto; flex:0 0 auto; filter:drop-shadow(0 6px 10px rgba(0,0,0,.25));}
+  .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+  .chip{background:#ffffff; border:2px solid #ffffff; color:#0b3d6b; border-radius:999px; padding:3px 12px; font-size:.82rem; font-weight:700;}
+  .wave{display:block; width:100%; height:26px;}
+
+  main{max-width:960px; margin:0 auto; padding:20px 18px 40px;}
+
+  .card{
+    background:var(--card); border:3px solid var(--line); border-radius:var(--r);
+    padding:22px 24px; box-shadow:var(--shadow);
+  }
+  .card:focus{outline:none;}
+  .card:focus-visible{outline:4px solid var(--focus); outline-offset:3px;}
+
+  .eyebrow{display:inline-block; background:var(--sky); color:var(--blue);
+    font-weight:800; border-radius:999px; padding:2px 14px; font-size:.85rem; margin-bottom:8px;}
+
+  /* Big friendly buttons */
+  .btn{
+    font-family:inherit; font-size:1rem; font-weight:800; cursor:pointer;
+    border:3px solid var(--blue); background:var(--blue); color:#fff;
+    border-radius:999px; padding:12px 26px; min-height:50px;
+    box-shadow:0 4px 0 rgba(11,61,107,.35); transition:transform .06s ease, background .15s;
+  }
+  .btn:hover{background:var(--blue2);}
+  .btn:active{transform:translateY(2px); box-shadow:0 2px 0 rgba(11,61,107,.35);}
+  .btn[disabled]{opacity:.45; cursor:not-allowed; box-shadow:none;}
+  .btn.sun{background:var(--sun); border-color:#e7b400; color:#4a3800; box-shadow:0 4px 0 #b98a00;}
+  .btn.ghost{background:#fff; color:var(--blue);}
+
+  .toolbar{display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap; margin:16px 0;}
+  .toolbar .group{display:flex; gap:12px; flex-wrap:wrap;}
+  .progress{font-weight:800; color:var(--navy);}
+  .bar{height:16px; background:#dcebf9; border-radius:999px; overflow:hidden; border:2px solid var(--line); min-width:180px; flex:1 1 180px;}
+  .bar > i{display:block; height:100%; background:linear-gradient(90deg,var(--sun),#ff9f1c); width:0; transition:width .3s;}
+
+  .autoplay{display:inline-flex; gap:10px; align-items:center; background:#fff; border:3px solid var(--line);
+    border-radius:999px; padding:8px 16px; font-weight:800; cursor:pointer; color:var(--navy);}
+  .autoplay input{width:22px; height:22px; accent-color:var(--blue);}
+
+  /* Slide */
+  .slide{display:block;}
+  .slide[hidden]{display:none;}
+  .slide h2{color:var(--navy); font-size:1.7rem; margin:2px 0 14px;}
+  .slide ul{padding-inline-start:26px;}
+  .slide li{margin:.5rem 0;}
+  .slide li::marker{color:var(--blue2); font-weight:800;}
+
+  .audio-wrap{background:var(--sky); border:3px dashed #a9cdf0; border-radius:18px; padding:12px 16px; margin:4px 0 18px;}
+  .audio-wrap .lbl{display:block; font-weight:800; color:var(--navy); margin-bottom:6px;}
+  audio.narration{width:100%; max-width:560px; height:44px;}
+
+  .email{background:#fff8e7; border:3px solid #ffd98a; border-radius:18px; padding:14px 18px;}
+  .email p{margin:.35rem 0;}
+  .q{background:var(--sky); border-radius:14px; padding:10px 16px; font-weight:700;}
+  details{background:#f4f9ff; border:3px solid var(--line); border-radius:16px; padding:6px 16px; margin-top:10px;}
+  details summary{cursor:pointer; font-weight:800; color:var(--blue); padding:8px 0;}
+
+  /* Quiz */
+  .quiz-item{border:3px solid var(--line); border-radius:var(--r); padding:18px 20px; margin:18px 0; background:#fff;}
+  .quiz-item legend{font-weight:800; color:var(--navy); font-size:1.12rem; padding:0 8px;}
+  .qnum{display:inline-grid; place-items:center; width:34px; height:34px; margin-inline-end:6px;
+    background:var(--sun); color:#4a3800; border-radius:50%; font-weight:800;}
+  .obj{font-weight:600; color:#5b6b7b; font-size:.85rem;}
+  .options{list-style:none; padding:0; margin:12px 0 0; display:grid; gap:10px;}
+  .options label{display:flex; gap:12px; align-items:flex-start; padding:12px 16px; border:3px solid var(--line);
+    border-radius:16px; cursor:pointer; background:#fff; transition:border-color .12s, background .12s;}
+  .options label:hover{background:var(--sky);}
+  .options label:has(input:checked){border-color:var(--blue); background:#e7f1fd; box-shadow:inset 0 0 0 1px var(--blue);}
+  .options input{width:22px; height:22px; margin-top:4px; accent-color:var(--blue); flex:0 0 auto;}
+  .feedback{font-weight:800; margin-top:14px; padding:14px 16px; border-radius:16px; display:none;}
+  .feedback.show{display:block;}
+  .feedback.ok{color:var(--green); background:var(--green-bg); border:3px solid #9ad4b0;}
+  .feedback.err{color:var(--red); background:var(--red-bg); border:3px solid #f0b0ab;}
+  .feedback.ok::before{content:"\2714  ";}
+  .feedback.err::before{content:"\2718  ";}
+
+  details.answer{background:#f3f8ff; border:3px solid var(--line); border-radius:16px; padding:6px 16px; margin-top:14px;}
+  details.answer summary{cursor:pointer; font-weight:800; color:var(--blue); padding:6px 0;}
+
+  .srcnote{color:#4b5b6b; font-size:.88rem; border-top:2px dashed var(--line); margin-top:26px; padding-top:12px;}
+
+  @media (max-width:560px){
+    body{font-size:18px;}
+    .mascot{width:92px;}
+    main{padding:16px 12px 32px;}
+    .card{padding:18px 16px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important; scroll-behavior:auto !important;}
+  }
+  @media print{
+    body{background:#fff;}
+    .toolbar,.autoplay,.btn{display:none !important;}
+    .card{box-shadow:none; border-color:#999;}
+  }
+
+  body{padding-bottom:40px;}
+  .lesson{max-width:960px;margin:0 auto;padding:22px 18px 44px;}
+  .lesson h2{color:var(--navy);margin-top:36px;border-bottom:3px dashed var(--line);
+    padding-bottom:8px;font-size:1.55rem;}
+  .lesson h3{color:var(--blue);margin-top:26px;}
+  .lesson h4{color:var(--blue2);margin-top:20px;}
+  .lesson ol,.lesson ul{padding-inline-start:28px;}
+  .lesson li{margin:.45rem 0;}
+  .lesson p{margin:.7rem 0;}
+  .lesson table{border-collapse:collapse;width:100%;background:#fff;border-radius:16px;
+    overflow:hidden;box-shadow:var(--shadow);border:0;}
+  .lesson th,.lesson td{border:0;border-bottom:2px solid #e2ebf5;padding:12px 14px;text-align:right;}
+  .lesson th{background:var(--navy);color:#fff;}
+  .lesson tr:last-child td{border-bottom:0;}
+  .lesson strong{color:var(--navy);}
+</style>
+</head>
+<body>
+<header>
+  <div class="hero-inner">
+    <svg class="mascot" viewBox="0 0 140 152" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="روبوت ودود يحمل درعًا للحماية الرقمية">
+  <line x1="70" y1="12" x2="70" y2="28" stroke="#08324f" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="70" cy="10" r="7" fill="#ffcf3f" stroke="#08324f" stroke-width="4"/>
+  <rect x="30" y="28" width="80" height="62" rx="22" fill="#9ad6ff" stroke="#08324f" stroke-width="5"/>
+  <rect x="42" y="44" width="56" height="36" rx="13" fill="#08324f"/>
+  <circle cx="59" cy="60" r="7" fill="#fff"/>
+  <circle cx="81" cy="60" r="7" fill="#fff"/>
+  <circle cx="60" cy="61" r="3.2" fill="#08324f"/>
+  <circle cx="82" cy="61" r="3.2" fill="#08324f"/>
+  <path d="M60 71 q10 9 20 0" stroke="#ffcf3f" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+  <rect x="40" y="96" width="60" height="48" rx="18" fill="#1b6ec2" stroke="#08324f" stroke-width="5"/>
+  <path d="M70 100 l22 8 v15 q0 15 -22 23 q-22 -8 -22 -23 v-15 z" fill="#ffcf3f" stroke="#08324f" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M62 122 l6 7 l13 -15" stroke="#08324f" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+    <div>
+      <h1>الدرس الرقمي: التهديدات السيبرانية المتقدمة</h1>
+      <p><strong>المقرر:</strong> الكمبيوتر وتكنولوجيا المعلومات والاتصالات</p>
+      <p><strong>الصف:</strong> الثاني الإعدادي — الفصل الدراسي الأول 2025/2026</p>
+      <p><strong>الوحدة:</strong> الوحدة الأولى «الذكاء الاصطناعي وحماية بياناتنا الرقمية» — الدرس الثاني</p>
+      <p><strong>الفئة المستهدفة:</strong> متعلمون من ذوي الإعاقة السمعية أو البصرية، مع مراعاة أن احتياجات كل فئة متنوعة وليست متطابقة.</p>
+      <div class="chips">
+        <span class="chip">نص كامل وقارئ شاشة</span>
+        <span class="chip">عناوين متسلسلة</span>
+        <span class="chip">لا يعتمد على اللون وحده</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="lesson">
+<h2>تمهيد</h2>
+<p>عزيزي الطالب، عزيزتي الطالبة: درسنا في السنوات الماضية كيفية الحفاظ على البيانات الشخصية، وتحدثنا عن كيفية اختيار كلمات المرور الخاصة بك، وضرورة تحديث برامج مكافحة الفيروسات لمنع المخترقين من سرقة بياناتك الشخصية. وفي هذا الدرس سنتناول أحد الأساليب المتقدمة التي يستخدمها المخترقون لسرقة البيانات أو تعطيل الخدمات، ونتعلم كيف نتعرف عليها ونستجيب لها بأمان.</p>
+
+<h2>أهداف التعلم</h2>
+<p>بانتهاء الدرس يكون المتعلّم قادرًا على أن:</p>
+<ol>
+<li>يعرّف مفهوم التهديدات السيبرانية المتقدمة.</li>
+<li>يشرح مفهوم برامج الفدية (Ransomware) وكيف يمكن أن تهدّد الملفات أو الأجهزة، ويذكر ممارسات حماية يدعمها المصدر المعتمد.</li>
+<li>يعرّف الهندسة الاجتماعية المتقدمة وهدفها.</li>
+<li>يميّز بين أساليب الهندسة الاجتماعية: التصيد الاحتيالي الموجه (Spear Phishing)، وانتحال الشخصية (Pretexting)، والاستدراج (Baiting).</li>
+<li>يشرح فكرة هجمات الحرمان من الخدمة الموزعة (DDoS) شرحًا مبسطًا دون الدخول في تفاصيل تنفيذية.</li>
+<li>يختار تصرفات آمنة مناسبة عند مواجهة أحد هذه التهديدات.</li>
+</ol>
+
+<h2>المتطلبات السابقة</h2>
+<ul>
+<li>اختيار كلمة مرور قوية والحفاظ عليها.</li>
+<li>تحديث برامج مكافحة الفيروسات بانتظام.</li>
+<li>استخدام البريد الإلكتروني والرسائل النصية معرفة أساسية.</li>
+</ul>
+
+<h2>الوحدة الأولى: مفهوم التهديدات السيبرانية المتقدمة</h2>
+<p>التهديدات السيبرانية المتقدمة هي أساليب يتقنها المخترقون للوصول إلى البيانات أو تعطيل الخدمات، وتميّزها عن التهديدات البسيطة أنها لا تعتمد على ثغرة تقنية فقط، بل تستهدف الإنسان نفسه عبر الخداع، أو تستخدم برامج ضارة هادفة لتعطيل الملفات أو الخدمات.</p>
+<p>يركّز هذا الدرس على ثلاثة محاور رئيسة:</p>
+<ol>
+<li>برامج الفدية (Ransomware).</li>
+<li>الهندسة الاجتماعية المتقدمة وأساليبها.</li>
+<li>هجمات الحرمان من الخدمة الموزعة (DDoS).</li>
+</ol>
+
+<h2>الوحدة الثانية: برامج الفدية (Ransomware)</h2>
+<h3>ما هي برامج الفدية؟</h3>
+<p>برامج الفدية (Ransomware) من البرامج الضارة التي تُستخدم للتهديد والابتزاز: بعد أن تصل إلى الجهاز — غالبًا عبر مرفق أو رابط مشبوه — فإنها تهدد الملفات أو الجهاز نفسه، وتطلب فديةً (مالًا أو معلومات) مقابل إيقاف التهديد أو إعادة الإتاحة. وقد تمنع بعضها المستخدم من استخدام الجهاز أو التطبيقات، وتستهدف بعضها الملفات بعد تشفيرها بحيث لا يستطيع صاحبها فتحها.</p>
+
+<h3>كيف تعمل؟ — وصف مبسّط</h3>
+<ol>
+<li>تصل البرامج إلى الجهاز غالبًا عبر مرفق أو برنامج مزيّف أو رابط مشبوه.</li>
+<li>تقوم بتعطيل الملفات أو الجهاز أو نسخها بطريقة يصعب الوصول إليها.</li>
+<li>تعرض رسالة تطالب بفدية وتحدد مهلة زمنية للضغط على الضحية.</li>
+</ol>
+<p><strong>ملاحظة:</strong> تفاصيل أنواع برامج الفدية وخطوات عملها موضّحة في الكتاب بصورة توضيحية؛ والمحتوى هنا مبسّط وفق العناوين العامة، ويلزم اعتماده بعد مراجعة بشرية مقابل صور الكتاب (انقسم صندوق «يحتاج إلى تحقق بشري» في نهاية الدرس).</p>
+
+<h3>ممارسات الوقاية</h3>
+<ul>
+<li>الاحتفاظ بنسخة احتياطية من الملفات المهمة في مكان منفصل عن الجهاز.</li>
+<li>تحديث نظام التشغيل والبرامج بانتظام.</li>
+<li>عدم فتح المرفقات أو الروابط من مصادر غير معروفة.</li>
+<li>عدم توصيل وحدات تخزين غير معروفة المصدر بالجهاز.</li>
+<li>الإبلاغ فورًا لمسؤول التقنية في المدرسة عند ظهور أي رسالة تطالب بفدية.</li>
+</ul>
+
+<h2>الوحدة الثالثة: الهندسة الاجتماعية المتقدمة</h2>
+<p>الهندسة الاجتماعية ليست اختراقًا للأجهزة أو البرامج المستخدمة، بل هي اختراق للعقول؛ إنها فن خداع الأشخاص لجعلهم يكشفون عن معلومات سرية أو يقومون بأفعال تعرض أمنهم للخطر. هدف المهاجم هنا هو إنسان الجهاز، لا جهازه.</p>
+
+<h3>الأساليب المتقدمة الثلاثة</h3>
+<h4>1) التصيد الاحتيالي الموجه (Spear Phishing)</h4>
+<p>هو نوع متقدم من التصيد الاحتيالي يستهدف أشخاصًا محددين أو مؤسسات معينة برسائل بريد إلكتروني أو رسائل نصية تبدو شخصية ومقنعة جدًا، حيث يعتمد المهاجم على جمع بيانات مفصلة عنك مثل اسمك وبعض المعلومات عنك من خلال وسائل التواصل الاجتماعي ومواقع الشركات ليجعلك تثق به.</p>
+
+<h4>2) انتحال الشخصية (Pretexting)</h4>
+<p>يقوم المهاجم بإنشاء قصة وهمية أو سيناريو ليخدع الضحية للحصول على معلومات أو للقيام بفعل معين، فقد يتظاهر بأنه موظف دعم فني أو مسؤول في أحد البنوك.</p>
+
+<h4>3) الاستدراج (Baiting)</h4>
+<p>يقوم المهاجم بتقديم شيء جذاب للضحية، مثل قرص USB مجاني يحتوي على برنامج ضار، لإغرائه بالنقر عليه أو استخدامه.</p>
+
+<h3>مثال افتراضي آمن: رسالة مشبوهة</h3>
+<p>تخيّل أنك تلقيت الرسالة الآتية (رسالة افتراضية بالكامل، والنطاق المستخدم نطاق تجريبي غير فعّال لا يؤدي إلى أي موقع):</p>
+<ul>
+<li><strong>المرسل:</strong> خدمة التحديث المدرسي &lt;update@students-notify.example.com&gt;</li>
+<li><strong>الموضوع:</strong> بياناتك ستُحذف خلال 24 ساعة</li>
+<li><strong>نص الرسالة:</strong> عميلنا الطالب، يرجى تأكيد بياناتك فورًا عبر الرابط: http://students-notify.example.com/verify</li>
+<li><strong>علامات الاشتباه:</strong> النطاق example.com ليس تابعًا للمدرسة؛ الاستعجال والتهديد بالحذف؛ طلب بيانات شخصية أو كلمة مرور عبر رابط.</li>
+</ul>
+<p><strong>التصرف الآمن:</strong> لا تفتح الرابط، ولا تشارك أي بيانات؛ تحقّق من الحساب عبر البوابة المعروفة لديك، وأبلغ مسؤول التقنية في المدرسة.</p>
+
+<h2>الوحدة الرابعة: هجمات الحرمان من الخدمة الموزعة (DDoS)</h2>
+<p>DDoS اختصار لـ Distributed Denial of Service، أي هجوم الحرمان من الخدمة الموزعة. الفكرة المبسطة: يُغرق المهاجم خدمة إلكترونية (مثل موقع أو خدمة على شبكة المدرسة) بطلبات كثيرة جدًا من أجهزة متعددة في الوقت نفسه، حتى تتعذر على الخدمة استقبال الطلبات الشرعية فتتوقف أو تبطؤ بشدة. الفكرة هنا «الحرمان من الخدمة» بإغراقها، لا سرقة بيانات.</p>
+<h3>وصف مبسّط لخطوات الهجوم (بلا تفاصيل تنفيذية)</h3>
+<ol>
+<li>يسيطر المهاجم على أجهزة متعددة عبر برامج ضارة أو شبكات مُستخدَمة دون علم أصحابها.</li>
+<li>تُرسل هذه الأجهزة طلبات كثيرة في وقت واحد إلى الهدف.</li>
+<li>تتعذر خدمة الطلبات الأصلية، فتتوقف الخدمة عن العمل.</li>
+</ol>
+<p><strong>ملاحظة:</strong> مخطط الكتاب التوضيحي لهذه الهجمة بصري؛ والنص أعلاه هو النسخة الخطية منه، ويلزم مراجعته بشرية مقابل صور الكتاب.</p>
+
+<h3>الآثار السلبية</h3>
+<ul>
+<li>توقف الخدمات عن العمل لفترة قد تكون قصيرة أو طويلة.</li>
+<li>ضرر مادي وسمعة للمؤسسة وللمستخدمين.</li>
+<li>تعطيل الدراسة أو العمل اليومي الذي يعتمد على تلك الخدمة.</li>
+</ul>
+<p>ومن الممارسات الوقائية: الإبلاغ الفوري لمسؤول الشبكة عن التوقف المفاجئ، وعدم استخدام أي برامج أو أدوات غير معروفة بدعوى «مساعدة» الخدمة، والحفاظ على حماية جهازك حتى لا يُستخدم دون علمك ضمن هذه الهجمات.</p>
+
+<h2>الوحدة الخامسة: التصرفات الآمنة — ملخص عملي</h2>
+<ol>
+<li>لا تشارك كلمة مرورك مع أي شخص، مهما كان المُطالب أو الاستعجال.</li>
+<li>تحقّق من هوية المرسل أو المتصل عبر قناة معروفة مستقلة، لا عبر القناة نفسها التي وصلتك منها الرسالة.</li>
+<li>لا تفتح روابط أو مرفقات مشبوهة؛ واقرأ عنوان النطاق بتمييز قبل أي نقرة.</li>
+<li>لا توصِل وحدات تخزين غير معروفة المصدر إلى جهازك.</li>
+<li>أبلغ مسؤول التقنية في المدرسة فورًا عند مواجهة رسالة تطالب بفدية أو بيانات أو مبلغًا ماليًا.</li>
+</ol>
+
+<h2>تقويم تكويني (5 أسئلة مع الإجابات والتغذية الراجعة)</h2>
+
+<h3>السؤال 1</h3>
+<p>أي العبارات يصف برامج الفدية (Ransomware) وصفًا صحيحًا؟</p>
+<ul>
+<li>أ) برنامج يساعد على تحسين سرعة الجهاز.</li>
+<li>ب) برنامج خبيث يهدد الملفات أو الجهاز ويطلب فديةً مقابل إيقاف التهديد.</li>
+<li>ج) برنامج تعليمي يشرح أساسيات الحماية.</li>
+<li>د) أداة تستخدم لقياس سرعة الإنترنت.</li>
+</ul>
+<p><strong>الإجابة الصحيحة: ب.</strong></p>
+<p><strong>التغذية الراجعة:</strong> صحيح. برامج الفدية من البرامج الضارة التي تهدد الملفات أو الجهاز وتطلب فدية؛ أما (أ) و(ج) فتصفيان برامج مفيدة، و(د) تصف أداة قياس شرعية.</p>
+
+<h3>السؤال 2</h3>
+<p>اتصل بك شخص يتظاهر أنه موظف دعم فني في المدرسة، وطلب منك كلمة المرور لـ«حل مشكلة عاجلة». ما التصرف الأسلم؟</p>
+<ul>
+<li>أ) إعطاء كلمة المرور لأن الموظفين يعرفون كل شيء.</li>
+<li>ب) إعطاء كلمة المرور بعد أن يذكر اسمك كاملًا.</li>
+<li>ج) الاعتذار عن مشاركة كلمة المرور، والاتصال برقم الدعم الرسمي المعروف لديك للتأكد من الطلب.</li>
+<li>د) مشاركة كلمة المرور مع زميل ليستفسر منه.</li>
+</ul>
+<p><strong>الإجابة الصحيحة: ج.</strong></p>
+<p><strong>التغذية الراجعة:</strong> صحيح. هذا الموقف يمثّل انتحال الشخصية (Pretexting)، وتحديد اسمك لا يثبت هوية المتصل؛ التحقق عبر قناة رسمية معروفة هو التصرف الصحيح، وكلمة المرور لا تُشارك مع أحد.</p>
+
+<h3>السؤال 3</h3>
+<p>أي مما يلي يمثّل التصيد الاحتيالي الموجه (Spear Phishing)؟</p>
+<ul>
+<li>أ) رسالة جماعية من متجر إلكتروني تعلن عن تخفيضات.</li>
+<li>ب) رسالة تبدو شخصية جدًا وتصلك باسمك وتفاصيل عنك، وتهدف إلى خداعك لسرقة بياناتك.</li>
+<li>ج) إعلان تعليمي من المدرسة عن محاضرة.</li>
+<li>د) رسالة شكر من زميل.</li>
+</ul>
+<p><strong>الإجابة الصحيحة: ب.</strong></p>
+<p><strong>التغذية الراجعة:</strong> صحيح. الميزة الأساسية للتصيد الموجه أنه يستهدف شخصًا محددًا برسالة تبدو مقنعة، بعد أن جمع المهاجم معلومات حقيقية عنه من مصادر متاحة.</p>
+
+<h3>السؤال 4</h3>
+<p>عثر زميلك على فلاش USB في المدرسة مكتوب عليه «درجات الفصل». ما التصرف الأسلم؟</p>
+<ul>
+<li>أ) توصيله بالجهاز لمشاهدة الدرجات.</li>
+<li>ب) توصيله بالجهاز بعد نسخ ملفاته إلى حاسوب آخر.</li>
+<li>ج) تسليمه إلى مسؤول التقنية في المدرسة دون توصيله بأي جهاز.</li>
+<li>د) إعطاؤه لأي زميل آخر.</li>
+</ul>
+<p><strong>الإجابة الصحيحة: ج.</strong></p>
+<p><strong>التغذية الراجعة:</strong> صحيح. هذا مثال على الاستدراج (Baiting): شيء جذاب يخفي برنامجًا ضارًا محتملًا؛ عدم توصيله وتسليمه إلى المسؤول هو التصرف الآمن.</p>
+
+<h3>السؤال 5</h3>
+<p>أي العبارات يصف هجمات الحرمان من الخدمة الموزعة (DDoS) وصفًا صحيحًا؟</p>
+<ul>
+<li>أ) تهديد بتعطيل ملفات الجهاز وإتلافها.</li>
+<li>ب) إغراق خدمة إلكترونية بطلبات كثيرة من أجهزة متعددة حتى تتوقف عن العمل.</li>
+<li>ج) سرقة كلمة المرور عبر رسالة مزيفة.</li>
+<li>د) تنزيل برنامج من متجر غير رسمي.</li>
+</ul>
+<p><strong>الإجابة الصحيحة: ب.</strong></p>
+<p><strong>التغذية الراجعة:</strong> صحيح. DDoS يهدف إلى تعطيل الخدمة نفسها بإغراقها بالطلبات، وليس إلى تشفير الملفات (أ) أو سرقة البيانات (ج).</p>
+
+<h2>تقويم ذاتي: يمكنني أن...</h2>
+<p>ضع علامة (√) أمام ما تراه قادرًا على فعله بعد دراسة الدرس:</p>
+<ul>
+<li>أُعرّف مفهوم التهديدات السيبرانية المتقدمة.</li>
+<li>أشرح مفهوم برامج الفدية وكيف يمكن أن تهدد الملفات أو الأجهزة.</li>
+<li>أُعرّف الهندسة الاجتماعية المتقدمة وهدفها.</li>
+<li>أُميّز بين التصيد الموجه وانتحال الشخصية والاستدراج.</li>
+<li>أشرح فكرة هجمات DDoS شرحًا مبسطًا.</li>
+<li>أختار تصرفًا آمنًا عند مواجهة رسالة مشبوهة أو طلب بيانات.</li>
+</ul>
+
+<h2>مسرد المصطلحات</h2>
+<table border="1" cellpadding="6">
+<tr><th>المصطلح</th><th>المعنى</th></tr>
+<tr><td>برامج الفدية (Ransomware)</td><td>برنامج خبيث يهدد الملفات أو الجهاز ويطلب فديةً مقابل إيقاف التهديد.</td></tr>
+<tr><td>الهندسة الاجتماعية المتقدمة</td><td>خداع الأشخاص للحصول على معلوماتهم أو دفعهم إلى تصرف غير آمن.</td></tr>
+<tr><td>التصيد الاحتيالي الموجه (Spear Phishing)</td><td>رسائل احتيالية تستهدف شخصًا محددًا برسالة تبدو شخصية ومقنعة.</td></tr>
+<tr><td>انتحال الشخصية (Pretexting)</td><td>ابتكار قصة وهمية أو سيناريو لخداع الضحية للحصول على معلومات أو للقيام بفعل معين.</td></tr>
+<tr><td>الاستدراج (Baiting)</td><td>تقديم شيء جذاب يخفي خطرًا، مثل قرص USB يحتوي على برنامج ضار.</td></tr>
+<tr><td>DDoS</td><td>هجوم يهدف إلى تعطيل خدمة إلكترونية بإغراقها بطلبات كثيرة من أجهزة متعددة.</td></tr>
+</table>
+
+<h2>مراجعة الإتاحة السمعية والبصرية</h2>
+<ul>
+<li>كل المحتوى الأساسي مكتوب نصًا حقيقيًا قابلًا للتحديد والقراءة، وليس محصورًا في صور.</li>
+<li>لا يعتمد فهم المحتوى على اللون أو الصوت وحدهما؛ وتعليمات المواقف تسمّي العناصر بأرقامها أو نصوصها لا بموقعها أو لونها.</li>
+<li>البنية تعتمد عناوين متسلسلة (H1 إلى H4) وقوائم مرقمة تتفق مع تسلسل الشرح، وهو نمط يدعم قارئات الشاشة.</li>
+<li>روابط الأمثلة افتراضية بنطاقات تجريبية غير فعّالة، مع شرح علامات الاشتباه نصيًا دون دعوة المتعلم لفتحها.</li>
+<li>التقويم نصي كامل: السؤال والبدائل والإجابة والتغذية الراجعة كلها مقروءة نصيًا.</li>
+<li>يلزم اختبار هذا المنتج فعليًا بقارئ شاشة (مثل NVDA) وفي بيئة الاستخدام المستهدفة قبل اعتماده كمطابق لمعيار؛ ولم يُنفذ هذا الاختبار بعد.</li>
+</ul>
+
+<h2>يحتاج إلى تحقق بشري قبل الاعتماد</h2>
+<ol>
+<li>محتوى «أنواع برامج الفدية وكيفية عملها» في الكتاب موضّح بصورة توضيحية؛ والمحتوى المكتوب هنا مبسّط وفق العناوين العامة المستخرجة من نص الدرس، ويجب مطابقته مع صور الكتاب الأصلية.</li>
+<li>مخطط DDoS في الكتاب بصري؛ والنسخة النصية أعلاه تحتاج مراجعة مقابل المخطط.</li>
+<li>مراجعة المصطلحات الإنجليزية وكتابتها في صيغتها المعتمدة في الكتاب.</li>
+<li>اختبار فعلي بقارئ شاشة وبتكبير الشاشة.</li>
+<li>مطابقة الأهداف والبنية مع الدليل الإرشادي للمعلم أو خطة الوزارة إن وُجدت.</li>
+</ol>
+
+<h2>المصادر</h2>
+<ul>
+<li>درس الانتاج (كتاب الصف الثاني الإعدادي — الدرس الثاني: التهديدات السيبرانية المتقدمة)، ملف: درس الانتاج.pdf.</li>
+<li>وثيقة: خصائص واحتياجات المتعلمين ذوي الإعاقة البصرية (تكييف بصري للمحتوى).</li>
+<li>وثيقة: الضوابط الأخلاقية المشتركة لاستخدام نماذج اللغة الكبيرة.</li>
+<li>وثيقة: مواصفات المنتجات التعليمية المطلوبة.</li>
+<li>إرشادات W3C WAI حول إمكانية الوصول للأشخاص ذوي الإعاقة البصرية ومعايير WCAG 2.</li>
+</ul>
+
+</main>
+</body>
+</html>

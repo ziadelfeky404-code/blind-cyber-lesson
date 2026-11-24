@@ -1,0 +1,2226 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>التهديدات السيبرانية المتقدمة — الدرس التفاعلي والنشاط</title>
+<meta name="description" content="منصة واحدة تجمع الدرس التفاعلي والنشاط التفاعلي لدرس التهديدات السيبرانية المتقدمة، الصف الثاني الإعدادي.">
+<meta name="theme-color" content="#0b3d6b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12263a; --navy:#0b3d6b; --navy-dk:#082c4d; --blue:#0f5aa0; --blue2:#1b6ec2;
+    --sky:#eaf4fe; --sun:#ffcf3f; --sun-dk:#7a5a00;
+    --green:#0b6b34; --green-bg:#e6f6ec; --red:#b3261e; --red-bg:#fdecea;
+    --line:#cfe0f2; --card:#ffffff; --focus:#b35c00;
+    --r:22px; --shadow:0 8px 24px rgba(15,90,160,.12);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  html,body{margin:0;}
+  body{
+    color:var(--ink);
+    font-family:"Tajawal","Segoe UI",Tahoma,Arial,sans-serif;
+    font-size:19px; line-height:1.85; background:#eef6fe;
+    display:flex; flex-direction:column; min-height:100vh;
+  }
+  h1,h2,h3,h4{font-family:"Baloo Bhaijaan 2","Tajawal","Segoe UI",Tahoma,sans-serif; line-height:1.4; margin:0;}
+  p{margin:0;}
+  a{color:var(--blue);}
+  :focus-visible{outline:3px solid var(--focus); outline-offset:3px; border-radius:8px;}
+  .sr-only{
+    position:absolute!important; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; border:0;
+  }
+  a.skip{
+    position:absolute; inset-inline-start:-999px; top:0; z-index:90;
+    background:#000; color:#fff; padding:12px 18px; border-radius:0 0 12px 0; font-weight:800;
+  }
+  a.skip:focus{inset-inline-start:0;}
+
+  /* ================= Top bar ================= */
+  .topbar{
+    position:sticky; top:0; z-index:60;
+    background:rgba(255,255,255,.96);
+    border-bottom:1px solid var(--line);
+    box-shadow:0 2px 16px rgba(15,90,160,.09);
+    backdrop-filter:blur(8px);
+  }
+  .topbar-inner{
+    width:100%; max-width:1120px; margin:0 auto; padding:10px 20px;
+    display:flex; align-items:center; gap:18px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:12px; flex:0 1 auto;
+    text-decoration:none; color:var(--navy);
+  }
+  .brand svg{width:46px; height:auto; flex:0 0 auto;}
+  .brand b{display:block; font-family:"Baloo Bhaijaan 2","Tajawal",sans-serif; font-size:1.05rem; font-weight:800; line-height:1.3;}
+  .brand small{display:block; font-size:.78rem; color:#4d6a86; line-height:1.4;}
+  .nav{display:flex; gap:4px; margin-inline-start:auto; flex-wrap:wrap;}
+  .nav a{
+    display:inline-flex; align-items:center; justify-content:center;
+    min-height:44px; padding:8px 16px; border-radius:999px;
+    text-decoration:none; font-weight:800; font-size:.95rem;
+    color:#2f4f6e; border:2px solid transparent; white-space:nowrap;
+  }
+  .nav a:hover{background:var(--sky); color:var(--navy);}
+  .nav a[aria-current="page"]{
+    background:var(--navy); color:#fff; border-color:var(--navy);
+    box-shadow:0 3px 0 rgba(8,44,77,.35);
+  }
+
+  /* ================= Audio bar ================= */
+  .topbar{display:flex; flex-direction:column;}
+  .topbar-inner{order:1; min-width:0;}
+  .audiobar{order:2; min-width:0;}
+  .audiobar{background:#0b3d6b; color:#fff; border-top:1px solid #1b5c93;}
+  .audiobar-inner{
+    width:100%; max-width:1120px; margin:0 auto; padding:6px 20px 8px;
+    display:flex; align-items:center; gap:8px; overflow-x:auto;
+  }
+  .audiobar .ab-label{font-size:.78rem; font-weight:800; color:#c7ddf2; white-space:nowrap;}
+  .ab-btn{
+    font-family:inherit; font-size:.84rem; font-weight:800; color:#0b3d6b;
+    background:#fff; border:2px solid #fff; border-radius:999px; padding:5px 14px;
+    min-height:38px; cursor:pointer; white-space:nowrap;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .ab-btn:hover{background:#eaf4fe;}
+  .ab-btn[aria-pressed="true"]{background:var(--sun); border-color:#e7b400; color:#4a3800;}
+  .ab-btn:focus-visible{outline:3px solid #ffcf3f; outline-offset:2px; border-radius:999px;}
+  .ab-rate{font-size:.8rem; font-weight:800; color:#c7ddf2; white-space:nowrap; min-width:3.4em;}
+  .ab-vol{display:inline-flex; align-items:center; gap:8px; margin-inline-start:auto; white-space:nowrap; font-size:.8rem; font-weight:800; color:#c7ddf2;}
+  .ab-vol input[type="range"]{width:104px; accent-color:#ffcf3f; min-height:24px; cursor:pointer;}
+  .ab-vol input[type="range"]:focus-visible{outline:3px solid #ffcf3f; outline-offset:4px;}
+
+  /* ================= Layout ================= */
+  main{flex:1 1 auto; display:flex; flex-direction:column; min-height:0;}
+  .view{flex:1 1 auto; display:flex; flex-direction:column; min-height:0;}
+  .view[hidden]{display:none;}
+  .shell{width:100%; max-width:1120px; margin:0 auto; padding:0 20px;}
+
+  /* ================= Home hero ================= */
+  .hero{
+    position:relative; color:#fff; overflow:hidden;
+    background:linear-gradient(140deg,#0a3660 0%,#11538f 55%,#1a6fb4 100%);
+    border-radius:0 0 34px 34px;
+    padding:44px 20px 54px;
+  }
+  .hero::before,.hero::after{
+    content:""; position:absolute; border-radius:50%; pointer-events:none;
+  }
+  .hero::before{width:420px; height:420px; inset-inline-start:-140px; top:-180px; background:radial-gradient(circle,rgba(255,207,63,.22),transparent 68%);}
+  .hero::after{width:380px; height:380px; inset-inline-end:-120px; bottom:-200px; background:radial-gradient(circle,rgba(154,214,255,.24),transparent 70%);}
+  .hero-inner{
+    position:relative; z-index:1; max-width:1080px; margin:0 auto;
+    display:flex; align-items:center; gap:34px; flex-wrap:wrap;
+  }
+  .hero-mascot{width:148px; height:auto; flex:0 0 auto; filter:drop-shadow(0 10px 18px rgba(0,0,0,.28));}
+  .hero-copy{flex:1 1 320px; min-width:0;}
+  .hero .kicker{
+    display:inline-block; background:rgba(255,255,255,.16); border:2px solid rgba(255,255,255,.5);
+    color:#fff; font-weight:800; font-size:.82rem; border-radius:999px; padding:3px 14px; margin-bottom:14px;
+  }
+  .hero h1{font-size:clamp(1.75rem,1.2rem + 2.2vw,2.75rem); font-weight:800; letter-spacing:-.2px;}
+  .hero .lede{margin-top:12px; font-size:1.06rem; color:#e4f1fd; max-width:62ch;}
+  .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:18px;}
+  .chip{background:#fff; color:var(--navy); border-radius:999px; padding:4px 14px; font-size:.82rem; font-weight:800;}
+  .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:26px;}
+  .start-wrap{margin-top:26px;}
+  .start-title{font-size:1.02rem; color:#dcecfb; margin:0 0 10px;}
+  .start-list{list-style:none; margin:0; padding:0; display:grid; gap:12px;}
+  .start-list li{display:grid; gap:4px; justify-items:start;}
+  .start-list .btn{min-width:250px; justify-content:flex-start;}
+  .start-note{font-size:.85rem; color:#cfe3f7; padding-inline-start:6px;}
+
+  /* ================= الجولة الصوتية المتسلسلة ================= */
+  .tour{
+    margin-top:26px; background:rgba(255,255,255,.1); border:2px solid rgba(255,255,255,.45);
+    border-radius:20px; padding:16px 18px; display:grid; gap:12px;
+  }
+  .tour-head{display:flex; gap:14px; flex-wrap:wrap; align-items:center; justify-content:space-between;}
+  .tour-title{font-size:1.05rem; color:#fff; margin:0; font-weight:800;}
+  .tour-title span{display:block; font-size:.85rem; font-weight:600; color:#d5e8fa; margin-top:4px;}
+  .tour-caption{
+    margin:0; color:#eaf4fd; font-size:.95rem; line-height:1.7; min-height:3.4em;
+    border-inline-start:4px solid var(--sun); padding-inline-start:12px;
+  }
+  .tour-caption b{color:#fff;}
+  .tour-progress{margin:0; font-size:.82rem; font-weight:800; color:#cfe3f7;}
+  .tour[data-on="true"]{border-color:var(--sun); background:rgba(255,207,63,.14);}
+  .tour-hot{outline:4px dashed var(--sun); outline-offset:6px; border-radius:18px;}
+  @media (prefers-reduced-motion:no-preference){
+    .tour-hot{transition:outline-color .2s ease;}
+  }
+  .resume{margin-top:16px; font-size:.9rem; color:#d6e8fa;}
+  .resume a{color:#fff; font-weight:800; text-underline-offset:5px;}
+  .resume a:hover{color:var(--sun);}
+
+  .btn{
+    font-family:inherit; font-size:1rem; font-weight:800; cursor:pointer; text-decoration:none;
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    border:3px solid var(--blue); background:var(--blue); color:#fff;
+    border-radius:999px; padding:12px 26px; min-height:52px;
+    box-shadow:0 4px 0 rgba(11,61,107,.35); transition:transform .06s ease, background .15s;
+  }
+  .btn:hover{background:var(--blue2);}
+  .btn:active{transform:translateY(2px); box-shadow:0 2px 0 rgba(11,61,107,.35);}
+  .btn.sun{background:var(--sun); border-color:#e7b400; color:#4a3800; box-shadow:0 4px 0 #b98a00;}
+  .btn.sun:hover{background:#ffd964;}
+  .btn.ghost{background:#fff; color:var(--blue); box-shadow:0 4px 0 rgba(11,61,107,.18);}
+  .btn.ghost:hover{background:var(--sky);}
+  .btn.light-solid{background:#fff; color:var(--navy); border-color:#fff; box-shadow:0 4px 0 rgba(3,24,42,.35);}
+  .btn.light-solid:hover{background:#eaf4fe; border-color:#eaf4fe;}
+  .btn.light-outline{background:transparent; color:#fff; border-color:rgba(255,255,255,.85); box-shadow:0 4px 0 rgba(3,24,42,.25);}
+  .btn.light-outline:hover{background:rgba(255,255,255,.16);}
+  .btn.sm{font-size:.9rem; padding:9px 18px; min-height:46px; box-shadow:0 3px 0 rgba(11,61,107,.2);}
+
+  /* ================= Sections ================= */
+  .block{padding:44px 0 8px;}
+  .block-head{margin-bottom:22px;}
+  .block-head h2{color:var(--navy); font-size:1.55rem;}
+  .block-head p{color:#45617c; margin-top:6px; max-width:70ch;}
+
+  /* ================= التحكم كله بحرف واحد ================= */
+  .sc-grid{list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); gap:12px;}
+  .sc-item{
+    background:#fff; border:3px solid var(--line); border-radius:16px; padding:12px 14px;
+    display:flex; align-items:center; gap:12px; box-shadow:0 4px 10px rgba(15,90,160,.07);
+  }
+  .sc-item:focus-visible{outline:4px solid var(--focus); outline-offset:3px; border-color:var(--blue2);}
+  .sc-item kbd{
+    flex:0 0 auto; min-width:54px; text-align:center;
+    display:inline-block; background:#eef6ff; color:var(--navy);
+    border:2px solid #b9d7f2; border-bottom-width:5px; border-radius:10px;
+    padding:4px 10px; font-family:inherit; font-weight:800; font-size:1.05rem;
+  }
+  .sc-item span{color:#3c5c7c; font-weight:700; font-size:.98rem; line-height:1.55;}
+  .sc-actions{display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:18px;}
+  .sc-status{min-height:1.6em; margin-top:10px; font-weight:800; color:var(--navy); font-size:1rem;}
+
+  /* ---------- صدى مرئي لكل حرف: يظهر أسفل الشاشة حتى لو كان الصوت متوقفًا ---------- */
+  .key-echo{
+    position:fixed; inset-inline-start:18px; bottom:18px; z-index:60;
+    max-width:min(92vw, 460px);
+    background:#08324f; color:#fff; border:3px solid #ffcf3f; border-radius:16px;
+    padding:12px 18px; font-weight:800; font-size:1rem; line-height:1.6;
+    box-shadow:0 10px 26px rgba(0,0,0,.28);
+  }
+  .key-echo[hidden]{display:none;}
+  @media (max-width:520px){ .key-echo{ inset-inline:12px; bottom:12px; font-size:.95rem; } }
+
+  /* ================= تدريب الكيبورد ================= */
+  .kt-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(232px,1fr)); gap:14px;}
+  .kt-item{
+    background:#fff; border:3px solid var(--line); border-radius:18px; padding:16px 18px;
+    display:flex; flex-direction:column; gap:6px; box-shadow:0 6px 14px rgba(15,90,160,.08);
+  }
+  .kt-item:focus-visible{outline:4px solid var(--focus); outline-offset:3px; border-color:var(--blue2);}
+  .kt-item kbd{
+    display:inline-block; align-self:flex-start; background:#eef6ff; color:var(--navy);
+    border:2px solid #b9d7f2; border-bottom-width:5px; border-radius:10px;
+    padding:3px 12px; font-family:inherit; font-weight:800; font-size:1rem;
+  }
+  .kt-item > div:nth-of-type(1){font-weight:800; color:var(--navy); font-size:1.05rem;}
+  .kt-hint{color:#48627c; font-size:.94rem; line-height:1.75;}
+  .kt-done{background:var(--green-bg); border:2px solid #9ad4b0; border-radius:16px; padding:14px 18px; margin-top:18px; font-weight:700; color:#14532d;}
+  .kt-done:focus-visible{outline:4px solid var(--focus); outline-offset:3px;}
+
+  /* ---------- التدريب اللحظي ---------- */
+  .live{margin-top:24px; background:var(--sky); border:3px solid var(--line); border-radius:22px; padding:22px;}
+  .live[data-live="on"]{border-color:var(--blue2); box-shadow:0 10px 24px rgba(15,90,160,.16);}
+  .live h3{color:var(--navy); font-size:1.2rem;}
+  .live h3:focus-visible{outline:4px solid var(--focus); outline-offset:3px;}
+  .live > p{color:#3c5c7c; margin-top:8px; max-width:72ch; line-height:1.85;}
+  .live-actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:16px;}
+  .live-stage{margin-top:16px; background:#fff; border:3px dashed #9ec6ec; border-radius:18px; padding:18px;}
+  .live-stage:focus-visible{outline:4px solid var(--focus); outline-offset:3px;}
+  .live-status{font-weight:800; color:var(--navy); font-size:1.1rem; min-height:1.6em;}
+  .live-hint{color:#48627c; font-size:.95rem; line-height:1.8; margin-top:8px;}
+
+  .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(268px,1fr)); gap:20px;}
+  .card{
+    display:flex; flex-direction:column; overflow:hidden;
+    background:var(--card); border:3px solid var(--line); border-radius:var(--r);
+    padding:0; text-decoration:none; color:inherit;
+    box-shadow:var(--shadow); transition:transform .12s ease, border-color .12s, box-shadow .12s;
+  }
+  .card:hover{transform:translateY(-4px); border-color:#9ec6ec; box-shadow:0 14px 30px rgba(15,90,160,.16);}
+  .card:focus-visible{outline:4px solid var(--focus); outline-offset:3px;}
+  .card .thumb{
+    display:block; width:100%; height:auto; aspect-ratio:16/10; object-fit:cover; object-position:top center;
+    background:var(--sky); border-bottom:3px solid var(--line);
+  }
+  .card .body{display:flex; flex-direction:column; gap:8px; flex:1 1 auto; padding:18px 20px 18px;}
+  .card h3{color:var(--navy); font-size:1.22rem;}
+  .meta{display:flex; gap:6px; flex-wrap:wrap;}
+  .meta span{background:#f2f8ff; border:1px solid var(--line); border-radius:999px; padding:1px 10px; font-size:.78rem; font-weight:800; color:#3c5c7c;}
+  .card p{color:#405a74; font-size:.98rem; line-height:1.8;}
+  .card .go{margin-top:auto; padding-top:8px; font-weight:800; color:var(--blue); display:inline-flex; align-items:center; gap:6px;}
+  .card:hover .go{text-decoration:underline;}
+
+  .features{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px;}
+  .feature{background:#fff; border:2px solid var(--line); border-radius:18px; padding:16px 18px; display:flex; gap:12px; align-items:flex-start;}
+  .feature .tick{flex:0 0 auto; width:30px; height:30px; border-radius:50%; background:var(--green-bg); color:var(--green); display:grid; place-items:center; font-weight:800; border:2px solid #9ad4b0;}
+  .feature b{display:block; color:var(--navy); font-size:1rem;}
+  .feature span{font-size:.92rem; color:#48627c; line-height:1.7;}
+
+  .steps{list-style:none; counter-reset:s; padding:0; margin:0; display:grid; gap:12px;}
+  .steps li{counter-increment:s; background:#fff; border:2px solid var(--line); border-radius:16px; padding:14px 18px; display:flex; gap:14px; align-items:flex-start;}
+  .steps li::before{
+    content:counter(s); flex:0 0 auto; width:38px; height:38px; border-radius:50%;
+    background:var(--sun); color:#4a3800; font-weight:800; display:grid; place-items:center; font-size:1.05rem; border:2px solid #e7b400;
+  }
+  .steps b{color:var(--navy);}
+  .steps span{display:block; font-size:.95rem; color:#48627c;}
+
+  .note{
+    background:#fff8e7; border:3px solid #ffd98a; border-radius:18px; padding:16px 20px;
+    display:flex; gap:14px; align-items:flex-start; font-size:.97rem; color:#5d4a12;
+  }
+  .note b{color:#4a3800;}
+
+  /* ================= Section views ================= */
+  .view-head{padding:16px 0 12px;}
+  .crumbs{font-size:.85rem; color:#49647f; display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
+  .crumbs a{color:var(--blue); text-decoration:none; font-weight:800;}
+  .crumbs a:hover{text-decoration:underline;}
+  .view-title{display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-top:6px;}
+  .view-title h1,.view-title h2{color:var(--navy); font-size:1.5rem;}
+  .view-title p{color:#45617c; margin-top:2px; max-width:66ch; font-size:.97rem;}
+  .hint{
+    display:inline-flex; align-items:center; gap:8px; margin-top:8px;
+    font-size:.86rem; color:#4d6a86; background:#f2f8ff; border:1px solid var(--line);
+    border-radius:999px; padding:4px 14px;
+  }
+  .hint svg{width:18px; height:18px; flex:0 0 auto;}
+  .frame-card{
+    flex:1 1 auto; min-height:380px;
+    display:flex; flex-direction:column;
+    background:#fff; border:3px solid var(--line); border-radius:var(--r);
+    box-shadow:var(--shadow); overflow:hidden;
+  }
+  .frame-card iframe{flex:1 1 auto; width:100%; height:100%; border:0; display:block; background:#fff;}
+  .pager{display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; padding:14px 0 18px;}
+  .pager a{
+    display:inline-flex; align-items:center; gap:8px; text-decoration:none; font-weight:800;
+    background:#fff; border:2px solid var(--line); border-radius:999px; padding:10px 20px; min-height:46px; color:var(--blue);
+  }
+  .pager a:hover{background:var(--sky); border-color:#9ec6ec;}
+  .pager .label{font-size:.82rem; color:#5a7590; display:block; font-weight:700;}
+
+  /* ================= Footer ================= */
+  .site-foot{
+    margin-top:auto; background:#fff; border-top:1px solid var(--line);
+    padding:22px 20px; color:#5a7590; font-size:.86rem;
+  }
+  .site-foot .inner{max-width:1120px; margin:0 auto; display:flex; gap:14px; justify-content:space-between; flex-wrap:wrap;}
+  .site-foot b{color:var(--navy);}
+
+  /* Section views behave like an app window: the frame takes the leftover height,
+     so the page itself never scrolls and the learner sees one scrollbar only. */
+  body:not([data-view="home"]){height:100vh; overflow:hidden;}
+  body:not([data-view="home"]) main{flex:1 1 auto; min-height:0; overflow:auto;}
+  body:not([data-view="home"]) .view{min-height:100%;}
+  body:not([data-view="home"]) .shell{display:flex; flex-direction:column; min-height:0; height:100%;}
+  body:not([data-view="home"]) .site-foot{display:none;}
+
+  @media (max-width:860px){
+    .frame-card{min-height:340px;}
+    .pager a{font-size:.85rem; padding:8px 14px;}
+    .view-head{padding:12px 0 8px;}
+  }
+
+  @media (max-width:860px){
+    .topbar-inner{flex-wrap:wrap; padding:10px 14px; gap:10px;}
+    .brand svg{width:38px;}
+    .nav{margin-inline-start:0; width:100%; overflow-x:auto; padding-bottom:2px; flex-wrap:nowrap;}
+    .nav a{padding:10px 14px; min-height:44px; font-size:.9rem;}
+    .audiobar-inner{padding:5px 14px 7px; gap:6px;}
+    .ab-btn{padding:8px 11px; font-size:.8rem; min-height:44px;}
+    .ab-vol{margin-inline-start:0;}
+    .ab-vol input[type="range"]{width:78px;}
+    .hero{padding:32px 16px 38px; border-radius:0 0 26px 26px;}
+    .hero-inner{gap:20px;}
+    .hero-mascot{width:104px;}
+    .shell{padding:0 14px;}
+    .block{padding:32px 0 4px;}
+    .frame-card{min-height:380px;}
+  }
+  @media (max-width:600px){
+    .audiobar-inner{flex-wrap:wrap; overflow-x:visible; row-gap:4px;}
+    .ab-vol{margin-inline-start:0;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important; animation:none!important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body data-view="home">
+
+<a class="skip" href="#main" data-speak="e.skip" data-read>تخطَّ إلى المحتوى الرئيسي</a>
+
+<header class="topbar">
+  <div class="audiobar" id="audiobar" role="toolbar" aria-orientation="horizontal" aria-label="التحكم الصوتي" aria-describedby="audiobar-hint">
+    <div class="audiobar-inner">
+      <span class="ab-label" aria-hidden="true">الصوت</span>
+      <button type="button" class="ab-btn" id="ctl-tts" data-speak="ctl.tts" aria-pressed="true" aria-keyshortcuts="T Alt+6" aria-describedby="audiobar-hint">التلاوة: <span id="ctl-tts-lbl">مفعّلة</span></button>
+      <button type="button" class="ab-btn" id="ctl-voice" data-speak="ctl.voice" aria-keyshortcuts="G Alt+G">الصوت: <span id="ctl-voice-lbl">مؤنث</span></button>
+      <button type="button" class="ab-btn" id="ctl-repeat" data-speak="ctl.repeat" aria-keyshortcuts="E Alt+R">إعادة</button>
+      <button type="button" class="ab-btn" id="ctl-stop" data-speak="ctl.stop" aria-keyshortcuts="W Alt+S">إيقاف</button>
+      <button type="button" class="ab-btn" id="ctl-slower" data-speak="ctl.slower" aria-keyshortcuts="B Alt+,">أبطأ</button>
+      <button type="button" class="ab-btn" id="ctl-faster" data-speak="ctl.faster" aria-keyshortcuts="S Alt+.">أسرع</button>
+      <span class="ab-rate" id="ctl-rate" aria-live="off">1.0×</span>
+      <button type="button" class="ab-btn" id="ctl-help" data-speak="ctl.help" aria-keyshortcuts="H Alt+H">مساعدة</button>
+      <label class="ab-vol"><span>المستوى</span>
+        <input type="range" id="ctl-vol" min="0" max="100" step="5" value="90" data-speak="ctl.volume" aria-label="مستوى الصوت" aria-keyshortcuts="R N ArrowLeft ArrowRight">
+      </label>
+    </div>
+    <span id="audiobar-hint" class="sr-only">للتنقل بين أزرار التحكم: Tab للدخول إلى الشريط، ثم السهم لليمين أو لليسار للانتقال بين الأزرار، ومفتاح Enter للتفعيل. أو استخدم حرفًا واحدًا من غير Alt: R لعلو الصوت، وN لخفضه، وS أسرع، وB أبطأ، وG للصوت، وT للتلاوة، وE للإعادة، وW للإيقاف، وH للمساعدة. وكل الحروف مشروحة في لوحة «التحكم كله بحرف واحد» في الصفحة الرئيسية.</span>
+  </div>
+
+  <div class="topbar-inner">
+    <a class="brand" href="#home" data-speak="e.brand" data-read>
+      <svg viewBox="0 0 140 152" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="شعار الموقع: روبوت ودود يحمل درع الحماية الرقمية">
+        <line x1="70" y1="12" x2="70" y2="28" stroke="#08324f" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="70" cy="10" r="7" fill="#ffcf3f" stroke="#08324f" stroke-width="4"/>
+        <rect x="30" y="28" width="80" height="62" rx="22" fill="#9ad6ff" stroke="#08324f" stroke-width="5"/>
+        <rect x="42" y="44" width="56" height="36" rx="13" fill="#08324f"/>
+        <circle cx="59" cy="60" r="7" fill="#fff"/>
+        <circle cx="81" cy="60" r="7" fill="#fff"/>
+        <circle cx="60" cy="61" r="3.2" fill="#08324f"/>
+        <circle cx="82" cy="61" r="3.2" fill="#08324f"/>
+        <path d="M60 71 q10 9 20 0" stroke="#ffcf3f" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+        <rect x="40" y="96" width="60" height="48" rx="18" fill="#1b6ec2" stroke="#08324f" stroke-width="5"/>
+        <path d="M70 100 l22 8 v15 q0 15 -22 23 q-22 -8 -22 -23 v-15 z" fill="#ffcf3f" stroke="#08324f" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M62 122 l6 7 l13 -15" stroke="#08324f" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>
+        <b>التهديدات السيبرانية المتقدمة</b>
+        <small>درس تفاعلي · الصف الثاني الإعدادي</small>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="أقسام الموقع">
+      <a href="#home" data-nav="home" data-speak="n.home" data-read aria-current="page">الرئيسية</a>
+      <a href="#lesson" data-nav="lesson" data-speak="n.lesson" data-read>الدرس</a>
+      <a href="#activity" data-nav="activity" data-speak="n.activity" data-read>النشاط</a>
+    </nav>
+  </div>
+</header>
+
+<p id="announce" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+
+<main id="main" tabindex="-1" data-speak="v.home">
+
+  <!-- ============================ HOME ============================ -->
+  <section class="view" id="view-home" aria-labelledby="home-title">
+    <div class="hero">
+      <div class="hero-inner">
+        <svg class="hero-mascot" viewBox="0 0 140 152" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="روبوت ودود يحمل درعًا للحماية الرقمية">
+          <line x1="70" y1="12" x2="70" y2="28" stroke="#08324f" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="70" cy="10" r="7" fill="#ffcf3f" stroke="#08324f" stroke-width="4"/>
+          <rect x="30" y="28" width="80" height="62" rx="22" fill="#9ad6ff" stroke="#08324f" stroke-width="5"/>
+          <rect x="42" y="44" width="56" height="36" rx="13" fill="#08324f"/>
+          <circle cx="59" cy="60" r="7" fill="#fff"/>
+          <circle cx="81" cy="60" r="7" fill="#fff"/>
+          <circle cx="60" cy="61" r="3.2" fill="#08324f"/>
+          <circle cx="82" cy="61" r="3.2" fill="#08324f"/>
+          <path d="M60 71 q10 9 20 0" stroke="#ffcf3f" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+          <rect x="40" y="96" width="60" height="48" rx="18" fill="#1b6ec2" stroke="#08324f" stroke-width="5"/>
+          <path d="M70 100 l22 8 v15 q0 15 -22 23 q-22 -8 -22 -23 v-15 z" fill="#ffcf3f" stroke="#08324f" stroke-width="5" stroke-linejoin="round"/>
+          <path d="M62 122 l6 7 l13 -15" stroke="#08324f" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+
+        <div class="hero-copy">
+          <span class="kicker">الوحدة الأولى · الذكاء الاصطناعي وحماية بياناتنا الرقمية</span>
+          <h1 id="home-title" tabindex="-1" data-speak="h.hero" data-read>التهديدات السيبرانية المتقدمة</h1>
+          <p class="lede">
+            درس واحد في جزأين: تشرح الفكرة، ثم تختبر فهمك في مواقف من حياتك المدرسية.
+            النص كامل والصوت مسجَّل، وكل شيء يعمل بلوحة المفاتيح.
+          </p>
+          <div class="chips">
+            <span class="chip">14 شريحة مصوّرة</span>
+            <span class="chip">10 مواقف تفاعلية</span>
+            <span class="chip">صوت لكل عنصر</span>
+            <span class="chip">متوافق مع قارئ الشاشة</span>
+          </div>
+          <div class="tour" id="tour" data-on="false" role="region" aria-labelledby="tour-title">
+            <div class="tour-head">
+              <h2 class="tour-title" id="tour-title" tabindex="-1" data-speak="tour.title" data-read>الجولة الصوتية: شرح متسلسل من أوله لآخره<span>عشر خطوات، تنتقل وحدها، وتشرح الدرس ثم طريقة استخدام الموقع.</span></h2>
+              <button type="button" class="btn sun" id="tour-play" data-speak="tour.start" data-read aria-keyshortcuts="Alt+T">▶ ابدأ الجولة الصوتية</button>
+            </div>
+            <p class="tour-caption" id="tour-caption">اضغط «ابدأ الجولة الصوتية» لتسمع الشرح كاملًا بالترتيب: فكرة الدرس، ثم أنواع التهديدات، ثم القسمين، ثم طريقة التنقل والتحكم بالصوت.</p>
+            <p class="tour-progress" id="tour-progress">لم تبدأ الجولة بعد.</p>
+          </div>
+
+          <div class="start-wrap">
+            <h2 class="start-title">ابدأ من هنا بالترتيب</h2>
+            <ol class="start-list">
+              <li>
+                <a class="btn sun" href="#keyboard-training" id="start-training" data-speak="e.cta.train" data-read>١. تعلّم المفاتيح أولًا</a>
+                <span class="start-note">خمس دقائق: تعرف المفاتيح، وتتدرب عليها بالصوت خطوة بخطوة.</span>
+              </li>
+              <li>
+                <a class="btn light-solid" href="#lesson" data-speak="e.cta.lesson" data-read>٢. ابدأ الدرس</a>
+                <span class="start-note">أربع عشرة شريحة مسموعة، بترتيب من المفهوم إلى التطبيق.</span>
+              </li>
+              <li>
+                <a class="btn light-outline" href="#activity" data-speak="e.cta.activity" data-read>٣. جرّب النشاط</a>
+                <span class="start-note">عشرة مواقف تفاعلية بنفس ترتيب الدرس.</span>
+              </li>
+            </ol>
+          </div>
+          <p class="resume" id="resume" hidden>
+            <span>آخر ما فتحته:</span> <a href="#lesson" id="resume-link" data-read>الدرس التفاعلي</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="shell">
+      <div class="block" id="shortcuts">
+        <div class="block-head">
+          <h2 tabindex="-1" data-speak="sc.title" data-read>التحكم كله بحرف واحد</h2>
+          <p>كل حاجة في الموقع ليها حرف واحد. اضغط الحرف لوحده، من غير Alt ومن غير Enter، والحروف شغالة من أول ما تفتح الموقع، وجوه الدرس والنشاط كمان. كل ضغطة بتظهر مكتوبة أسفل الشاشة، وبتتسمع لو التلاوة شغالة. اضغط على أي حرف تحت تسمع شرحه، وزرار الإعادة يسمعك كلهم تاني.</p>
+        </div>
+        <ul class="sc-grid" aria-label="حروف التحكم">
+          <li class="sc-item" tabindex="0" data-speak="sc.R" data-read><kbd>R</kbd><span>علّي الصوت</span></li>
+          <li class="sc-item" tabindex="0" data-speak="sc.N" data-read><kbd>N</kbd><span>وطّي الصوت</span></li>
+          <li class="sc-item" tabindex="0" data-speak="sc.S" data-read><kbd>S</kbd><span>أسرع</span></li>
+          <li class="sc-item" tabindex="0" data-speak="sc.B" data-read><kbd>B</kbd><span>أبطأ</span></li>
+          <li class="sc-item" tabindex="0" data-speak="sc.G" data-read><kbd>G</kbd><span>بدّل الصوت</span></li>
+          <li class="sc-item" tabindex="0" data-speak="sc.T" data-read><kbd>T</kbd><span>التلاوة تشتغل أو تقف</span></li>
+          <li class="sc-item" tabindex="0" data-speak="sc.E" data-read><kbd>E</kbd><span>إعادة آخر حاجة</span></li>
+          <li class="sc-item" tabindex="0" data-speak="sc.W" data-read><kbd>W</kbd><span>وقّف الصوت</span></li>
+          <li class="sc-item" tabindex="0" data-speak="sc.C" data-read><kbd>C</kbd><span>اسمع الحروف تاني</span></li>
+          <li class="sc-item" tabindex="0" data-speak="sc.K" data-read><kbd>K</kbd><span>التدريب اللحظي</span></li>
+          <li class="sc-item" tabindex="0" data-speak="sc.D" data-read><kbd>D</kbd><span>الدرس</span></li>
+          <li class="sc-item" tabindex="0" data-speak="sc.A" data-read><kbd>A</kbd><span>النشاط</span></li>
+          <li class="sc-item" tabindex="0" data-speak="sc.H" data-read><kbd>H</kbd><span>المساعدة</span></li>
+          <li class="sc-item" tabindex="0" data-speak="sc.J" data-read><kbd>J</kbd><span>الجولة الصوتية</span></li>
+          <li class="sc-item" tabindex="0" data-speak="sc.Esc" data-read><kbd>Esc</kbd><span>وقّف فورًا</span></li>
+        </ul>
+        <div class="sc-actions">
+          <button type="button" class="btn sun" id="sc-replay" data-speak="sc.replay" data-read>اسمع الحروف تاني</button>
+        </div>
+        <p class="sc-status" id="sc-status" role="status" aria-live="polite"></p>
+      </div>
+
+      <div class="block" id="keyboard-training">
+        <div class="block-head">
+          <h2 tabindex="-1" data-speak="kt.title" data-read>تدريب على لوحة المفاتيح</h2>
+          <p>قبل أن تبدأ، تدرب على المفاتيح التي ستستخدمها في الموقع. كل ضغطة تُقرأ لك بصوتها.</p>
+        </div>
+        <div class="kt-grid" role="region" aria-label="تدريب الكيبورد">
+          <div class="kt-item" tabindex="0" data-speak="kt.tab" data-read>
+            <kbd>Tab</kbd>
+            <div>العنصر التالي</div>
+            <div class="kt-hint">انتقل إلى الزر أو الرابط التالي، وسيُقرأ لك ماذا يضغط.</div>
+          </div>
+          <div class="kt-item" tabindex="0" data-speak="kt.shifttab" data-read>
+            <kbd>Shift + Tab</kbd>
+            <div>العنصر السابق</div>
+            <div class="kt-hint">ارجع إلى العنصر الذي سبقك.</div>
+          </div>
+          <div class="kt-item" tabindex="0" data-speak="kt.enter" data-read>
+            <kbd>Enter</kbd>
+            <div>تفعيل العنصر</div>
+            <div class="kt-hint">افتح الرابط أو شغّل الزر الذي يقف عليه التركيز.</div>
+          </div>
+          <div class="kt-item" tabindex="0" data-speak="kt.arrows" data-read>
+            <kbd>السهمين</kbd>
+            <div>التنقل داخل المجموعة</div>
+            <div class="kt-hint">في الأسئلة والبدائل، تنقل بين الخيارات باستخدام الأسهم.</div>
+          </div>
+          <div class="kt-item" tabindex="0" data-speak="kt.alt1234" data-read>
+            <kbd>Alt + ١ إلى ٣</kbd>
+            <div>الانتقال بين الأقسام</div>
+            <div class="kt-hint">١ للرئيسية، ٢ للدرس، ٣ للنشاط.</div>
+          </div>
+          <div class="kt-item" tabindex="0" data-speak="kt.alt6" data-read>
+            <kbd>Alt + ٦</kbd>
+            <div>التلاوة الصوتية</div>
+            <div class="kt-hint">٦ لتشغيل التلاوة الصوتية أو إيقافها. ومستوى الصوت من الشريط.</div>
+          </div>
+          <div class="kt-item" tabindex="0" data-speak="kt.escape" data-read>
+            <kbd>Esc</kbd>
+            <div>إيقاف الصوت</div>
+            <div class="kt-hint">أوقف أي صوت جارٍ فورًا.</div>
+          </div>
+          <div class="kt-item" tabindex="0" data-speak="kt.shift-tab-frame" data-read>
+            <kbd>Shift + Tab داخل الإطار</kbd>
+            <div>الخروج من المحتوى المضمَّن</div>
+            <div class="kt-hint">عندما تكون داخل الدرس أو النشاط، اخرج إلى الصفحة الرئيسية.</div>
+          </div>
+        </div>
+
+        <div class="live" id="live-practice" data-live="off">
+          <h3 tabindex="0" data-speak="lp.title" data-read>التدريب اللحظي على لوحة المفاتيح</h3>
+          <p>هنا الموقع يسمع كل ضغطة على لوحة المفاتيح ويردّ عليها فورًا. سأطلب منك مفتاحًا واحدًا في كل مرة: إن ضغطته صحيحًا سمعت تصفيقًا، وإن ضغطت غيره سمعت صوت تنبيه وصححت لك المطلوب.</p>
+          <div class="live-actions">
+            <button type="button" class="btn sun" id="live-start" data-speak="lp.start" data-read>ابدأ التدريب اللحظي</button>
+            <button type="button" class="btn ghost" id="live-stop" data-speak="lp.stop" data-read hidden>إيقاف التدريب اللحظي</button>
+          </div>
+          <div class="live-stage" id="live-stage" role="application" aria-label="ساحة التدريب اللحظي: كل ضغطة على لوحة المفاتيح تُقرأ وتُصحَّح" aria-describedby="live-status" tabindex="-1" hidden>
+            <p class="live-status" id="live-status" aria-live="polite"></p>
+            <p class="live-hint">اضغط المفتاح المطلوب فقط. للخروج من التدريب في أي لحظة اضغط Escape.</p>
+          </div>
+        </div>
+
+        <p class="kt-done" tabindex="-1" data-speak="kt.done" data-read>أكملت التدريب. يمكنك الآن الانتقال إلى أي قسم من الشريط العلوي.</p>
+      </div>
+
+      <div class="shell">
+        <div class="block" id="parts">
+        <div class="block-head">
+          <h2 tabindex="-1" data-speak="h.parts" data-read>أجزاء الموقع</h2>
+          <p>كل جزء يعمل منفردًا، ويمكنك الانتقال بينها من الشريط العلوي في أي وقت.</p>
+        </div>
+
+        <div class="cards">
+          <a class="card" href="#lesson" data-speak="c.lesson" data-read>
+            <img class="thumb" src="_preview/card-lesson.png" alt="" width="1200" height="750" loading="lazy" decoding="async">
+            <div class="body">
+              <h3>الدرس التفاعلي</h3>
+              <div class="meta"><span>14 شريحة</span><span>صوت لكل شريحة</span><span>8 أسئلة</span></div>
+              <p>من أهداف الدرس حتى «اختبر نفسك»: برامج الفدية، والهندسة الاجتماعية، والتصيد الموجّه، وانتحال الشخصية، والاستدراج، وهجمات الحرمان من الخدمة.</p>
+              <span class="go">ابدأ الدرس <span aria-hidden="true">←</span></span>
+            </div>
+          </a>
+
+          <a class="card" href="#activity" data-speak="c.activity" data-read>
+            <img class="thumb" src="_preview/card-activity.png" alt="" width="1200" height="750" loading="lazy" decoding="async">
+            <div class="body">
+              <h3>النشاط التفاعلي</h3>
+              <div class="meta"><span>10 مواقف</span><span>تغذية راجعة فورية</span><span>لوحة صوتية</span></div>
+              <p>مواقف من الحياة المدرسية تختار فيها التصرف الآمن، ثم تقرأ تفسير الإجابة، وتحصل على نتيجة نهائية مع إمكانية إعادة المحاولة.</p>
+              <span class="go">ابدأ النشاط <span aria-hidden="true">←</span></span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-head">
+          <h2 tabindex="-1" data-speak="h.steps" data-read>كيف تبدأ في خطوتين</h2>
+          <p>الترتيب مقترح، وليس إلزاميًا.</p>
+        </div>
+        <ol class="steps">
+          <li tabindex="-1" data-speak="t.step1" data-read><div><b>افتح الدرس</b><span>اقرأ أو استمع لكل شريحة، واستخدم زر «التالي» للانتقال.</span></div></li>
+          <li tabindex="-1" data-speak="t.step2" data-read><div><b>جرّب النشاط</b><span>أجب عن المواقف العشرة، واقرأ التفسير بعد كل إجابة.</span></div></li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <div class="block-head">
+          <h2 tabindex="-1" data-speak="h.features" data-read>مصمَّم ليكون مسموعًا ومقروءًا بالكامل</h2>
+          <p>لا يعتمد أي جزء من الموقع على اللون وحده، ولا يحتاج فأرة.</p>
+        </div>
+        <div class="features">
+          <div class="feature" tabindex="-1" data-speak="f.1" data-read><span class="tick" aria-hidden="true">✓</span><div><b>صوت عربي مسجَّل</b><span>كل سؤال وبديل وتغذية راجعة في النشاط له مقطع صوتي، وكذلك كل شريحة في الدرس.</span></div></div>
+          <div class="feature" tabindex="-1" data-speak="f.2" data-read><span class="tick" aria-hidden="true">✓</span><div><b>تنقل كامل بلوحة المفاتيح</b><span>الأسهم للتنقل بين الأسئلة والبدائل، وTab لكل عنصر، وتركيز واضح دائمًا.</span></div></div>
+          <div class="feature" tabindex="-1" data-speak="f.3" data-read><span class="tick" aria-hidden="true">✓</span><div><b>إعادة جزئية وتحكم في الصوت</b><span>أعد سماع السؤال أو البديل أو التغذية الراجعة وحدها، واضبط مستوى الصوت والسرعة.</span></div></div>
+          <div class="feature" tabindex="-1" data-speak="f.4" data-read><span class="tick" aria-hidden="true">✓</span><div><b>محتوى من كتاب الطالب</b><span>كل الأمثلة والنصوص مأخوذة من الدرس، وأي رابط مستخدم هو نطاق توضيحي آمن.</span></div></div>
+        </div>
+
+        <div class="note" style="margin-top:22px;" tabindex="-1" data-speak="t.note" data-read>
+          <span aria-hidden="true">🔊</span>
+          <div><b>ملاحظة عن الصوت:</b> المتصفحات تمنع التشغيل التلقائي، لذا يبدأ الصوت بعد أول نقرة أو ضغطة مفتاح على الصفحة. والتحكم كله بحرف واحد من غير Alt: <b>R</b> علّي الصوت، <b>N</b> وطّي الصوت، <b>S</b> أسرع، <b>B</b> أبطأ، <b>T</b> للتلاوة، <b>E</b> للإعادة، <b>W</b> للإيقاف، <b>C</b> لسماع الحروف، <b>K</b> للتدريب اللحظي، <b>D</b> للدرس، <b>A</b> للنشاط، <b>H</b> للمساعدة، <b>J</b> للجولة، و<b>Esc</b> يوقف أي صوت فورًا. وكل الحروف مشروحة في لوحة «التحكم كله بحرف واحد» في أول الصفحة.</div>
+        </div>
+      </div>
+
+      <div class="block" style="padding-bottom:46px;"></div>
+    </div>
+  </section>
+
+  <!-- ============================ LESSON ============================ -->
+  <section class="view" id="view-lesson" aria-labelledby="lesson-title" hidden>
+    <div class="shell">
+      <div class="view-head">
+        <nav class="crumbs" aria-label="مسار التنقل">
+          <a href="#home" data-speak="p.lesson.home" data-read>الرئيسية</a><span aria-hidden="true">›</span><span>الدرس التفاعلي</span>
+        </nav>
+        <div class="view-title">
+          <div>
+            <h1 id="lesson-title" tabindex="-1" data-speak="h.lesson" data-read>الدرس التفاعلي</h1>
+            <p>14 شريحة تبدأ بأهداف الدرس وتنتهي باختبار قصير، مع شرح صوتي لكل شريحة.</p>
+          </div>
+          <a class="btn ghost sm" href="course.html" target="_blank" rel="noopener" data-speak="e.openfull.lesson" data-read>فتح في نافذة كاملة<span class="sr-only"> (يفتح في تبويب جديد)</span></a>
+        </div>
+        <p class="hint" tabindex="-1" data-speak="v.lesson" data-read>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"/></svg>
+          التنقل داخل الدرس بزرَّي «التالي» و«السابق»، أو بالسهمين الأيمن والأيسر.
+        </p>
+      </div>
+
+      <div class="frame-card">
+        <iframe id="frame-lesson" title="الدرس التفاعلي: التهديدات السيبرانية المتقدمة" data-src="course.html?embed=1" data-speak="e.frame.lesson" data-read loading="lazy"></iframe>
+      </div>
+
+      <nav class="pager" aria-label="التنقل بين أجزاء الموقع">
+        <a href="#home" data-speak="p.lesson.home" data-read><span aria-hidden="true">→</span> الرئيسية</a>
+        <a href="#activity" data-speak="p.lesson.next" data-read><span class="label">التالي</span> النشاط التفاعلي <span aria-hidden="true">←</span></a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ============================ ACTIVITY ============================ -->
+  <section class="view" id="view-activity" aria-labelledby="activity-title" hidden>
+    <div class="shell">
+      <div class="view-head">
+        <nav class="crumbs" aria-label="مسار التنقل">
+          <a href="#home" data-speak="p.lesson.home" data-read>الرئيسية</a><span aria-hidden="true">›</span><span>النشاط التفاعلي</span>
+        </nav>
+        <div class="view-title">
+          <div>
+            <h1 id="activity-title" tabindex="-1" data-speak="h.activity" data-read>النشاط التفاعلي</h1>
+            <p>ثلاث طرق للتدريب: محاكاة واقعية تسمع فيها الموقف ونتيجة تصرفك، وتحدي إشعارات بوقت مسموع، والأسئلة بالصيغة المعتادة. فيه لوحة تحكم صوتية كاملة.</p>
+          </div>
+          <a class="btn ghost sm" href="%D8%A7%D9%84%D9%86%D8%B4%D8%A7%D8%B7%20%D8%A7%D9%84%D8%AA%D9%81%D8%A7%D8%B9%D9%84%D9%8A.html" target="_blank" rel="noopener" data-speak="e.openfull.activity" data-read>فتح في نافذة كاملة<span class="sr-only"> (يفتح في تبويب جديد)</span></a>
+        </div>
+        <p class="hint" tabindex="-1" data-speak="v.activity" data-read>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"/></svg>
+          اختر إحدى الطرق الثلاث أولًا. في المحاكاة والتحدي، الأسهم أعلى وأسفل للتنقل بين التصرفات، ويُعلَن كل تصرف عند الوصول إليه، ثم Enter أو مسافة للاختيار. في التحدي تجد أيضًا زر كم بقي من الوقت، والإيقاف المؤقت، وعشر ثوانٍ إضافية. Alt+7 يعيد شرح الطريقة، وAlt+8 يفتح تحدي الإشعارات، وEsc يوقف الصوت. والأسئلة المعتادة محفوظة أسفل الصفحة.
+        </p>
+      </div>
+
+      <div class="frame-card">
+        <iframe id="frame-activity" title="النشاط التفاعلي: التهديدات السيبرانية المتقدمة" data-src="النشاط التفاعلي.html?embed=1" data-speak="e.frame.activity" data-read loading="lazy"></iframe>
+      </div>
+
+      <nav class="pager" aria-label="التنقل بين أجزاء الموقع">
+        <a href="#lesson" data-speak="p.activity.prev" data-read><span aria-hidden="true">→</span> الدرس التفاعلي</a>
+        <a href="#home" data-speak="p.activity.next" data-read><span class="label">التالي</span> الرئيسية <span aria-hidden="true">←</span></a>
+      </nav>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="inner">
+    <span><b>التهديدات السيبرانية المتقدمة</b> · الوحدة الأولى: الذكاء الاصطناعي وحماية بياناتنا الرقمية</span>
+    <span>الصف الثاني الإعدادي · الفصل الدراسي الأول 2025/2026</span>
+  </div>
+</footer>
+
+<script>
+/* HUB_AUDIO_START */
+const HUB_AUDIO = {
+  "m": {
+    "sc.title": "audio/hub/m/sc_title.mp3",
+    "sc.intro": "audio/hub/m/sc_intro.mp3",
+    "sc.replay": "audio/hub/m/sc_replay.mp3",
+    "sc.R": "audio/hub/m/sc_R.mp3",
+    "sc.N": "audio/hub/m/sc_N.mp3",
+    "sc.S": "audio/hub/m/sc_S.mp3",
+    "sc.B": "audio/hub/m/sc_B.mp3",
+    "sc.G": "audio/hub/m/sc_G.mp3",
+    "sc.T": "audio/hub/m/sc_T.mp3",
+    "sc.E": "audio/hub/m/sc_E.mp3",
+    "sc.W": "audio/hub/m/sc_W.mp3",
+    "sc.C": "audio/hub/m/sc_C.mp3",
+    "sc.K": "audio/hub/m/sc_K.mp3",
+    "sc.D": "audio/hub/m/sc_D.mp3",
+    "sc.A": "audio/hub/m/sc_A.mp3",
+    "sc.H": "audio/hub/m/sc_H.mp3",
+    "sc.J": "audio/hub/m/sc_J.mp3",
+    "sc.Esc": "audio/hub/m/sc_Esc.mp3",
+    "vol.0": "audio/hub/m/vol_0.mp3",
+    "vol.10": "audio/hub/m/vol_10.mp3",
+    "vol.20": "audio/hub/m/vol_20.mp3",
+    "vol.30": "audio/hub/m/vol_30.mp3",
+    "vol.40": "audio/hub/m/vol_40.mp3",
+    "vol.50": "audio/hub/m/vol_50.mp3",
+    "vol.60": "audio/hub/m/vol_60.mp3",
+    "vol.70": "audio/hub/m/vol_70.mp3",
+    "vol.80": "audio/hub/m/vol_80.mp3",
+    "vol.90": "audio/hub/m/vol_90.mp3",
+    "vol.100": "audio/hub/m/vol_100.mp3",
+    "msg.vol.up": "audio/hub/m/msg_vol_up.mp3",
+    "msg.vol.down": "audio/hub/m/msg_vol_down.mp3",
+    "msg.vol.max": "audio/hub/m/msg_vol_max.mp3",
+    "msg.vol.min": "audio/hub/m/msg_vol_min.mp3",
+    "e.skip": "audio/hub/m/e_skip.mp3",
+    "e.brand": "audio/hub/m/e_brand.mp3",
+    "n.home": "audio/hub/m/n_home.mp3",
+    "n.lesson": "audio/hub/m/n_lesson.mp3",
+    "n.activity": "audio/hub/m/n_activity.mp3",
+    "n.home.cur": "audio/hub/m/n_home_cur.mp3",
+    "n.lesson.cur": "audio/hub/m/n_lesson_cur.mp3",
+    "n.activity.cur": "audio/hub/m/n_activity_cur.mp3",
+    "v.home": "audio/hub/m/v_home.mp3",
+    "h.hero": "audio/hub/m/h_hero.mp3",
+    "e.cta.train": "audio/hub/m/e_cta_train.mp3",
+    "e.cta.lesson": "audio/hub/m/e_cta_lesson.mp3",
+    "e.cta.activity": "audio/hub/m/e_cta_activity.mp3",
+    "r.lesson": "audio/hub/m/r_lesson.mp3",
+    "r.activity": "audio/hub/m/r_activity.mp3",
+    "h.parts": "audio/hub/m/h_parts.mp3",
+    "c.lesson": "audio/hub/m/c_lesson.mp3",
+    "c.activity": "audio/hub/m/c_activity.mp3",
+    "h.steps": "audio/hub/m/h_steps.mp3",
+    "t.step1": "audio/hub/m/t_step1.mp3",
+    "t.step2": "audio/hub/m/t_step2.mp3",
+    "h.features": "audio/hub/m/h_features.mp3",
+    "f.1": "audio/hub/m/f_1.mp3",
+    "f.2": "audio/hub/m/f_2.mp3",
+    "f.3": "audio/hub/m/f_3.mp3",
+    "f.4": "audio/hub/m/f_4.mp3",
+    "t.note": "audio/hub/m/t_note.mp3",
+    "h.lesson": "audio/hub/m/h_lesson.mp3",
+    "v.lesson": "audio/hub/m/v_lesson.mp3",
+    "e.openfull.lesson": "audio/hub/m/e_openfull_lesson.mp3",
+    "e.frame.lesson": "audio/hub/m/e_frame_lesson.mp3",
+    "p.lesson.home": "audio/hub/m/p_lesson_home.mp3",
+    "p.lesson.next": "audio/hub/m/p_lesson_next.mp3",
+    "h.activity": "audio/hub/m/h_activity.mp3",
+    "v.activity": "audio/hub/m/v_activity.mp3",
+    "e.openfull.activity": "audio/hub/m/e_openfull_activity.mp3",
+    "e.frame.activity": "audio/hub/m/e_frame_activity.mp3",
+    "p.activity.prev": "audio/hub/m/p_activity_prev.mp3",
+    "p.activity.next": "audio/hub/m/p_activity_next.mp3",
+    "ctl.tts": "audio/hub/m/ctl_tts.mp3",
+    "ctl.repeat": "audio/hub/m/ctl_repeat.mp3",
+    "ctl.stop": "audio/hub/m/ctl_stop.mp3",
+    "ctl.help": "audio/hub/m/ctl_help.mp3",
+    "ctl.slower": "audio/hub/m/ctl_slower.mp3",
+    "ctl.faster": "audio/hub/m/ctl_faster.mp3",
+    "ctl.volume": "audio/hub/m/ctl_volume.mp3",
+    "msg.on": "audio/hub/m/msg_on.mp3",
+    "msg.faster": "audio/hub/m/msg_faster.mp3",
+    "msg.slower": "audio/hub/m/msg_slower.mp3",
+    "msg.stop": "audio/hub/m/msg_stop.mp3",
+    "msg.rate.max": "audio/hub/m/msg_rate_max.mp3",
+    "msg.rate.min": "audio/hub/m/msg_rate_min.mp3",
+    "msg.nothing": "audio/hub/m/msg_nothing.mp3",
+    "msg.end": "audio/hub/m/msg_end.mp3",
+    "msg.begin": "audio/hub/m/msg_begin.mp3",
+    "rate.07": "audio/hub/m/rate_07.mp3",
+    "rate.08": "audio/hub/m/rate_08.mp3",
+    "rate.09": "audio/hub/m/rate_09.mp3",
+    "rate.10": "audio/hub/m/rate_10.mp3",
+    "rate.11": "audio/hub/m/rate_11.mp3",
+    "rate.12": "audio/hub/m/rate_12.mp3",
+    "rate.13": "audio/hub/m/rate_13.mp3",
+    "rate.14": "audio/hub/m/rate_14.mp3",
+    "fb.ok": "audio/hub/m/fb_ok.mp3",
+    "fb.bad": "audio/hub/m/fb_bad.mp3",
+    "fb.incomplete": "audio/hub/m/fb_incomplete.mp3",
+    "fb.section_done": "audio/hub/m/fb_section_done.mp3",
+    "sfx.ok": "audio/hub/m/sfx_ok.mp3",
+    "sfx.bad": "audio/hub/m/sfx_bad.mp3",
+    "sfx.wait": "audio/hub/m/sfx_wait.mp3",
+    "msg.skip": "audio/hub/m/msg_skip.mp3",
+    "msg.choices": "audio/hub/m/msg_choices.mp3",
+    "kt.title": "audio/hub/m/kt_title.mp3",
+    "kt.tab": "audio/hub/m/kt_tab.mp3",
+    "kt.shifttab": "audio/hub/m/kt_shifttab.mp3",
+    "kt.enter": "audio/hub/m/kt_enter.mp3",
+    "kt.arrows": "audio/hub/m/kt_arrows.mp3",
+    "kt.alt1234": "audio/hub/m/kt_alt1234.mp3",
+    "kt.alt6": "audio/hub/m/kt_alt6.mp3",
+    "kt.escape": "audio/hub/m/kt_escape.mp3",
+    "kt.shift-tab-frame": "audio/hub/m/kt_shift-tab-frame.mp3",
+    "kt.done": "audio/hub/m/kt_done.mp3",
+    "kt.skip": "audio/hub/m/kt_skip.mp3",
+    "kt.next": "audio/hub/m/kt_next.mp3",
+    "kt.retry": "audio/hub/m/kt_retry.mp3",
+    "kt.reveal": "audio/hub/m/kt_reveal.mp3",
+    "kb.tab": "audio/hub/m/kb_tab.mp3",
+    "kb.shift-tab": "audio/hub/m/kb_shift-tab.mp3",
+    "kb.enter": "audio/hub/m/kb_enter.mp3",
+    "kb.arrow-left": "audio/hub/m/kb_arrow-left.mp3",
+    "kb.arrow-right": "audio/hub/m/kb_arrow-right.mp3",
+    "kb.arrow-up": "audio/hub/m/kb_arrow-up.mp3",
+    "kb.arrow-down": "audio/hub/m/kb_arrow-down.mp3",
+    "kb.wrong": "audio/hub/m/kb_wrong.mp3",
+    "kb.correct": "audio/hub/m/kb_correct.mp3",
+    "kb.no-key": "audio/hub/m/kb_no-key.mp3",
+    "kb.dialogue": "audio/hub/m/kb_dialogue.mp3",
+    "kb.escape": "audio/hub/m/kb_escape.mp3",
+    "lp.title": "audio/hub/m/lp_title.mp3",
+    "lp.start": "audio/hub/m/lp_start.mp3",
+    "lp.redo": "audio/hub/m/lp_redo.mp3",
+    "lp.stop": "audio/hub/m/lp_stop.mp3",
+    "lp.intro": "audio/hub/m/lp_intro.mp3",
+    "lp.task.tab": "audio/hub/m/lp_task_tab.mp3",
+    "lp.task.down": "audio/hub/m/lp_task_down.mp3",
+    "lp.task.up": "audio/hub/m/lp_task_up.mp3",
+    "lp.task.enter": "audio/hub/m/lp_task_enter.mp3",
+    "lp.task.shifttab": "audio/hub/m/lp_task_shifttab.mp3",
+    "lp.right": "audio/hub/m/lp_right.mp3",
+    "lp.wrong": "audio/hub/m/lp_wrong.mp3",
+    "lp.again": "audio/hub/m/lp_again.mp3",
+    "lp.done": "audio/hub/m/lp_done.mp3",
+    "lp.exit": "audio/hub/m/lp_exit.mp3",
+    "lp.step": "audio/hub/m/lp_step.mp3",
+    "ctl.voice": "audio/hub/m/ctl_voice.mp3",
+    "ctl.voice.f": "audio/hub/m/ctl_voice_f.mp3",
+    "ctl.voice.m": "audio/hub/m/ctl_voice_m.mp3",
+    "v.help": "audio/hub/m/v_help.mp3",
+    "tour.title": "audio/hub/m/tour_title.mp3",
+    "tour.start": "audio/hub/m/tour_start.mp3",
+    "tour.1": "audio/hub/m/tour_1.mp3",
+    "tour.2": "audio/hub/m/tour_2.mp3",
+    "tour.3": "audio/hub/m/tour_3.mp3",
+    "tour.4": "audio/hub/m/tour_4.mp3",
+    "tour.5": "audio/hub/m/tour_5.mp3",
+    "tour.6": "audio/hub/m/tour_6.mp3",
+    "tour.7": "audio/hub/m/tour_7.mp3",
+    "tour.8": "audio/hub/m/tour_8.mp3",
+    "tour.9": "audio/hub/m/tour_9.mp3",
+    "tour.10": "audio/hub/m/tour_10.mp3",
+    "tour.end": "audio/hub/m/tour_end.mp3",
+    "tour.paused": "audio/hub/m/tour_paused.mp3",
+    "tour.resume": "audio/hub/m/tour_resume.mp3",
+    "sfx.clap": "audio/hub/clap.mp3",
+    "sfx.buzz": "audio/hub/buzz.mp3"
+  },
+  "f": {
+    "sc.title": "audio/hub/f/sc_title.mp3",
+    "sc.intro": "audio/hub/f/sc_intro.mp3",
+    "sc.replay": "audio/hub/f/sc_replay.mp3",
+    "sc.R": "audio/hub/f/sc_R.mp3",
+    "sc.N": "audio/hub/f/sc_N.mp3",
+    "sc.S": "audio/hub/f/sc_S.mp3",
+    "sc.B": "audio/hub/f/sc_B.mp3",
+    "sc.G": "audio/hub/f/sc_G.mp3",
+    "sc.T": "audio/hub/f/sc_T.mp3",
+    "sc.E": "audio/hub/f/sc_E.mp3",
+    "sc.W": "audio/hub/f/sc_W.mp3",
+    "sc.C": "audio/hub/f/sc_C.mp3",
+    "sc.K": "audio/hub/f/sc_K.mp3",
+    "sc.D": "audio/hub/f/sc_D.mp3",
+    "sc.A": "audio/hub/f/sc_A.mp3",
+    "sc.H": "audio/hub/f/sc_H.mp3",
+    "sc.J": "audio/hub/f/sc_J.mp3",
+    "sc.Esc": "audio/hub/f/sc_Esc.mp3",
+    "vol.0": "audio/hub/f/vol_0.mp3",
+    "vol.10": "audio/hub/f/vol_10.mp3",
+    "vol.20": "audio/hub/f/vol_20.mp3",
+    "vol.30": "audio/hub/f/vol_30.mp3",
+    "vol.40": "audio/hub/f/vol_40.mp3",
+    "vol.50": "audio/hub/f/vol_50.mp3",
+    "vol.60": "audio/hub/f/vol_60.mp3",
+    "vol.70": "audio/hub/f/vol_70.mp3",
+    "vol.80": "audio/hub/f/vol_80.mp3",
+    "vol.90": "audio/hub/f/vol_90.mp3",
+    "vol.100": "audio/hub/f/vol_100.mp3",
+    "msg.vol.up": "audio/hub/f/msg_vol_up.mp3",
+    "msg.vol.down": "audio/hub/f/msg_vol_down.mp3",
+    "msg.vol.max": "audio/hub/f/msg_vol_max.mp3",
+    "msg.vol.min": "audio/hub/f/msg_vol_min.mp3",
+    "e.skip": "audio/hub/f/e_skip.mp3",
+    "e.brand": "audio/hub/f/e_brand.mp3",
+    "n.home": "audio/hub/f/n_home.mp3",
+    "n.lesson": "audio/hub/f/n_lesson.mp3",
+    "n.activity": "audio/hub/f/n_activity.mp3",
+    "n.home.cur": "audio/hub/f/n_home_cur.mp3",
+    "n.lesson.cur": "audio/hub/f/n_lesson_cur.mp3",
+    "n.activity.cur": "audio/hub/f/n_activity_cur.mp3",
+    "v.home": "audio/hub/f/v_home.mp3",
+    "h.hero": "audio/hub/f/h_hero.mp3",
+    "e.cta.train": "audio/hub/f/e_cta_train.mp3",
+    "e.cta.lesson": "audio/hub/f/e_cta_lesson.mp3",
+    "e.cta.activity": "audio/hub/f/e_cta_activity.mp3",
+    "r.lesson": "audio/hub/f/r_lesson.mp3",
+    "r.activity": "audio/hub/f/r_activity.mp3",
+    "h.parts": "audio/hub/f/h_parts.mp3",
+    "c.lesson": "audio/hub/f/c_lesson.mp3",
+    "c.activity": "audio/hub/f/c_activity.mp3",
+    "h.steps": "audio/hub/f/h_steps.mp3",
+    "t.step1": "audio/hub/f/t_step1.mp3",
+    "t.step2": "audio/hub/f/t_step2.mp3",
+    "h.features": "audio/hub/f/h_features.mp3",
+    "f.1": "audio/hub/f/f_1.mp3",
+    "f.2": "audio/hub/f/f_2.mp3",
+    "f.3": "audio/hub/f/f_3.mp3",
+    "f.4": "audio/hub/f/f_4.mp3",
+    "t.note": "audio/hub/f/t_note.mp3",
+    "h.lesson": "audio/hub/f/h_lesson.mp3",
+    "v.lesson": "audio/hub/f/v_lesson.mp3",
+    "e.openfull.lesson": "audio/hub/f/e_openfull_lesson.mp3",
+    "e.frame.lesson": "audio/hub/f/e_frame_lesson.mp3",
+    "p.lesson.home": "audio/hub/f/p_lesson_home.mp3",
+    "p.lesson.next": "audio/hub/f/p_lesson_next.mp3",
+    "h.activity": "audio/hub/f/h_activity.mp3",
+    "v.activity": "audio/hub/f/v_activity.mp3",
+    "e.openfull.activity": "audio/hub/f/e_openfull_activity.mp3",
+    "e.frame.activity": "audio/hub/f/e_frame_activity.mp3",
+    "p.activity.prev": "audio/hub/f/p_activity_prev.mp3",
+    "p.activity.next": "audio/hub/f/p_activity_next.mp3",
+    "ctl.tts": "audio/hub/f/ctl_tts.mp3",
+    "ctl.repeat": "audio/hub/f/ctl_repeat.mp3",
+    "ctl.stop": "audio/hub/f/ctl_stop.mp3",
+    "ctl.help": "audio/hub/f/ctl_help.mp3",
+    "ctl.slower": "audio/hub/f/ctl_slower.mp3",
+    "ctl.faster": "audio/hub/f/ctl_faster.mp3",
+    "ctl.volume": "audio/hub/f/ctl_volume.mp3",
+    "msg.on": "audio/hub/f/msg_on.mp3",
+    "msg.faster": "audio/hub/f/msg_faster.mp3",
+    "msg.slower": "audio/hub/f/msg_slower.mp3",
+    "msg.stop": "audio/hub/f/msg_stop.mp3",
+    "msg.rate.max": "audio/hub/f/msg_rate_max.mp3",
+    "msg.rate.min": "audio/hub/f/msg_rate_min.mp3",
+    "msg.nothing": "audio/hub/f/msg_nothing.mp3",
+    "msg.end": "audio/hub/f/msg_end.mp3",
+    "msg.begin": "audio/hub/f/msg_begin.mp3",
+    "rate.07": "audio/hub/f/rate_07.mp3",
+    "rate.08": "audio/hub/f/rate_08.mp3",
+    "rate.09": "audio/hub/f/rate_09.mp3",
+    "rate.10": "audio/hub/f/rate_10.mp3",
+    "rate.11": "audio/hub/f/rate_11.mp3",
+    "rate.12": "audio/hub/f/rate_12.mp3",
+    "rate.13": "audio/hub/f/rate_13.mp3",
+    "rate.14": "audio/hub/f/rate_14.mp3",
+    "fb.ok": "audio/hub/f/fb_ok.mp3",
+    "fb.bad": "audio/hub/f/fb_bad.mp3",
+    "fb.incomplete": "audio/hub/f/fb_incomplete.mp3",
+    "fb.section_done": "audio/hub/f/fb_section_done.mp3",
+    "sfx.ok": "audio/hub/f/sfx_ok.mp3",
+    "sfx.bad": "audio/hub/f/sfx_bad.mp3",
+    "sfx.wait": "audio/hub/f/sfx_wait.mp3",
+    "msg.skip": "audio/hub/f/msg_skip.mp3",
+    "msg.choices": "audio/hub/f/msg_choices.mp3",
+    "kt.title": "audio/hub/f/kt_title.mp3",
+    "kt.tab": "audio/hub/f/kt_tab.mp3",
+    "kt.shifttab": "audio/hub/f/kt_shifttab.mp3",
+    "kt.enter": "audio/hub/f/kt_enter.mp3",
+    "kt.arrows": "audio/hub/f/kt_arrows.mp3",
+    "kt.alt1234": "audio/hub/f/kt_alt1234.mp3",
+    "kt.alt6": "audio/hub/f/kt_alt6.mp3",
+    "kt.escape": "audio/hub/f/kt_escape.mp3",
+    "kt.shift-tab-frame": "audio/hub/f/kt_shift-tab-frame.mp3",
+    "kt.done": "audio/hub/f/kt_done.mp3",
+    "kt.skip": "audio/hub/f/kt_skip.mp3",
+    "kt.next": "audio/hub/f/kt_next.mp3",
+    "kt.retry": "audio/hub/f/kt_retry.mp3",
+    "kt.reveal": "audio/hub/f/kt_reveal.mp3",
+    "kb.tab": "audio/hub/f/kb_tab.mp3",
+    "kb.shift-tab": "audio/hub/f/kb_shift-tab.mp3",
+    "kb.enter": "audio/hub/f/kb_enter.mp3",
+    "kb.arrow-left": "audio/hub/f/kb_arrow-left.mp3",
+    "kb.arrow-right": "audio/hub/f/kb_arrow-right.mp3",
+    "kb.arrow-up": "audio/hub/f/kb_arrow-up.mp3",
+    "kb.arrow-down": "audio/hub/f/kb_arrow-down.mp3",
+    "kb.wrong": "audio/hub/f/kb_wrong.mp3",
+    "kb.correct": "audio/hub/f/kb_correct.mp3",
+    "kb.no-key": "audio/hub/f/kb_no-key.mp3",
+    "kb.dialogue": "audio/hub/f/kb_dialogue.mp3",
+    "kb.escape": "audio/hub/f/kb_escape.mp3",
+    "lp.title": "audio/hub/f/lp_title.mp3",
+    "lp.start": "audio/hub/f/lp_start.mp3",
+    "lp.redo": "audio/hub/f/lp_redo.mp3",
+    "lp.stop": "audio/hub/f/lp_stop.mp3",
+    "lp.intro": "audio/hub/f/lp_intro.mp3",
+    "lp.task.tab": "audio/hub/f/lp_task_tab.mp3",
+    "lp.task.down": "audio/hub/f/lp_task_down.mp3",
+    "lp.task.up": "audio/hub/f/lp_task_up.mp3",
+    "lp.task.enter": "audio/hub/f/lp_task_enter.mp3",
+    "lp.task.shifttab": "audio/hub/f/lp_task_shifttab.mp3",
+    "lp.right": "audio/hub/f/lp_right.mp3",
+    "lp.wrong": "audio/hub/f/lp_wrong.mp3",
+    "lp.again": "audio/hub/f/lp_again.mp3",
+    "lp.done": "audio/hub/f/lp_done.mp3",
+    "lp.exit": "audio/hub/f/lp_exit.mp3",
+    "lp.step": "audio/hub/f/lp_step.mp3",
+    "ctl.voice": "audio/hub/f/ctl_voice.mp3",
+    "ctl.voice.f": "audio/hub/f/ctl_voice_f.mp3",
+    "ctl.voice.m": "audio/hub/f/ctl_voice_m.mp3",
+    "v.help": "audio/hub/f/v_help.mp3",
+    "tour.title": "audio/hub/f/tour_title.mp3",
+    "tour.start": "audio/hub/f/tour_start.mp3",
+    "tour.1": "audio/hub/f/tour_1.mp3",
+    "tour.2": "audio/hub/f/tour_2.mp3",
+    "tour.3": "audio/hub/f/tour_3.mp3",
+    "tour.4": "audio/hub/f/tour_4.mp3",
+    "tour.5": "audio/hub/f/tour_5.mp3",
+    "tour.6": "audio/hub/f/tour_6.mp3",
+    "tour.7": "audio/hub/f/tour_7.mp3",
+    "tour.8": "audio/hub/f/tour_8.mp3",
+    "tour.9": "audio/hub/f/tour_9.mp3",
+    "tour.10": "audio/hub/f/tour_10.mp3",
+    "tour.end": "audio/hub/f/tour_end.mp3",
+    "tour.paused": "audio/hub/f/tour_paused.mp3",
+    "tour.resume": "audio/hub/f/tour_resume.mp3",
+    "sfx.clap": "audio/hub/clap.mp3",
+    "sfx.buzz": "audio/hub/buzz.mp3"
+  }
+};
+/* HUB_AUDIO_END */
+</script>
+<script>
+/* ============================================================
+   طبقة التلاوة: كل عنصر يُقرأ بمجرد الوقوف عليه، والمقطع نفسه
+   يقول للمستخدم ما نوع العنصر وما المفتاح الذي يضغطه.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  var MANIFEST = (typeof HUB_AUDIO !== "undefined" && HUB_AUDIO) ? HUB_AUDIO : {};
+  /* صوتان: "m" مذكر و"f" مؤنث. كل صوت له ملفاته ونصوصه. */
+  function manifestFor(v) {
+    if (MANIFEST && MANIFEST[v]) { return MANIFEST[v]; }
+    return MANIFEST || {};   /* توافق مع مانيفست قديم بصوت واحد */
+  }
+  var STORE_KEY = "hub.sp";
+  var RATE_MIN = 0.7;
+  var RATE_MAX = 1.4;
+  var RATE_STEP = 0.1;
+
+  var S = { tts: true, volume: 0.9, rate: 1, voice: "f" };
+
+  var audio = null;
+  var queue = [];
+  var token = 0;
+  var currentToken = 0;
+  var lastKeys = null;
+  var readEl = null;
+  var playing = false;
+  var announceEl = null;
+  /* دالة مؤجلة تُنفَّذ بعد انتهاء الشرح الجاري — مثل نقل التركيز إلى زر
+     إعادة التدريب بعد رسالة التخرج، حتى لا يقطع التركيز الرسالة نفسها. */
+  var pendingAfter = null;
+
+  /* ---------- الجولة الصوتية المتسلسلة ----------
+     خطوات مرتّبة، ينتقل بينها المشغل وحده عند نهاية كل مقطع،
+     ومحتواها من نص الدرس فقط، والربط بينها صياغة توضيحية. */
+  var TOUR = {
+    on: false,
+    i: 0,
+    waiting: false,
+    /* mid: أُوقفت الجولة في منتصفها — الزر يصبح «تابع الجولة» ويعود لنفس الخطوة */
+    mid: false,
+    steps: [
+      { k: "tour.1", sel: "#home-title" },
+      { k: "tour.2", sel: "#home-title" },
+      { k: "tour.3", sel: ".card[href='#lesson']" },
+      { k: "tour.4", sel: ".card[href='#lesson']" },
+      { k: "tour.5", sel: ".card[href='#lesson']" },
+      { k: "tour.6", sel: ".card[href='#activity']" },
+      { k: "tour.7", sel: "#keyboard-training" },
+      { k: "tour.8", sel: "#audiobar" },
+      { k: "tour.9", sel: ".card[href='#activity']" },
+      { k: "tour.10", sel: ".start-wrap" }
+    ]
+  };
+  var tourHot = null;
+
+  function byId(id) { return document.getElementById(id); }
+
+  function loadPrefs() {
+    try {
+      var raw = window.localStorage.getItem(STORE_KEY);
+      if (!raw) { return; }
+      var o = JSON.parse(raw);
+      if (typeof o.tts === "boolean") { S.tts = o.tts; }
+      if (typeof o.volume === "number") { S.volume = Math.min(1, Math.max(0, o.volume)); }
+      if (typeof o.rate === "number") { S.rate = Math.min(RATE_MAX, Math.max(RATE_MIN, o.rate)); }
+      if (o.voice === "m" || o.voice === "f") { S.voice = o.voice; }
+    } catch (e) { /* التخزين قد يكون معطلًا في بعض المتصفحات */ }
+  }
+
+  function savePrefs() {
+    try { window.localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) { /* تجاهل */ }
+  }
+
+  function announce(text) {
+    if (!announceEl) { announceEl = byId("announce"); }
+    if (announceEl) { announceEl.textContent = text; }
+  }
+
+  /* ---------- المشغل ---------- */
+  function stopAll() {
+    token++;
+    queue = [];
+    playing = false;
+    if (audio) {
+      try { audio.pause(); } catch (e) { /* تجاهل */ }
+      try { audio.src = ""; } catch (e) { /* تجاهل */ }   // تحرير الملف تمامًا لمنع التداخل
+      try { audio.currentTime = 0; } catch (e) { /* تجاهل */ }
+      try { audio.load(); } catch (e) { /* تجاهل */ }     // إعادة تحميل النظيفة
+    }
+  }
+
+  function nextClip() {
+    if (currentToken !== token) { return; }
+    if (!queue.length) { playing = false; onQueueDone(); return; }
+    playClip(queue.shift(), token);
+  }
+
+  function playClip(key, myToken) {
+    currentToken = myToken;
+    var src = manifestFor(S.voice)[key];
+    if (!src) { nextClip(); return; }
+    audio.src = src;
+    audio.volume = S.volume;
+    try { audio.playbackRate = S.rate; } catch (e) { /* تجاهل */ }
+    playing = true;
+    var p = audio.play();
+    if (p && typeof p.then === "function") {
+      /* نجاح التشغيل يعني أن المتصفح سمح بالصوت: التشغيل التلقائي صار مأمونًا.
+         المعالج الثاني يمنع تحذير «وعد مرفوض» عند منع التشغيل أو عند مقاطعته. */
+      p.then(function () {
+        if (myToken === token && AUTO.armed) { AUTO.played = true; }
+      }, function () { /* الرفض معالَج في catch بالأسفل */ });
+    }
+    if (p && typeof p.catch === "function") {
+      p.catch(function () {
+        if (myToken !== token) { return; }
+        /* التشغيل قد يُرفض لأن مصدرًا جديدًا حلّ محلّه؛ نحاول مرة أخرى بهدوء
+           بدل تخطّي المقطع (كان تخطّي المقطع يقطع الشرح عند الضغط السريع). */
+        window.setTimeout(function () {
+          if (myToken !== token) { return; }
+          var retry = audio.play();
+          if (retry && typeof retry.catch === "function") {
+            retry.catch(function () { if (myToken === token) { nextClip(); } });
+          }
+        }, 120);
+      });
+    }
+  }
+
+  /* نهاية المقطع الأخير في الطابور: تُستخدم للجولة المتسلسلة،
+     وللتشغيل التلقائي في أول الصفحة، ولنقل التركيز بعد رسالة التخرج. */
+  function onQueueDone() {
+    if (TOUR.on && TOUR.waiting) {
+      TOUR.waiting = false;
+      tourNext();
+      return;
+    }
+    if (AUTO.armed && AUTO.played) { autoBeginLive(); return; }
+    if (pendingAfter) {
+      var fn = pendingAfter;
+      pendingAfter = null;
+      fn();
+    }
+  }
+
+  /* ---------- جسر الإطارات: إيقاف متبادل + المرور بالقراءة داخل المحتوى ---------- */
+  function frameEls() {
+    return Array.prototype.slice.call(document.querySelectorAll("iframe"));
+  }
+
+  function postTo(frame, msg) {
+    try {
+      if (frame && frame.contentWindow) { frame.contentWindow.postMessage(msg, "*"); }
+    } catch (e) { /* تجاهل */ }
+  }
+
+  function postToFrames(msg) {
+    frameEls().forEach(function (f) { postTo(f, msg); });
+  }
+
+  function enterFrame(frame, dir) {
+    if (!frame) { return; }
+    stopAll();
+    postTo(frame, { hub: "enter", dir: dir || "next" });
+    try { frame.contentWindow.focus(); } catch (e) { /* تجاهل */ }
+  }
+
+  function stepInFrame(frame, dir) {
+    if (!frame) { return; }
+    stopAll();
+    /* دخول أول مرة إلى الإطار: ابدأ من السؤال الأول (أو الأخير إذا Aufstieg). بمجرد الدخول، Alt+↓/↑ تنقل داخل المحتوى الداخلي نفسه. */
+    postTo(frame, { hub: "enter", dir: dir > 0 ? "next" : "prev" });
+    try { frame.contentWindow.focus(); } catch (e) { /* تجاهل */ }
+  }
+
+  window.addEventListener("message", function (e) {
+    var d = e.data;
+    if (!d || typeof d !== "object") { return; }
+    /* حرف تحكّم من داخل الدرس أو النشاط: نفّذه هنا كأنه ضُغط في الصفحة.
+       نقبل فقط من إطاراتنا المعروفة. */
+    if (d.hub === "key") {
+      var fromFrame = frameEls().some(function (f) { return f.contentWindow === e.source; });
+      if (!fromFrame || typeof d.code !== "string" || !LETTERS[d.code]) { return; }
+      echoKey(d.code);
+      LETTERS[d.code]();
+      return;
+    }
+    /* المحتوى الداخلي بدأ يتكلم: أوقف صوت الصفحة حتى لا يتداخل الصوتان */
+    if (d.hub === "speaking") { stopAll(); return; }
+    /* انتهى المحتوى الداخلي: أكمل المرور بالقراءة في الصفحة */
+    if (d.hub === "edge") { moveRead(d.dir === "prev" ? -1 : 1); }
+  });
+
+  function speak(keys, opts) {
+    postToFrames({ hub: "stop" });
+    if (!S.tts || !keys) { return; }
+    if (typeof keys === "string") { keys = keys.split(/\s+/); }
+    if (!keys.length) { return; }
+    /* أي طلب صوتي من المستخدم ينهي الجولة المتسلسلة؛ أما خطوات الجولة نفسها فلا */
+    if (!(opts && opts.tour) && TOUR.on) { stopTour(false); }
+    /* وأي طلب من المستخدم يلغي أيضًا التشغيل التلقائي وانتظار ما بعده */
+    if (!(opts && (opts.tour || opts.auto))) {
+      AUTO.armed = false;
+      pendingAfter = null;
+    }
+    lastKeys = keys.slice();
+    stopAll();
+    queue = keys.slice();
+    playClip(queue.shift(), token);
+  }
+
+  /* إضافة مقاطع بعد الشرح الجاري بدل قطعه: التركيز يقرأ الشرح، والضغط
+     يضيف التأكيد القصير بعده — فيسمع المستخدم الاثنين كاملين. */
+  function enqueue(keys) {
+    if (!S.tts || !keys) { return; }
+    if (typeof keys === "string") { keys = keys.split(/\s+/); }
+    if (!keys.length) { return; }
+    if (playing && currentToken === token) {
+      queue = queue.concat(keys);
+      lastKeys = (lastKeys || []).concat(keys);
+      return;
+    }
+    speak(keys);
+  }
+
+  function replay() {
+    if (!S.tts) { return; }
+    if (!lastKeys || !lastKeys.length) { speak("msg.nothing"); return; }
+    speak(lastKeys.slice());
+  }
+
+  /* الإيقاف يعطي تأكيدًا قصيرًا: الصمت وحده يُربك من لا يرى الشاشة */
+  function stopWithConfirm() {
+    stopTour(false);
+    stopAll();
+    announce("تم إيقاف الصوت");
+    if (S.tts) { speak("msg.stop"); }
+  }
+
+  /* ---------- الحالة والأزرار ---------- */
+  function syncUI() {
+    var ttsBtn = byId("ctl-tts");
+    if (ttsBtn) {
+      ttsBtn.setAttribute("aria-pressed", S.tts ? "true" : "false");
+      var lbl = byId("ctl-tts-lbl");
+      if (lbl) { lbl.textContent = S.tts ? "مفعّلة" : "متوقفة"; }
+    }
+    var vol = byId("ctl-vol");
+    if (vol) { vol.value = String(Math.round(S.volume * 100)); }
+    var rate = byId("ctl-rate");
+    if (rate) { rate.textContent = S.rate.toFixed(1) + "×"; }
+    var voiceLbl = byId("ctl-voice-lbl");
+    if (voiceLbl) { voiceLbl.textContent = S.voice === "m" ? "مذكر" : "مؤنث"; }
+  }
+
+  function toggleTts() {
+    S.tts = !S.tts;
+    stopTour(false);
+    if (!S.tts) { stopAll(); }
+    savePrefs();
+    syncUI();
+    announce(S.tts ? "التلاوة مفعّلة" : "التلاوة متوقفة");
+    if (S.tts) {
+      speak("msg.on");
+    } else {
+      /* إيقاف التلاوة يلغي الشرح التلقائي، فنقول للمستخدم كيف يعيده */
+      window.clearTimeout(AUTO.timer);
+      AUTO.armed = false;
+      AUTO.played = false;
+      setScStatus("التلاوة متوقفة. اضغط حرف T لتشغيلها من تاني، وبعدها حرف C لسماع شرح الحروف.");
+    }
+  }
+
+  /* ---------- الصوت: مؤنث / مذكر ---------- */
+  function voiceParam() { return "voice=" + S.voice; }
+
+  /* تُستخدم من نطاق ثانٍ في الصفحة (ensureFrame) لتُبنى روابط الإطارات بالصوت الحالي */
+  window.hubVoiceParam = voiceParam;
+
+  function notifyFrames() {
+    frameEls().forEach(function (f) {
+      if (f.getAttribute("src")) { postTo(f, { hub: "voice", voice: S.voice }); }
+    });
+  }
+
+  function toggleVoice() {
+    S.voice = (S.voice === "f") ? "m" : "f";
+    stopAll();
+    savePrefs();
+    syncUI();
+    notifyFrames();
+    speak(S.voice === "m" ? "ctl.voice.m" : "ctl.voice.f");
+  }
+
+  /* السرعة تُعلن بالكلمات: سبعة من عشرة… لا "صفر فاصلة سبعة" */
+  var RATE_WORDS = {
+    "0.7": "rate.07", "0.8": "rate.08", "0.9": "rate.09", "1": "rate.10",
+    "1.1": "rate.11", "1.2": "rate.12", "1.3": "rate.13", "1.4": "rate.14"
+  };
+
+  function rateWordKey() {
+    return RATE_WORDS[String(S.rate)] || "rate.10";
+  }
+
+  function setRate(delta) {
+    var nextRate = Math.round((S.rate + delta) * 10) / 10;
+    nextRate = Math.min(RATE_MAX, Math.max(RATE_MIN, nextRate));
+    var changed = nextRate !== S.rate;
+    S.rate = nextRate;
+    if (audio) { try { audio.playbackRate = S.rate; } catch (e) { /* تجاهل */ } }
+    savePrefs();
+    syncUI();
+    if (!changed) { enqueue(delta > 0 ? "msg.rate.max" : "msg.rate.min"); return; }
+    announce("السرعة الآن " + S.rate.toFixed(1));
+    enqueue((delta > 0 ? ["msg.faster"] : ["msg.slower"]).concat([rateWordKey()]));
+  }
+
+  /* ---------- مستوى الصوت بحرف واحد ---------- */
+  function nudgeVolume(delta) {
+    var nextVol = Math.round((S.volume + delta) * 10) / 10;
+    nextVol = Math.min(1, Math.max(0, nextVol));
+    var changed = nextVol !== S.volume;
+    S.volume = nextVol;
+    if (audio) { audio.volume = S.volume; }
+    savePrefs();
+    syncUI();
+    var pct = Math.round(S.volume * 100);
+    if (!changed) { enqueue(delta > 0 ? "msg.vol.max" : "msg.vol.min"); return; }
+    announce("مستوى الصوت الآن " + pct);
+    setScStatus("مستوى الصوت الآن " + pct + " في المية.");
+    enqueue((delta > 0 ? "msg.vol.up" : "msg.vol.down") + " vol." + pct);
+  }
+
+  /* ---------- التشغيل التلقائي: شرح الحروف ثم التدريب اللحظي ---------- */
+  var AUTO = { armed: false, played: false, timer: 0 };
+
+  function setScStatus(text) {
+    var el = byId("sc-status");
+    if (el) { el.textContent = text; }
+  }
+
+  function beginAutoFlow() {
+    /* التلاوة متوقفة: لا معنى للتشغيل التلقائي — نقولها بوضوح بدل انتظار الصوت */
+    if (!S.tts) {
+      AUTO.armed = false;
+      setScStatus("التلاوة متوقفة. اضغط حرف T لتشغيلها، وبعدها حرف C لسماع شرح الحروف.");
+      return;
+    }
+    AUTO.armed = true;
+    AUTO.played = false;
+    setScStatus("بتسمع شرح الحروف. بعد الشرح يبدأ التدريب اللحظي لوحده.");
+    speak("sc.intro", { auto: true });
+    window.clearTimeout(AUTO.timer);
+    AUTO.timer = window.setTimeout(function () {
+      if (AUTO.played) { return; }
+      AUTO.armed = false;
+      autoBlocked();
+    }, 1600);
+  }
+
+  function autoBlocked() {
+    /* لا نعلّن شيئًا لو غادر المستخدم الرئيسية بالفعل، حتى لا نطمس إعلان
+       القسم الذي فتحه (مثل «الدرس التفاعلي»). */
+    if ((document.body.getAttribute("data-view") || "home") !== "home") { return; }
+    setScStatus("المتصفح منع التشغيل التلقائي. اضغط حرف C أو زرار «اسمع الحروف تاني» لتسمع شرح الحروف، وبعدها K لتبدأ التدريب اللحظي.");
+    announce("اضغط حرف C لسماع شرح الحروف، أو Tab للتنقل.");
+  }
+
+  function autoBeginLive() {
+    AUTO.armed = false;
+    AUTO.played = false;
+    window.clearTimeout(AUTO.timer);
+    setScStatus("خلص شرح الحروف. بتبدأ التدريب اللحظي.");
+    startLive();
+  }
+
+  function replayLetters() {
+    setScStatus("بتسمع شرح الحروف تاني. بعد الشرح تقدر تبدأ التدريب اللحظي بحرف K.");
+    speak("sc.intro");
+  }
+
+  /* ---------- التنقل بالقراءة ---------- */
+  function readList() {
+    var all = document.querySelectorAll("[data-read]");
+    var out = [];
+    for (var i = 0; i < all.length; i++) {
+      var el = all[i];
+      if (el.closest && el.closest("[hidden]")) { continue; }
+      if (el.getClientRects().length === 0) { continue; }
+      out.push(el);
+    }
+    return out;
+  }
+
+  function moveRead(dir) {
+    var list = readList();
+    if (!list.length) { return; }
+    var active = document.activeElement;
+    var i = -1;
+    if (active && active !== document.body) {
+      i = list.indexOf(active);
+      if (i < 0) {
+        for (var k = 0; k < list.length; k++) {
+          if (list[k].contains && list[k].contains(active)) { i = k; break; }
+        }
+      }
+    }
+    if (i < 0 && readEl) { i = list.indexOf(readEl); }
+    if (i < 0) { i = dir > 0 ? -1 : list.length; }
+
+    var n = i + dir;
+    if (n < 0) { speak("msg.begin"); return; }
+    if (n >= list.length) { speak("msg.end"); return; }
+
+    var el = list[n];
+    var already = (document.activeElement === el);
+    readEl = el;
+    try { el.focus({ preventScroll: true }); } catch (e) { el.focus(); }
+    try { el.scrollIntoView({ block: "center", inline: "nearest" }); } catch (e) { try { el.scrollIntoView(); } catch (e2) { /* تجاهل */ } }
+    if (already) { speak(el.getAttribute("data-speak")); }
+  }
+
+  /* ---------- المستمعات ---------- */
+  function onFocusIn(e) {
+    var el = e.target;
+    if (!el || el.nodeType !== 1 || !el.closest) { return; }
+    var host = el.closest("[data-speak]");
+    if (!host) { return; }
+    var keys = host.getAttribute("data-speak");
+    if (keys) { speak(keys); }
+  }
+
+  /* ---------- الجولة الصوتية: التشغيل والتقدم والوسم البصري ---------- */
+  function tourEls() {
+    return {
+      panel: byId("tour"),
+      play: byId("tour-play"),
+      cap: byId("tour-caption"),
+      prog: byId("tour-progress")
+    };
+  }
+
+  var TOUR_CAPTIONS = {
+    "tour.1": "الخطوة ١: من الدرس السابق إلى التهديدات المتقدمة.",
+    "tour.2": "الخطوة ٢: الفكرة المركزية — التهديد يستهدف الإنسان قبل الجهاز.",
+    "tour.3": "الخطوة ٣: أهداف الدرس.",
+    "tour.4": "الخطوة ٤: أنواع التهديدات الستة بالترتيب.",
+    "tour.5": "الخطوة ٥: القسم الأول — الدرس التفاعلي.",
+    "tour.6": "الخطوة ٦: القسم الثاني — النشاط التفاعلي.",
+    "tour.7": "الخطوة ٧: المفاتيح والتنقل.",
+    "tour.8": "الخطوة ٨: التحكم في الصوت والسرعة.",
+    "tour.9": "الخطوة ٩: الصور والبدائل النصية.",
+    "tour.10": "الخطوة ١٠: ابدأ الدرس الآن."
+  };
+
+  function tourMark(index) {
+    var st = TOUR.steps[index];
+    var els = tourEls();
+    if (tourHot) { tourHot.classList.remove("tour-hot"); tourHot = null; }
+    if (st && st.sel) {
+      var target = document.querySelector(st.sel);
+      if (target) {
+        tourHot = target;
+        target.classList.add("tour-hot");
+        try { target.scrollIntoView({ block: "center", inline: "nearest" }); } catch (e) { /* تجاهل */ }
+      }
+    }
+    if (els.cap && st) { els.cap.textContent = TOUR_CAPTIONS[st.k] || ""; }
+    if (els.prog) {
+      els.prog.textContent = "الخطوة " + (index + 1) + " من " + TOUR.steps.length +
+        ". تعمل الآن — للتوقف اضغط Esc أو زر «إيقاف» في شريط الصوت.";
+    }
+  }
+
+  function tourPlayStep(index) {
+    var st = TOUR.steps[index];
+    if (!st) { tourEnd(); return; }
+    TOUR.i = index;
+    TOUR.waiting = true;
+    tourMark(index);
+    if (!S.tts) { S.tts = true; savePrefs(); syncUI(); }
+    speak([st.k], { tour: true });
+  }
+
+  /* الزر يبدّل بين «ابدأ» و«تابع» حسب موضع التوقف */
+  function tourSetPlay(mode) {
+    var els = tourEls();
+    if (!els.play) { return; }
+    if (mode === "resume") {
+      els.play.textContent = "▶ تابع الجولة من الخطوة " + (TOUR.i + 1);
+      els.play.setAttribute("data-speak", "tour.resume");
+    } else {
+      els.play.textContent = "▶ ابدأ الجولة الصوتية";
+      els.play.setAttribute("data-speak", "tour.start");
+    }
+  }
+
+  function tourStart() {
+    var els = tourEls();
+    if (els.panel) { els.panel.setAttribute("data-on", "true"); }
+    TOUR.on = true;
+    TOUR.mid = false;
+    tourSetPlay("start");
+    tourPlayStep(0);
+  }
+
+  /* متابعة الجولة من الخطوة التي توقفت عندها بدل إعادتها من أولها */
+  function tourResume() {
+    var els = tourEls();
+    if (els.panel) { els.panel.setAttribute("data-on", "true"); }
+    TOUR.on = true;
+    TOUR.mid = false;
+    tourSetPlay("start");
+    tourPlayStep(Math.min(TOUR.i, TOUR.steps.length - 1));
+  }
+
+  function tourNext() {
+    if (!TOUR.on) { return; }
+    if (TOUR.i + 1 >= TOUR.steps.length) { tourEnd(); return; }
+    tourPlayStep(TOUR.i + 1);
+  }
+
+  function tourPrev() {
+    if (!TOUR.on) { return; }
+    tourPlayStep(TOUR.i === 0 ? 0 : TOUR.i - 1);
+  }
+
+  function tourEnd() {
+    TOUR.on = false;
+    TOUR.waiting = false;
+    TOUR.mid = false;
+    var els = tourEls();
+    if (els.panel) { els.panel.setAttribute("data-on", "false"); }
+    if (tourHot) { tourHot.classList.remove("tour-hot"); tourHot = null; }
+    if (els.cap) {
+      els.cap.textContent = "انتهت الجولة. ابدأ الدرس من زر «٢. ابدأ الدرس»، وإذا أردت تدريبًا على المفاتيح فاذهب إلى تدريب لوحة المفاتيح في الأسفل.";
+    }
+    if (els.prog) { els.prog.textContent = "انتهت الجولة كاملة."; }
+    tourSetPlay("start");
+    speak(["tour.end"]);
+  }
+
+  /* إيقاف الجولة عند أي إجراء من المستخدم: تنقّل، أو إيقاف، أو تغيير الصوت */
+  function stopTour(announceIt) {
+    var wasOn = TOUR.on;
+    TOUR.on = false;
+    TOUR.waiting = false;
+    var els = tourEls();
+    if (els.panel) { els.panel.setAttribute("data-on", "false"); }
+    if (tourHot) { tourHot.classList.remove("tour-hot"); tourHot = null; }
+    if (els.prog && wasOn) {
+      els.prog.textContent = "أُوقفت الجولة عند الخطوة " + (TOUR.i + 1) + " من " + TOUR.steps.length +
+        ". اضغط «تابع الجولة» لتكمل من نفس الخطوة.";
+    }
+    /* التوقف في منتصف الجولة يحفظ الموضع: يستطيع المتعلم المتابعة لاحقًا */
+    if (wasOn) { TOUR.mid = true; tourSetPlay("resume"); }
+    if (announceIt) { speak("tour.paused"); }
+  }
+
+  function toggleTour() {
+    if (TOUR.on) { stopTour(true); return; }
+    if (TOUR.mid) { tourResume(); return; }
+    tourStart();
+  }
+
+  /* ---------- التدريب اللحظي: يسمع كل ضغطة، يرد صوتيًا، ويصحح الخطأ ---------- */
+  var LIVE = {
+    on: false,
+    i: 0,
+    misses: 0,
+    steps: [
+      { k: "lp.task.tab", test: function (e) { return e.key === "Tab" && !e.shiftKey; } },
+      { k: "lp.task.shifttab", test: function (e) { return e.key === "Tab" && e.shiftKey; } },
+      { k: "lp.task.down", test: function (e) { return e.key === "ArrowDown"; } },
+      { k: "lp.task.up", test: function (e) { return e.key === "ArrowUp"; } },
+      { k: "lp.task.enter", test: function (e) { return e.key === "Enter"; } }
+    ]
+  };
+
+  function liveEls() {
+    return {
+      panel: byId("live-practice"),
+      stage: byId("live-stage"),
+      status: byId("live-status"),
+      start: byId("live-start"),
+      stop: byId("live-stop")
+    };
+  }
+
+  function liveStatus(text) {
+    var el = liveEls().status;
+    if (el) { el.textContent = text; }
+  }
+
+  function liveTaskText(i) {
+    return [
+      "المطلوب الآن: اضغط مفتاح Tab مرة واحدة.",
+      "المطلوب الآن: اضغط Shift مع Tab معًا.",
+      "المطلوب الآن: اضغط السهم لأسفل.",
+      "المطلوب الآن: اضغط السهم لأعلى.",
+      "المطلوب الآن: اضغط مفتاح Enter."
+    ][i] || "";
+  }
+
+  function startLive() {
+    var els = liveEls();
+    if (!els.stage) { return; }
+    /* التدريب بلا صوت لا معنى له: أعد تشغيل التلاوة إن كانت متوقفة أو مكتومة */
+    if (!S.tts) { S.tts = true; savePrefs(); syncUI(); }
+    LIVE.on = true;
+    LIVE.i = 0;
+    LIVE.misses = 0;
+    if (els.panel) { els.panel.setAttribute("data-live", "on"); }
+    if (els.start) {
+      els.start.hidden = true;
+      els.start.textContent = "ابدأ التدريب اللحظي";
+      els.start.setAttribute("data-speak", "lp.start");
+    }
+    if (els.stop) { els.stop.hidden = false; }
+    els.stage.hidden = false;
+    liveStatus(liveTaskText(0));
+    try { els.stage.focus(); } catch (e) { /* تجاهل */ }
+    setScStatus("التدريب اللحظي بدأ. اضغط المفتاح المطلوب، وEscape للخروج.");
+    speak(["lp.intro", LIVE.steps[0].k]);
+  }
+
+  function stopLive(fromKey, keepFocus) {
+    if (!LIVE.on) { return; }
+    LIVE.on = false;
+    var els = liveEls();
+    if (els.panel) { els.panel.setAttribute("data-live", "off"); }
+    if (els.start) { els.start.hidden = false; }
+    if (els.stop) { els.stop.hidden = true; }
+    if (els.stage) { els.stage.hidden = true; }
+    liveStatus("");
+    if (els.start && !keepFocus) { try { els.start.focus(); } catch (e) { /* تجاهل */ } }
+    if (!fromKey) { speak(["lp.exit"]); }
+  }
+
+  function liveCorrect() {
+    LIVE.misses = 0;
+    LIVE.i++;
+    if (LIVE.i >= LIVE.steps.length) {
+      liveStatus("خلصت التدريب اللحظي. أنت الآن جاهز تفهم الدرس. لو عايز تعيد، اضغط زرار إعادة التدريب اللحظي.");
+      speak(["sfx.clap", "lp.right", "lp.done"]);
+      LIVE.on = false;
+      var els = liveEls();
+      if (els.panel) { els.panel.setAttribute("data-live", "off"); }
+      if (els.stop) { els.stop.hidden = true; }
+      if (els.start) {
+        els.start.hidden = false;
+        els.start.textContent = "إعادة التدريب اللحظي";
+        els.start.setAttribute("data-speak", "lp.redo");
+        /* التركيز ينتقل بعد انتهاء رسالة التخرج، لا قبلها */
+        pendingAfter = function () {
+          try { els.start.focus(); } catch (e) { /* تجاهل */ }
+        };
+      }
+      setScStatus("أنت الآن جاهز تفهم الدرس. اضغط D للدرس، أو A للنشاط، أو زرار «إعادة التدريب اللحظي».");
+      return;
+    }
+    liveStatus(liveTaskText(LIVE.i));
+    speak(["sfx.clap", "lp.right", "lp.step", LIVE.steps[LIVE.i].k]);
+  }
+
+  function liveWrong() {
+    LIVE.misses++;
+    var step = LIVE.steps[LIVE.i];
+    liveStatus(liveTaskText(LIVE.i));
+    /* بعد محاولتين خاطئتين أضف ذكر المطلوب مرة أخرى بوضوح */
+    var keys = ["sfx.buzz", "lp.wrong"];
+    if (LIVE.misses >= 2) { keys.push("lp.again"); }
+    keys.push(step.k);
+    speak(keys);
+  }
+
+  function onLiveKey(e) {
+    if (!LIVE.on) { return false; }
+    /* Alt و Ctrl و Meta تبقى شغالة كاختصارات عامة (تلاوة، إعادة، إيقاف، أقسام) */
+    if (e.altKey || e.ctrlKey || e.metaKey) { return false; }
+    /* حروف التحكم المفردة لا يتعلّمها التدريب: نتركها تمرّ للصفحة حتى تفضل
+       شغالة أثناء التدريب، ولا تُحسب إجابة خاطئة. */
+    if (letterCode(e)) { return false; }
+    if (e.key === "Escape") {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      stopLive(false);
+      return true;
+    }
+    /* أي مفتاح آخر داخل التدريب: لا تتركه يحرّك التركيز أو يفعّل شيئًا */
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    var step = LIVE.steps[LIVE.i];
+    if (!step) { return true; }
+    if (step.test(e)) { liveCorrect(); } else { liveWrong(); }
+    return true;
+  }
+
+  document.addEventListener("keydown", function (e) {
+    onLiveKey(e);
+  }, true);
+
+  /* فخّ التركيز: ما دام التدريب يعمل، لا تدع التركيز يغادر ساحة التدريب
+     (قارئات الشاشة تأخذ Tab/Shift+Tab ل herself، فنعيده فورًا). */
+  document.addEventListener("focusin", function (e) {
+    if (!LIVE.on) { return; }
+    var stage = byId("live-stage");
+    var stop = byId("live-stop");
+    if (!stage) { return; }
+    var t = e.target;
+    if (t === stage || t === stop || (stop && stop.contains(t))) { return; }
+    try { stage.focus(); } catch (err) { /* تجاهل */ }
+  }, true);
+
+  function initLive() {
+    var els = liveEls();
+    if (!els.start || !els.stop) { return; }
+    els.start.addEventListener("click", function () { startLive(); });
+    els.stop.addEventListener("click", function () { stopLive(false); });
+  }
+
+  /* ---------- الحروف المفردة: كل عملية بحرف واحد ----------
+     نستخدم e.code حتى تعمل الحروف بنفس الشكل على أي لغة لوحة مفاتيح،
+     ولا نتدخل أبدًا أثناء الكتابة في حقل نص. */
+  function isTyping(el) {
+    if (!el || el.nodeType !== 1) { return false; }
+    var tag = el.tagName;
+    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") { return true; }
+    return !!(el.isContentEditable || (el.closest && el.closest("[contenteditable='true']")));
+  }
+
+  function goView(name) {
+    /* الخروج من الرئيسية ينهي التدريب اللحظي، وإلا بقي فخّ التركيز يشدّ المستخدم
+       إلى ساحة التدريب ويمنع التنقل داخل القسم الجديد. */
+    if (document.body.getAttribute("data-view") !== name) { stopLive(true, true); }
+    if (document.body.getAttribute("data-view") === name) {
+      var heading = document.querySelector("#view-" + name + " h1, #view-" + name + " h2");
+      if (heading && heading.getAttribute("data-speak")) { speak(heading.getAttribute("data-speak")); return; }
+    }
+    window.location.hash = "#" + name;
+  }
+
+  var LETTERS = {
+    KeyR: function () { nudgeVolume(0.1); },
+    KeyN: function () { nudgeVolume(-0.1); },
+    KeyS: function () { setRate(RATE_STEP); },
+    KeyB: function () { setRate(-RATE_STEP); },
+    KeyG: function () { toggleVoice(); },
+    KeyT: function () { toggleTts(); },
+    KeyE: function () { replay(); },
+    KeyW: function () { stopWithConfirm(); },
+    KeyC: function () { replayLetters(); },
+    KeyK: function () { startLive(); },
+    KeyD: function () { goView("lesson"); },
+    KeyA: function () { goView("activity"); },
+    KeyH: function () { speak("v.help"); },
+    KeyJ: function () { toggleTour(); }
+  };
+
+  /* أسماء الحروف كما تُقرأ، لإظهار ما حدث على الشاشة أيضًا */
+  var LETTER_NAMES = {
+    KeyR: "R", KeyN: "N", KeyS: "S", KeyB: "B", KeyG: "G", KeyT: "T", KeyE: "E",
+    KeyW: "W", KeyC: "C", KeyK: "K", KeyD: "D", KeyA: "A", KeyH: "H", KeyJ: "J"
+  };
+
+  /* ماذا يفعل كل حرف — يُعرض نصًا على الشاشة مع كل ضغطة */
+  var LETTER_DOES = {
+    KeyR: "علّيت الصوت", KeyN: "وطّيت الصوت", KeyS: "أسرعت القراءة", KeyB: "أبطأت القراءة",
+    KeyG: "بدّلت الصوت", KeyT: "بدّلت التلاوة", KeyE: "أعدت آخر مقطع", KeyW: "وقفت الصوت",
+    KeyC: "أعدت شرح الحروف", KeyK: "شغّلت التدريب اللحظي", KeyD: "فتحت الدرس",
+    KeyA: "فتحت النشاط", KeyH: "شرحت الموقع", KeyJ: "شغّلت الجولة الصوتية"
+  };
+
+  /* أي حرف تحكّم في هذا الحدث؟ نعتمد code أولًا (يعمل مع أي لغة لوحة مفاتيح)،
+     ثم key كاحتياط حين يصل الحدث بلا code (كيبورد شاشة أو أداة مساعدة). */
+  function letterCode(e) {
+    if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey || e.repeat) { return ""; }
+    if (e.code && LETTERS[e.code]) { return e.code; }
+    var k = (e.key || "").length === 1 ? e.key.toUpperCase() : "";
+    if (k && LETTERS["Key" + k]) { return "Key" + k; }
+    return "";
+  }
+
+  /* صدى مرئي لكل ضغطة: يظهر أسفل الشاشة، ويُخفي أي التباس حين تكون التلاوة متوقفة */
+  var echoTimer = 0;
+  function echoKey(code) {
+    var el = byId("key-echo");
+    if (!el) { return; }
+    var name = LETTER_NAMES[code] || "";
+    var text = "آخر حرف: " + name + " — " + (LETTER_DOES[code] || "");
+    if (!S.tts) { text += " (التلاوة متوقفة — اضغط T لتشغيلها)"; }
+    el.textContent = text;
+    el.hidden = false;
+    window.clearTimeout(echoTimer);
+    echoTimer = window.setTimeout(function () { el.hidden = true; }, 4000);
+  }
+
+  function onKeyDown(e) {
+    var active = document.activeElement;
+    var inFrame = !!(active && active.tagName === "IFRAME");
+
+    /* Esc عام: يوقف أي صوت في أي مكان. داخل التدريب اللحظي يتولى onLiveKey
+       إيقاف التدريب نفسه، فلا نكرر الإيقاف هنا. */
+    if (e.key === "Escape" && !e.altKey && !e.ctrlKey && !e.metaKey) {
+      if (LIVE.on) { return; }
+      e.preventDefault();
+      stopWithConfirm();
+      return;
+    }
+
+    /* إطار التركيز: Enter أو Space يدخل المحتوى فعليًا (Enter وحده لا يدخل الإطار في المتصفحات) */
+    if (inFrame && !e.altKey && !e.ctrlKey && !e.metaKey &&
+        (e.key === "Enter" || e.key === " " || e.code === "Space" || e.code === "NumpadEnter")) {
+      e.preventDefault();
+      enterFrame(active, "next");
+      return;
+    }
+    /* الحروف المفردة: تعمل من أول ما تُفتح الصفحة، ولا تعمل أثناء الكتابة في حقل */
+    if (!isTyping(active)) {
+      var code = letterCode(e);
+      if (code) {
+        e.preventDefault();
+        echoKey(code);
+        LETTERS[code]();
+        return;
+      }
+    }
+    if (!e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) { return; }
+    var altCode = e.code || "";
+    /* إطار التركيز: Alt+↓/↑ يمر على المحتوى الداخلي بدل القفز فوقه */
+    if (inFrame && (altCode === "ArrowDown" || altCode === "ArrowUp")) {
+      e.preventDefault();
+      stepInFrame(active, altCode === "ArrowDown" ? 1 : -1);
+      return;
+    }
+    /* داخل الجولة: Alt+→ للتالي و Alt+← للسابق */
+    if (TOUR.on && (altCode === "ArrowRight" || altCode === "ArrowLeft")) {
+      e.preventDefault();
+      if (altCode === "ArrowRight") { tourNext(); } else { tourPrev(); }
+      return;
+    }
+    if (altCode === "Digit6" || altCode === "Numpad6") { e.preventDefault(); toggleTts(); return; }
+    if (altCode === "KeyR") { e.preventDefault(); replay(); return; }
+    if (altCode === "KeyS") { e.preventDefault(); stopWithConfirm(); return; }
+    if (altCode === "KeyH") { e.preventDefault(); speak("v.help"); return; }
+    if (altCode === "KeyG") { e.preventDefault(); toggleVoice(); return; }
+    if (altCode === "KeyT") { e.preventDefault(); toggleTour(); return; }
+    if (altCode === "ArrowDown") { e.preventDefault(); moveRead(1); return; }
+    if (altCode === "ArrowUp") { e.preventDefault(); moveRead(-1); return; }
+    if (altCode === "Comma") { e.preventDefault(); setRate(-RATE_STEP); return; }
+    if (altCode === "Period") { e.preventDefault(); setRate(RATE_STEP); }
+  }
+
+  function bindControls() {
+    var actions = [
+      ["ctl-tts", toggleTts],
+      ["ctl-repeat", replay],
+      ["ctl-stop", stopWithConfirm],
+      ["ctl-help", function () { enqueue("v.help"); }],
+      ["ctl-slower", function () { setRate(-RATE_STEP); }],
+      ["ctl-faster", function () { setRate(RATE_STEP); }],
+      ["ctl-voice", toggleVoice]
+    ];
+    actions.forEach(function (pair) {
+      var btn = byId(pair[0]);
+      if (btn) { btn.addEventListener("click", pair[1]); }
+    });
+    var tourBtn = byId("tour-play");
+    if (tourBtn) { tourBtn.addEventListener("click", toggleTour); }
+    var scBtn = byId("sc-replay");
+    if (scBtn) { scBtn.addEventListener("click", replayLetters); }
+    var vol = byId("ctl-vol");
+    if (vol) {
+      vol.addEventListener("input", function () {
+        S.volume = Math.min(1, Math.max(0, (parseFloat(vol.value) || 0) / 100));
+        if (audio) { audio.volume = S.volume; }
+      });
+      vol.addEventListener("change", function () { savePrefs(); });
+    }
+  }
+
+  /* شريط الأدوات: Tab واحدة للشريط كله، والأسهم تتنقل بين أزراره. */
+  function bindToolbar() {
+    var bar = byId("audiobar");
+    if (!bar) { return; }
+    var items = Array.prototype.slice.call(bar.querySelectorAll(".ab-btn"));
+    if (!items.length) { return; }
+    var active = 0;
+
+    function setActive(index, moveFocus) {
+      active = (index + items.length) % items.length;
+      items.forEach(function (btn, k) { btn.tabIndex = (k === active) ? 0 : -1; });
+      if (moveFocus) {
+        try { items[active].focus(); } catch (e) { items[active].focus(); }
+      }
+    }
+
+    setActive(0, false);
+
+    bar.addEventListener("keydown", function (e) {
+      var t = e.target;
+      if (!t || t.tagName === "INPUT") { return; }
+      if (e.altKey || e.ctrlKey || e.metaKey) { return; }
+      var idx = items.indexOf(t);
+      if (idx < 0) { return; }
+      if (e.key === "ArrowLeft") { e.preventDefault(); setActive(idx + 1, true); }
+      else if (e.key === "ArrowRight") { e.preventDefault(); setActive(idx - 1, true); }
+      else if (e.key === "Home") { e.preventDefault(); setActive(0, true); }
+      else if (e.key === "End") { e.preventDefault(); setActive(items.length - 1, true); }
+    });
+
+    bar.addEventListener("focusin", function (e) {
+      var idx = items.indexOf(e.target);
+      if (idx >= 0 && idx !== active) { setActive(idx, false); }
+    });
+  }
+
+  function init() {
+    loadPrefs();
+    audio = new Audio();
+    audio.preload = "auto";
+    audio.addEventListener("ended", function () {
+      if (currentToken === token) { nextClip(); }
+    });
+    audio.addEventListener("error", function () {
+      if (currentToken === token) { nextClip(); }
+    });
+    announceEl = byId("announce");
+    syncUI();
+    bindControls();
+    bindToolbar();
+    initLive();
+    document.addEventListener("focusin", onFocusIn);
+    document.addEventListener("keydown", onKeyDown, true);
+    /* أول ما تُفتح الرئيسية: اسمع شرح الحروف، وبعده يبدأ التدريب اللحظي تلقائيًا */
+    if (!window.location.hash || window.location.hash === "#home") {
+      window.setTimeout(beginAutoFlow, 300);
+    }
+  }
+
+  init();
+
+  window.HubSpeech = {
+    say: speak,
+    stop: stopAll,
+    replay: replay
+  };
+})();
+</script>
+<script>
+(function () {
+  "use strict";
+
+  var VIEWS = ["home", "lesson", "activity"];
+  var TITLES = {
+    home: "التهديدات السيبرانية المتقدمة — الدرس التفاعلي والنشاط",
+    lesson: "الدرس التفاعلي — التهديدات السيبرانية المتقدمة",
+    activity: "النشاط التفاعلي — التهديدات السيبرانية المتقدمة"
+  };
+  var ANNOUNCE = {
+    lesson: "قسم الدرس التفاعلي: أربع عشرة شريحة، ولكل شريحة شرح صوتي.",
+    activity: "قسم النشاط التفاعلي: عشرة مواقف، ولوحة تحكم صوتية كاملة."
+  };
+  var LEGACY = {
+    "panel-course": "lesson",
+    "panel-activity": "activity"
+  };
+  var LABELS = {
+    lesson: "الدرس التفاعلي",
+    activity: "النشاط التفاعلي"
+  };
+
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll("[data-nav]"));
+  var announceEl = document.getElementById("announce");
+  var frames = {};
+
+  navLinks.forEach(function (link) {
+    if (link.getAttribute("data-speak")) {
+      link.setAttribute("data-speak-base", link.getAttribute("data-speak"));
+    }
+  });
+
+  VIEWS.forEach(function (name) {
+    var f = document.getElementById("frame-" + name);
+    if (f) { frames[name] = f; }
+  });
+
+  function viewHeading(name) {
+    return document.querySelector("#view-" + name + " h1, #view-" + name + " h2");
+  }
+
+  function ensureFrame(name) {
+    var f = frames[name];
+    if (!f) { return; }
+    if (!f.getAttribute("src") && f.dataset.src) {
+      // A freshly navigated iframe steals focus from the heading we just moved to.
+      // Hand focus back only if the frame hijacked it, never if the user tabbed in.
+      f.addEventListener("load", function () {
+        if (document.activeElement !== f) { return; }
+        var view = document.getElementById("view-" + name);
+        var heading = viewHeading(name);
+        if (view && !view.hidden && heading) {
+          heading.focus({ preventScroll: true });
+        }
+      });
+      f.setAttribute("src", f.dataset.src + "&" + (window.hubVoiceParam ? window.hubVoiceParam() : "voice=f"));
+    }
+  }
+
+  function currentView() {
+    var raw = (window.location.hash || "").replace(/^#\/?/, "");
+    if (LEGACY[raw]) { raw = LEGACY[raw]; }
+    return VIEWS.indexOf(raw) > -1 ? raw : "home";
+  }
+
+  var lastView = null;
+
+  function render(name, focus) {
+    VIEWS.forEach(function (v) {
+      var view = document.getElementById("view-" + v);
+      if (view) { view.hidden = v !== name; }
+    });
+
+    navLinks.forEach(function (link) {
+      var isCurrent = link.dataset.nav === name;
+      if (isCurrent) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+      var base = link.getAttribute("data-speak-base");
+      if (base) {
+        link.setAttribute("data-speak", isCurrent ? base + ".cur" : base);
+      }
+    });
+
+    document.title = TITLES[name] || TITLES.home;
+    document.body.setAttribute("data-view", name);
+    var mainEl = document.getElementById("main");
+    if (mainEl) { mainEl.setAttribute("data-speak", "v." + name); }
+    ensureFrame(name);
+
+    if (lastView !== null && lastView !== name) {
+      announceEl.textContent = ANNOUNCE[name] || "الرئيسية.";
+      window.scrollTo(0, 0);
+    }
+    lastView = name;
+
+    if (LABELS[name]) {
+      try { localStorage.setItem("hub.last", name); } catch (e) {}
+    }
+
+    if (focus) {
+      var heading = viewHeading(name);
+      if (heading) {
+        var same = (document.activeElement === heading);
+        heading.focus({ preventScroll: true });
+        if (same && window.HubSpeech && heading.getAttribute("data-speak")) {
+          window.HubSpeech.say(heading.getAttribute("data-speak"));
+        }
+      }
+    }
+  }
+
+  function go(name, opts) {
+    opts = opts || {};
+    if (currentView() === name && !opts.force) {
+      render(name, true);
+      return;
+    }
+    if (opts.push === false) {
+      if (history.replaceState) {
+        history.replaceState(null, "", "#" + name);
+      }
+      render(name, true);
+    } else {
+      window.location.hash = "#" + name;
+    }
+  }
+
+  navLinks.forEach(function (link) {
+    link.addEventListener("click", function (event) {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) { return; }
+      event.preventDefault();
+      go(link.dataset.nav);
+    });
+  });
+
+  function targetOf(link) {
+    var target = link.getAttribute("href").replace(/^#\/?/, "");
+    if (LEGACY[target]) { target = LEGACY[target]; }
+    return VIEWS.indexOf(target) > -1 ? target : null;
+  }
+
+  /* «تعلّم المفاتيح أولًا»: ينتقل إلى قسم التدريب وينطق عنوانه، دون تغيير المسار */
+  (function bindStartTraining() {
+    var link = document.getElementById("start-training");
+    if (!link) { return; }
+    link.addEventListener("click", function (event) {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) { return; }
+      var block = document.getElementById("keyboard-training");
+      if (!block) { return; }
+      event.preventDefault();
+      try { block.scrollIntoView({ behavior: "smooth", block: "start" }); }
+      catch (e) { block.scrollIntoView(); }
+      var heading = block.querySelector("h2");
+      if (heading) { heading.focus(); }
+    });
+  })();
+
+  Array.prototype.slice.call(document.querySelectorAll('a[href^="#"]')).forEach(function (link) {
+    if (link.dataset.nav) { return; }
+    if (!targetOf(link)) { return; }
+    link.addEventListener("click", function (event) {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) { return; }
+      var target = targetOf(link);
+      if (!target) { return; }
+      event.preventDefault();
+      go(target);
+    });
+  });
+
+  window.addEventListener("hashchange", function () {
+    render(currentView(), true);
+  });
+
+  window.addEventListener("keydown", function (event) {
+    if (event.altKey && !event.ctrlKey && event.key >= "1" && event.key <= String(VIEWS.length)) {
+      event.preventDefault();
+      go(VIEWS[parseInt(event.key, 10) - 1] || "home");
+    }
+  });
+
+  // "آخر ما فتحته" on the bare home page only.
+  (function showResume() {
+    if (window.location.hash) { return; }
+    var last = null;
+    try { last = localStorage.getItem("hub.last"); } catch (e) { return; }
+    if (!last || !LABELS[last]) { return; }
+    var link = document.getElementById("resume-link");
+    var box = document.getElementById("resume");
+    if (!link || !box) { return; }
+    link.setAttribute("href", "#" + last);
+    link.setAttribute("data-speak", "r." + last);
+    link.textContent = LABELS[last];
+    box.hidden = false;
+  })();
+
+  // First paint: honour the hash, and restore the last visited section on a bare URL.
+  render(currentView(), false);
+})();
+</script>
+
+<!-- صدى مرئي لكل حرف تحكّم: يظهر أسفل الشاشة، ولا يُعلَن لقارئ الشاشة
+     حتى لا يتكرر مع الصوت المسموع. -->
+<div class="key-echo" id="key-echo" aria-hidden="true" hidden></div>
+
+<!-- بيانات الإعداد — في آخر الصفحة، ومتاحة لقارئ الشاشة في نسخة المكفوفين -->
+<footer class="student-credit" tabindex="0" style="border-top:2px dashed #cfe0f2;margin-top:2rem;padding:1.2rem 1rem 2rem;text-align:center;line-height:2;color:#40566e">
+  <p style="margin:0;font-weight:700">إعداد الطالب: زياد عبد الهادي احمد عبد المجيد الفقي</p>
+  <p style="margin:0">فرقة ثالثة</p>
+  <p style="margin:0">قسم معلم الحاسب الآلي لذوي الاحتياجات الخاصة</p>
+  <p style="margin:0">كلية تربية نوعية</p>
+  <p style="margin:0">جامعة المنوفية</p>
+</footer>
+</body>
+</html>

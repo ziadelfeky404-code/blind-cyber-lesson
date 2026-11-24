@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>النشاط التفاعلي: التهديدات السيبرانية المتقدمة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --ink:#12263a; --navy:#0b3d6b; --blue:#0f5aa0; --blue2:#1b6ec2;
+    --sky:#eaf4fe; --sun:#ffcf3f; --sun-dk:#7a5a00;
+    --green:#0b6b34; --green-bg:#e6f6ec; --red:#b3261e; --red-bg:#fdecea;
+    --line:#cfe0f2; --card:#ffffff; --focus:#b35c00;
+    --r:22px; --shadow:0 8px 24px rgba(15,90,160,.12);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; color:var(--ink);
+    font-family:"Tajawal","Segoe UI",Tahoma,Arial,sans-serif;
+    font-size:19px; line-height:1.95; background:#eef6fe;
+  }
+  h1,h2,h3,h4,legend,.display{font-family:"Baloo Bhaijaan 2","Tajawal","Segoe UI",Tahoma,sans-serif; line-height:1.45;}
+  a{color:var(--blue);}
+  a.skip{position:absolute; inset-inline-start:-999px; top:0; z-index:60; background:#000; color:#fff; padding:10px 16px; border-radius:0 0 12px 0;}
+  a.skip:focus{inset-inline-start:0;}
+  :focus-visible{outline:3px solid var(--focus); outline-offset:3px; border-radius:6px;}
+
+  .wrap{max-width:960px; margin:0 auto; padding:0 16px 40px;}
+
+  /* Hero header */
+  .hero{
+    position:relative; color:#fff; padding:26px 24px 34px;
+    background:linear-gradient(140deg,#0b3d6b 0%,#11538f 55%,#1667a8 100%);
+    border-radius:0 0 30px 30px;
+  }
+  .hero .inner{max-width:900px; margin:0 auto; display:flex; gap:18px; align-items:center; flex-wrap:wrap;}
+  .hero h1{margin:.1rem 0 .3rem; font-size:clamp(1.6rem,1.2rem + 2vw,2.4rem); font-weight:800;}
+  .hero p{margin:.15rem 0; color:#eaf4fe; font-size:1rem;}
+  .mascot{width:118px; height:auto; flex:0 0 auto; filter:drop-shadow(0 6px 10px rgba(0,0,0,.25));}
+  .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+  .chip{background:#ffffff; border:2px solid #ffffff; color:#0b3d6b; border-radius:999px; padding:3px 12px; font-size:.82rem; font-weight:700;}
+  .wave{display:block; width:100%; height:26px;}
+
+  main{max-width:960px; margin:0 auto; padding:20px 18px 40px;}
+
+  .card{
+    background:var(--card); border:3px solid var(--line); border-radius:var(--r);
+    padding:22px 24px; box-shadow:var(--shadow);
+  }
+  .card:focus{outline:none;}
+  .card:focus-visible{outline:4px solid var(--focus); outline-offset:3px;}
+
+  .eyebrow{display:inline-block; background:var(--sky); color:var(--blue);
+    font-weight:800; border-radius:999px; padding:2px 14px; font-size:.85rem; margin-bottom:8px;}
+
+  /* Big friendly buttons */
+  .btn{
+    font-family:inherit; font-size:1rem; font-weight:800; cursor:pointer;
+    border:3px solid var(--blue); background:var(--blue); color:#fff;
+    border-radius:999px; padding:12px 26px; min-height:50px;
+    box-shadow:0 4px 0 rgba(11,61,107,.35); transition:transform .06s ease, background .15s;
+  }
+  .btn:hover{background:var(--blue2);}
+  .btn:active{transform:translateY(2px); box-shadow:0 2px 0 rgba(11,61,107,.35);}
+  .btn[disabled]{opacity:.45; cursor:not-allowed; box-shadow:none;}
+  .btn.sun{background:var(--sun); border-color:#e7b400; color:#4a3800; box-shadow:0 4px 0 #b98a00;}
+  .btn.ghost{background:#fff; color:var(--blue);}
+
+  .toolbar{display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap; margin:16px 0;}
+  .toolbar .group{display:flex; gap:12px; flex-wrap:wrap;}
+  .progress{font-weight:800; color:var(--navy);}
+  .bar{height:16px; background:#dcebf9; border-radius:999px; overflow:hidden; border:2px solid var(--line); min-width:180px; flex:1 1 180px;}
+  .bar > i{display:block; height:100%; background:linear-gradient(90deg,var(--sun),#ff9f1c); width:0; transition:width .3s;}
+
+  .autoplay{display:inline-flex; gap:10px; align-items:center; background:#fff; border:3px solid var(--line);
+    border-radius:999px; padding:8px 16px; font-weight:800; cursor:pointer; color:var(--navy);}
+  .autoplay input{width:22px; height:22px; accent-color:var(--blue);}
+
+  /* Slide */
+  .slide{display:block;}
+  .slide[hidden]{display:none;}
+  .slide h2{color:var(--navy); font-size:1.7rem; margin:2px 0 14px;}
+  .slide ul{padding-inline-start:26px;}
+  .slide li{margin:.5rem 0;}
+  .slide li::marker{color:var(--blue2); font-weight:800;}
+
+  .audio-wrap{background:var(--sky); border:3px dashed #a9cdf0; border-radius:18px; padding:12px 16px; margin:4px 0 18px;}
+  .audio-wrap .lbl{display:block; font-weight:800; color:var(--navy); margin-bottom:6px;}
+  audio.narration{width:100%; max-width:560px; height:44px;}
+
+  .email{background:#fff8e7; border:3px solid #ffd98a; border-radius:18px; padding:14px 18px;}
+  .email p{margin:.35rem 0;}
+  .q{background:var(--sky); border-radius:14px; padding:10px 16px; font-weight:700;}
+  details{background:#f4f9ff; border:3px solid var(--line); border-radius:16px; padding:6px 16px; margin-top:10px;}
+  details summary{cursor:pointer; font-weight:800; color:var(--blue); padding:8px 0;}
+
+  /* Quiz */
+  .quiz-item{border:3px solid var(--line); border-radius:var(--r); padding:18px 20px; margin:18px 0; background:#fff;}
+  .quiz-item legend{font-weight:800; color:var(--navy); font-size:1.12rem; padding:0 8px;}
+  .qnum{display:inline-grid; place-items:center; width:34px; height:34px; margin-inline-end:6px;
+    background:var(--sun); color:#4a3800; border-radius:50%; font-weight:800;}
+  .obj{font-weight:600; color:#5b6b7b; font-size:.85rem;}
+  .options{list-style:none; padding:0; margin:12px 0 0; display:grid; gap:10px;}
+  .options label{display:flex; gap:12px; align-items:flex-start; padding:12px 16px; border:3px solid var(--line);
+    border-radius:16px; cursor:pointer; background:#fff; transition:border-color .12s, background .12s;}
+  .options label:hover{background:var(--sky);}
+  .options label:has(input:checked){border-color:var(--blue); background:#e7f1fd; box-shadow:inset 0 0 0 1px var(--blue);}
+  .options input{width:22px; height:22px; margin-top:4px; accent-color:var(--blue); flex:0 0 auto;}
+  .feedback{font-weight:800; margin-top:14px; padding:14px 16px; border-radius:16px; display:none;}
+  .feedback.show{display:block;}
+  .feedback.ok{color:var(--green); background:var(--green-bg); border:3px solid #9ad4b0;}
+  .feedback.err{color:var(--red); background:var(--red-bg); border:3px solid #f0b0ab;}
+  .feedback.ok::before{content:"\2714  ";}
+  .feedback.err::before{content:"\2718  ";}
+
+  details.answer{background:#f3f8ff; border:3px solid var(--line); border-radius:16px; padding:6px 16px; margin-top:14px;}
+  details.answer summary{cursor:pointer; font-weight:800; color:var(--blue); padding:6px 0;}
+
+  .srcnote{color:#4b5b6b; font-size:.88rem; border-top:2px dashed var(--line); margin-top:26px; padding-top:12px;}
+
+  @media (max-width:560px){
+    body{font-size:18px;}
+    .mascot{width:92px;}
+    main{padding:16px 12px 32px;}
+    .card{padding:18px 16px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important; scroll-behavior:auto !important;}
+  }
+  @media print{
+    body{background:#fff;}
+    .toolbar,.autoplay,.btn{display:none !important;}
+    .card{box-shadow:none; border-color:#999;}
+  }
+
+
+  /* activity specifics built on the shared theme */
+  body{padding-bottom:3rem;}
+  header,main,footer{max-width:62rem;margin:0 auto;}
+  header{
+    background:linear-gradient(135deg,#0b3d6b,#11538f);color:#fff;
+    border-radius:0 0 26px 26px;padding:24px 20px;margin-bottom:18px;
+  }
+  header .hero-inner{display:flex;gap:16px;align-items:center;flex-wrap:wrap;max-width:62rem;margin:0 auto;}
+  header h1{color:#fff;margin:0 0 6px;font-size:1.6rem;}
+  header p{color:#eaf4fe;margin:4px 0;}
+  header details{background:#fff;color:var(--ink);margin-top:16px;}
+  header details ul{padding-inline-start:22px;}
+  main{padding:0 16px;}
+  h2{color:var(--navy);}
+  a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{
+    outline:4px solid var(--focus);outline-offset:2px;border-radius:10px;}
+  button{
+    font:inherit;font-size:1rem;font-weight:800;cursor:pointer;
+    background:var(--blue);color:#fff;border:3px solid var(--blue);
+    border-radius:999px;padding:12px 26px;min-height:50px;
+    box-shadow:0 4px 0 rgba(11,61,107,.35);margin-top:8px;
+  }
+  button:hover{background:var(--blue2);}
+  button.secondary{background:#fff;color:var(--blue);}
+  .context{background:#fff8e7;border:3px solid #ffd98a;border-radius:16px;padding:12px 16px;margin:.5rem 0 .9rem;}
+  .scenario{background:#fff;border:3px solid var(--line);border-radius:var(--r);padding:1rem 1.2rem;margin:1.2rem 0;box-shadow:var(--shadow);}
+  fieldset{border:0;padding:0;margin:0 0 .7rem;}
+  legend{font-weight:800;color:var(--navy);padding:0 0 .5rem;font-size:1.15rem;}
+  .option{display:flex;gap:12px;align-items:flex-start;margin:.5rem 0;padding:12px 16px;
+    border:3px solid var(--line);border-radius:16px;cursor:pointer;}
+  .option:hover{background:var(--sky);}
+  .option:has(input:checked){border-color:var(--blue);background:#e7f1fd;}
+  .option input{width:22px;height:22px;margin-top:4px;accent-color:var(--blue);flex:0 0 auto;}
+  .feedback{margin:.8rem 0 0;padding:14px 16px;border-radius:16px;display:none;font-weight:700;}
+  .feedback.show{display:block;}
+  .feedback.ok{color:var(--green);background:var(--green-bg);border:3px solid #9ad4b0;}
+  .feedback.bad{color:var(--red);background:var(--red-bg);border:3px solid #f0b0ab;}
+  .feedback .verdict{display:block;font-weight:800;margin-bottom:4px;}
+  .action-btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    min-height:48px; margin:12px 8px 0 0; padding:10px 20px;
+    font:inherit; font-weight:800; color:#fff; background:var(--blue);
+    border:3px solid var(--navy); border-radius:14px; cursor:pointer;
+    box-shadow:0 4px 0 rgba(11,61,107,.35);
+  }
+  .action-btn:hover{background:var(--blue2);}
+  .action-btn:focus-visible{outline:4px solid var(--focus); outline-offset:3px;}
+  .action-btn.retry{background:#fff; color:var(--blue); border-color:var(--blue); box-shadow:0 4px 0 rgba(11,61,107,.18);}
+  .action-btn.retry:hover{background:var(--sky);}
+  .action-btn.reveal{background:var(--green); border-color:#0a4f26; box-shadow:0 4px 0 rgba(10,79,38,.35);}
+  .action-btn.reveal:hover{background:#0d8340;}
+  .explain{margin-top:10px; padding-top:10px; border-top:2px dashed #c9d9ea; font-weight:600; color:#123c60;}
+  .summary{background:#fff;border:3px solid var(--blue);border-radius:var(--r);padding:1.1rem 1.3rem;margin-top:2rem;box-shadow:var(--shadow);}
+  .summary p{margin:.3rem 0;}
+  details{background:var(--sky);border:3px solid var(--line);border-radius:18px;padding:.6rem .9rem;margin:1rem 0;}
+  summary{cursor:pointer;font-weight:800;color:var(--blue);}
+  footer{color:#4b5b6b;font-size:.95rem;text-align:center;padding:0 16px;}
+
+
+  /* ===== لوحة الوصول والتلاوة الصوتية ===== */
+  body{zoom:var(--ui-zoom,1);}
+  .sr-only{position:absolute !important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+  .a11y{background:#fff;border:3px solid var(--line);border-radius:var(--r);padding:16px 18px;margin:0 auto 18px;box-shadow:var(--shadow);max-width:62rem;width:calc(100% - 24px);}
+  .a11y h2{margin:0 0 6px;font-size:1.2rem;color:var(--navy);}
+  .a11y-hint{margin:0 0 8px;font-size:.95rem;color:#40566e;}
+  .a11y-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px;}
+  .a11y button{padding:9px 15px;min-height:44px;font-size:.95rem;box-shadow:none;margin-top:0;}
+  .a11y button[aria-pressed="true"]{background:var(--green);border-color:var(--green);}
+  .a11y button[aria-pressed="false"]{background:#fff;color:var(--navy);border-color:var(--navy);}
+  .a11y-group-ctl{display:flex;align-items:center;gap:8px;border:2px dashed var(--line);border-radius:14px;padding:6px 12px;background:#f7fbff;}
+  .a11y-group-ctl label{font-weight:800;font-size:.9rem;color:var(--navy);}
+  .a11y input[type="range"]{width:132px;height:44px;accent-color:var(--blue);}
+  .a11y output{font-weight:800;min-width:52px;text-align:center;color:var(--navy);}
+  .position{font-weight:800;color:var(--navy);background:var(--sky);border:2px solid var(--line);border-radius:999px;padding:6px 14px;}
+  .a11y-keys{margin-top:12px;background:#f4f9ff;}  .a11y-keys kbd{background:#fff;border:2px solid var(--line);border-radius:6px;padding:1px 6px;font-weight:800;font-family:inherit;}
+  .a11y-note{margin:10px 0 0;background:#fff4d6;border:3px solid var(--sun);border-radius:14px;padding:10px 14px;color:var(--sun-dk);font-weight:700;}
+  .howto{background:#fff;border:3px solid var(--blue);border-radius:var(--r);padding:18px 20px;margin:0 auto 18px;box-shadow:var(--shadow);max-width:62rem;width:calc(100% - 24px);}
+  .howto h2{margin:0 0 10px;font-size:1.2rem;color:var(--navy);}
+  .howto ol{margin:0;padding-inline-start:1.4rem;}
+  .howto li{margin:0 0 10px;line-height:1.7;}
+  .howto kbd{background:#f4f9ff;border:2px solid var(--line);border-radius:6px;padding:1px 7px;font-weight:800;font-family:inherit;}
+  .howto-note{margin:12px 0 0;background:var(--sky);border:2px dashed var(--line);border-radius:14px;padding:10px 14px;font-weight:700;color:var(--navy);}
+  .option:focus-within{outline:4px solid var(--focus);outline-offset:2px;}
+  .scenario:focus{outline:none;}
+  .scenario:focus-visible{outline:4px solid var(--focus);outline-offset:4px;border-radius:18px;}
+
+  /* ---- Embed mode (?embed=1): the parent site supplies header and navigation ---- */
+  html.embed body > header{display:none !important;}
+  html.embed a.skip{display:none !important;}
+  html.embed body{background:#fff;}
+  html.embed main{max-width:1060px; padding-top:24px;}
+  html.embed .a11y{margin-top:4px;}
+  html.embed .sr-embed{
+    position:absolute !important; width:1px; height:1px; margin:-1px; padding:0;
+    overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0;
+  }
+
+  /* ===== المحاكاة الواقعية المسموعة + تحدي الإشعارات =====
+     كل شيء يُقال بالصوت، ولا يُستدل باللون وحده: كل نتيجة مكتوبة أيضًا. */
+  .mode-tabs{
+    background:#fff; border:3px solid var(--blue); border-radius:var(--r);
+    padding:14px 16px; margin:0 auto 18px; box-shadow:var(--shadow);
+    max-width:62rem; width:calc(100% - 24px);
+  }
+  .mode-tabs h2{margin:0 0 8px;font-size:1.15rem;color:var(--navy);}
+  .mode-tabs .group{display:flex;flex-wrap:wrap;gap:10px;}
+  .mode-tabs button[aria-pressed="true"]{background:var(--green);border-color:var(--green);}
+  .mode-tabs p{margin:8px 0 0;color:#40566e;}
+
+  .sim-live{
+    background:#fff8e7; border:3px solid #ffd98a; border-inline-start:9px solid #e7b400;
+    border-radius:16px; padding:12px 16px; margin:.6rem 0 1rem;
+  }
+  .sim-live .lead{display:block;font-weight:800;color:var(--sun-dk);margin-bottom:4px;}
+  .sim-tag{display:inline-block;background:var(--navy);color:#fff;border-radius:999px;
+    padding:2px 12px;font-size:.85rem;font-weight:800;margin-inline-end:8px;}
+
+  .sim-outcome{margin:.9rem 0 0;padding:14px 16px;border-radius:16px;font-weight:800;
+    border:3px solid var(--line);display:none;}
+  .sim-outcome.show{display:block;}
+  .sim-outcome.ok{color:var(--green);background:var(--green-bg);border-color:#9ad4b0;}
+  .sim-outcome.bad{color:var(--red);background:var(--red-bg);border-color:#f0b0ab;}
+  .sim-outcome .verdict{display:block;font-size:1.05rem;margin-bottom:4px;}
+  .sim-clue{margin-top:8px;background:#fff;border:2px dashed #a9cdf0;border-radius:12px;
+    padding:8px 12px;color:#123c60;}
+
+  .challenge-box{background:#fff;border:3px solid var(--sun);border-radius:var(--r);
+    padding:18px 20px;margin:0 auto 18px;box-shadow:var(--shadow);
+    max-width:62rem;width:calc(100% - 24px);}
+  .challenge-box h2{margin:0 0 8px;color:var(--navy);}
+  .challenge-status{font-weight:800;color:var(--navy);background:var(--sky);
+    border:2px solid var(--line);border-radius:999px;padding:6px 14px;margin:.4rem 0;}
+  .challenge-notice{background:#fff8e7;border:3px solid #ffd98a;border-radius:16px;
+    padding:12px 16px;margin:.8rem 0;}
+  .challenge-result{background:var(--green-bg);border:3px solid #9ad4b0;border-radius:16px;
+    padding:14px 16px;margin-top:1rem;font-weight:800;color:#0a4f26;display:none;}
+  .challenge-result.show{display:block;}
+  .challenge-result li{margin:.35rem 0;}
+  .challenge-keys{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+
+  /* ضعف البصر: تباين أعلى وخط أكبر عند رفع مستوى التكبير من اللوحة */
+  .high-contrast .sim-live,.high-contrast .challenge-notice{
+    background:#fff;border-color:#12263a;color:#000;}
+  .high-contrast .sim-outcome.ok{background:#fff;color:#00451f;border-color:#00451f;}
+  .high-contrast .sim-outcome.bad{background:#fff;color:#8a0f0a;border-color:#8a0f0a;}
+  @media (prefers-reduced-motion:reduce){.sim-live,.challenge-notice{transition:none !important;}}
+</style>
+<script>
+(function () {
+  if (!/[?&]embed=1/.test(location.search)) { return; }
+  document.documentElement.className += " embed";
+  document.addEventListener("DOMContentLoaded", function () {
+    var h = document.querySelector("body > header h1");
+    var m = document.querySelector("main");
+    if (!h || !m) { return; }
+    var t = document.createElement("h1");
+    t.className = "sr-embed";
+    t.textContent = h.textContent.trim();
+    m.insertBefore(t, m.firstChild);
+  });
+})();
+</script>
+</head>
+<body>
+<a class="skip" href="#scenarios">تخطَّ إلى الأسئلة</a>
+<header>
+  <div class="hero-inner">
+    <svg class="mascot" viewBox="0 0 140 152" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="روبوت ودود يحمل درعًا للحماية الرقمية">
+  <line x1="70" y1="12" x2="70" y2="28" stroke="#08324f" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="70" cy="10" r="7" fill="#ffcf3f" stroke="#08324f" stroke-width="4"/>
+  <rect x="30" y="28" width="80" height="62" rx="22" fill="#9ad6ff" stroke="#08324f" stroke-width="5"/>
+  <rect x="42" y="44" width="56" height="36" rx="13" fill="#08324f"/>
+  <circle cx="59" cy="60" r="7" fill="#fff"/>
+  <circle cx="81" cy="60" r="7" fill="#fff"/>
+  <circle cx="60" cy="61" r="3.2" fill="#08324f"/>
+  <circle cx="82" cy="61" r="3.2" fill="#08324f"/>
+  <path d="M60 71 q10 9 20 0" stroke="#ffcf3f" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+  <rect x="40" y="96" width="60" height="48" rx="18" fill="#1b6ec2" stroke="#08324f" stroke-width="5"/>
+  <path d="M70 100 l22 8 v15 q0 15 -22 23 q-22 -8 -22 -23 v-15 z" fill="#ffcf3f" stroke="#08324f" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M62 122 l6 7 l13 -15" stroke="#08324f" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+    <div>
+      <h1>النشاط التفاعلي: التهديدات السيبرانية المتقدمة</h1>
+      <p>الوحدة الأولى: الذكاء الاصطناعي وحماية بياناتنا الرقمية — الدرس الثاني — الصف الثاني الإعدادي.</p>
+      <p>عشرة مواقف افتراضية آمنة تقيس فهمك للتهديدات والتصرف الآمن. اختر بديلًا لكل موقف ثم اضغط زر «تحقق من الإجابة».</p>
+      <div class="chips">
+        <span class="chip">نص كامل</span>
+        <span class="chip">قارئ شاشة</span>
+        <span class="chip">لوحة المفاتيح</span>
+        <span class="chip">أمثلة افتراضية آمنة</span>
+      </div>
+    </div>
+  </div>
+  <details>
+    <summary>كيف أستخدم النشاط بلوحة المفاتيح أو قارئ الشاشة؟</summary>
+    <ul>
+      <li>تنقّل بحرف الجدولة (Tab) بين المواقف والمجموعات والأزرار.</li>
+      <li>لسماع السؤال التالي أو السابق: السهم لأسفل أو لأعلى خارج البدائل، ويُعلَن رقم السؤال.</li>
+      <li>داخل البدائل: الأسهم تنقل بينها ويُعلَن كل بديل لحظة الوصول إليه، و<kbd>Enter</kbd> يختار البديل (و<kbd>Space</kbd> يعمل أيضًا).</li>
+      <li>اضغط مفتاح الإدخال (Enter) على زر «تحقق من الإجابة».</li>
+      <li>يُعلن قارئ الشاشة التغذية الراجعة ونتيجة النشاط تلقائيًا.</li>
+      <li>لإعادة المحاولة اضغط زر «إعادة المحاولة» بعد آخر موقف.</li>
+    </ul>
+  </details>
+</header>
+
+<section class="a11y" id="a11y" aria-labelledby="a11y-title">
+  <h2 id="a11y-title">لوحة التحكم الصوتية</h2>
+  <p class="a11y-hint">كل ما في الصفحة يُقرأ بالصوت. تنقّل بالأسهم بين الأسئلة، وكل بديل يُعلَن لحظة الوصول إليه، ويمكنك إعادة أي جزء بمفرده.</p>
+  <p class="a11y-note" id="a11y-voice-note" role="status" hidden></p>
+
+  <div class="a11y-row">
+    <button type="button" id="a11y-tts" aria-pressed="true" aria-keyshortcuts="Alt+6">التلاوة الصوتية: مفعّلة</button>
+    <button type="button" id="a11y-how" aria-keyshortcuts="Alt+5" data-speak="help.how.btn">طريقة الحل خطوة بخطوة</button>
+    <span class="position" id="a11y-pos" aria-live="off">السؤال الأول من 10</span>
+  </div>
+
+  <div class="a11y-row" role="group" aria-label="التنقل بين الأسئلة">
+    <button type="button" id="a11y-prev">السؤال السابق</button>
+    <button type="button" id="a11y-next">السؤال التالي</button>
+  </div>
+
+  <div class="a11y-row" role="group" aria-label="إعادة أجزاء السؤال">
+    <button type="button" id="a11y-ctx" aria-keyshortcuts="Alt+1">إعادة الموقف</button>
+    <button type="button" id="a11y-q" aria-keyshortcuts="Alt+2">إعادة السؤال</button>
+    <button type="button" id="a11y-opt" aria-keyshortcuts="Alt+3">إعادة البديل الحالي</button>
+    <button type="button" id="a11y-fb" aria-keyshortcuts="Alt+4">إعادة التغذية الراجعة</button>
+  </div>
+
+  <div class="a11y-row">
+    <span class="a11y-group-ctl">
+      <label for="a11y-vol">مستوى الصوت</label>
+      <input id="a11y-vol" type="range" min="0" max="100" step="5" value="90" aria-describedby="a11y-vol-val">
+      <output id="a11y-vol-val" for="a11y-vol">90%</output>
+    </span>
+    <span class="a11y-group-ctl">
+      <label for="a11y-rate">سرعة القراءة</label>
+      <input id="a11y-rate" type="range" min="60" max="140" step="10" value="100" aria-describedby="a11y-rate-val">
+      <output id="a11y-rate-val" for="a11y-rate">1.0×</output>
+    </span>
+    <span class="a11y-group-ctl">
+      <label for="a11y-zoom">حجم الخط</label>
+      <input id="a11y-zoom" type="range" min="100" max="150" step="10" value="100" aria-describedby="a11y-zoom-val">
+      <output id="a11y-zoom-val" for="a11y-zoom">100%</output>
+    </span>
+  </div>
+
+  <details class="a11y-keys">
+    <summary>اختصارات لوحة المفاتيح</summary>
+    <ul>
+      <li><kbd>↑</kbd> و<kbd>↓</kbd> خارج البدائل: السؤال السابق أو التالي مع إعلان رقمه.</li>
+      <li><kbd>↑</kbd> و<kbd>↓</kbd> داخل البدائل: الانتقال بين البدائل، ويُعلَن كل بديل لحظة الوصول إليه.</li>
+      <li><kbd>Enter</kbd> على البديل لاختياره (و<kbd>Space</kbd> يعمل أيضًا)، ثم <kbd>Enter</kbd> على «تحقق من الإجابة» لسماع النتيجة والتفسير.</li>
+      <li><kbd>Alt</kbd>+<kbd>1</kbd> إعادة الموقف، <kbd>Alt</kbd>+<kbd>2</kbd> إعادة السؤال، <kbd>Alt</kbd>+<kbd>3</kbd> إعادة البديل، <kbd>Alt</kbd>+<kbd>4</kbd> إعادة التغذية الراجعة.</li>
+      <li><kbd>Alt</kbd>+<kbd>5</kbd> سماع «طريقة الحل» في أربع خطوات.</li>
+      <li><kbd>Alt</kbd>+<kbd>6</kbd> تشغيل/إيقاف التلاوة، <kbd>Esc</kbd> لإيقاف القراءة فورًا، ومستوى الصوت من الشريط أسفل الزر.</li>
+      <li><kbd>Home</kbd> أول سؤال، <kbd>End</kbd> آخر سؤال.</li>
+    </ul>
+    <p>لو تستخدم قارئ شاشة مثل NVDA، أوقف «التلاوة الصوتية» من الزر الأول حتى لا تسمع كل شيء مرتين؛ الصفحة تظل معلَّمة بالكامل لقارئ الشاشة.</p>
+  </details>
+</section>
+
+<main>
+  <section class="howto" id="howto" aria-labelledby="howto-title">
+    <h2 id="howto-title" tabindex="-1" data-speak="help.how">كيف تحل المواقف؟ أربع خطوات</h2>
+    <ol>
+      <li><b>اقرأ الموقف.</b> عند وصول التركيز إلى أول بديل في أي موقف، يُقرأ لك الموقف كاملًا، ثم السؤال، ثم البديل.</li>
+      <li><b>اختر.</b> تنقّل بين البدائل بالسهم لأعلى ولأسفل، ويُعلَن كل بديل لحظة الوصول إليه، ثم اضغط <kbd>Enter</kbd> للاختيار. و<kbd>Space</kbd> يعمل أيضًا.</li>
+      <li><b>تحقق.</b> اضغط <kbd>Tab</kbd> حتى تصل إلى زر «تحقق من الإجابة»، ثم <kbd>Enter</kbd>، فتسمع: إجابة صحيحة أو إجابة غير صحيحة، ومعها التفسير.</li>
+      <li><b>أكمل.</b> بعد التحقق تظهر ثلاثة أزرار: «السؤال التالي»، و«إعادة الإجابة على هذا السؤال»، و«اسمع الإجابة الصحيحة والتفسير». تنقّل بينها بمفتاح <kbd>Tab</kbd>، وشغّل الذي تريده بمفتاح <kbd>Enter</kbd>. وبعد آخر موقف يتحول الزر إلى «عرض النتيجة»؛ اضغطه فتسمع درجتك النهائية وتنتقل إلى قسم «نتيجة النشاط».</li>
+    </ol>
+    <p class="howto-note">لسماع هذه الخطوات في أي وقت: <kbd>Alt</kbd>+<kbd>5</kbd>، أو زر «طريقة الحل خطوة بخطوة» في لوحة التحكم. ولإيقاف الصوت: <kbd>Esc</kbd>.</p>
+  </section>
+
+  <h2>المواقف</h2>
+  <div id="scenarios"></div>
+
+  <section class="summary" aria-labelledby="summary-heading">
+    <h2 id="summary-heading" tabindex="-1">نتيجة النشاط</h2>
+    <p id="summary-text" role="status" aria-live="polite" aria-atomic="true">لم تُجب عن أي موقف بعد.</p>
+    <p><button type="button" id="reset" class="secondary">إعادة المحاولة</button></p>
+  </section>
+
+  <!-- ================= المحاكاة الواقعية المسموعة ================= -->
+  <section class="mode-tabs" aria-labelledby="modes-title">
+    <h2 id="modes-title">طريقتان للتدريب</h2>
+    <div class="group" role="group" aria-label="اختر طريقة التدريب">
+      <button type="button" id="goSimulation" aria-pressed="true">المحاكاة الواقعية</button>
+      <button type="button" id="goChallenge" aria-pressed="false">تحدي الإشعارات بالوقت</button>
+      <button type="button" id="goClassic" class="secondary">الأسئلة بالصيغة المعتادة</button>
+    </div>
+    <p>المحاكاة هي الافتراضية: تسمع الموقف كما يحدث لك، وتسمع نتيجة تصرفك فور اختياره. الصيغة المعتادة محفوظة أسفل الصفحة لمن يفضلها.</p>
+  </section>
+
+  <section id="simulation" class="challenge-box" aria-labelledby="simulation-title">
+    <h2 id="simulation-title" tabindex="-1">المحاكاة الواقعية: عشرة مواقف تحدث أمامك</h2>
+    <p class="a11y-hint">كل موقف يُقرأ عليك كما لو أنه يحدث الآن: قارئ شاشة يتوقف، رسالة تصل، مكالمة تدخل، أو شيء تجده أمامك. اختر التصرف، ثم اسمع ما الذي كان سيحدث.</p>
+    <div class="a11y-row">
+      <button type="button" id="simHow" aria-keyshortcuts="Alt+7">طريقة المحاكاة خطوة بخطوة</button>
+      <span class="position" id="simPos" aria-live="off">الموقف الأول من 10</span>
+    </div>
+    <div id="simList"></div>
+    <div class="toolbar">
+      <div class="group">
+        <button type="button" id="simPrev" class="secondary">الموقف السابق</button>
+        <button type="button" id="simNext" class="secondary">الموقف التالي</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= تحدي الإشعارات ================= -->
+  <section id="challenge" class="challenge-box" aria-labelledby="challenge-title">
+    <h2 id="challenge-title" tabindex="-1">تحدي الإشعارات: قرار في وقت محدود</h2>
+    <p class="a11y-hint">خمسة إشعارات من نفس المواقف. أمامك ثلاثون ثانية لكل إشعار، والوقت يُقال لك عند بقاء خمس عشرة وخمس ثوانٍ. يمكنك الإيقاف المؤقت وطلب عشر ثوانٍ إضافية وإعادة سماع الوقت المتبقي. لا يوجد أي مشهد بصري مطلوب.</p>
+    <p class="challenge-status" id="chStatus" role="status" aria-live="polite">التحدي لم يبدأ بعد.</p>
+    <div class="a11y-row" role="group" aria-label="التحكم في التحدي">
+      <button type="button" id="chStart">ابدأ التحدي</button>
+      <button type="button" id="chPause" disabled>إيقاف مؤقت</button>
+      <button type="button" id="chExtra" disabled>عشر ثوانٍ إضافية</button>
+      <button type="button" id="chTime" disabled>كم بقي من الوقت؟</button>
+      <button type="button" id="chStop" class="secondary" disabled>إنهاء التحدي</button>
+    </div>
+    <div id="chStage" hidden>
+      <p class="challenge-notice" id="chNotice" role="status" aria-live="polite"></p>
+      <div id="chChoices" role="group" aria-label="اختر التصرف الآمن"></div>
+      <p id="chOutcome" class="sim-outcome" role="status" aria-live="polite" aria-atomic="true"></p>
+      <p><button type="button" id="chNext" hidden>الإشعار التالي</button></p>
+    </div>
+    <div id="chResult" class="challenge-result" role="status" aria-live="polite" tabindex="-1"></div>
+  </section>
+
+  <details id="classic" class="howto">
+    <summary>الأسئلة بالصيغة المعتادة (كما كانت)</summary>
+    <p>الأسئلة العشرة الأصلية معروضة بالأعلى أيضًا، ولكل سؤال مقطع صوتي محفوظ. استخدمها للمراجعة السريعة.</p>
+  </details>
+</main>
+
+<footer>
+  <p style="margin-top:2rem">هذا النشاط تعليمي وقائي فقط، وجميع الأسماء والنطاقات والرسائل الواردة فيه افتراضية وغير فعالة.</p>
+</footer>
+
+<!-- ACT_AUDIO_START -->
+<script>
+const ACT_AUDIO = {"m": {"fb.bad": "audio/act/m/fb_bad.mp3","fb.incomplete": "audio/act/m/fb_incomplete.mp3","fb.ok": "audio/act/m/fb_ok.mp3","fb.section_done": "audio/act/m/fb_section_done.mp3","help.how": "audio/act/m/help_how.mp3","help.how.btn": "audio/act/m/help_how_btn.mp3","kt.finish": "audio/act/m/kt_finish.mp3","kt.next": "audio/act/m/kt_next.mp3","kt.retry": "audio/act/m/kt_retry.mp3","kt.reveal": "audio/act/m/kt_reveal.mp3","msg.after": "audio/act/m/msg_after.mp3","msg.choices": "audio/act/m/msg_choices.mp3","msg.first": "audio/act/m/msg_first.mp3","msg.last": "audio/act/m/msg_last.mp3","msg.nocheck": "audio/act/m/msg_nocheck.mp3","msg.nocurrent": "audio/act/m/msg_nocurrent.mp3","msg.nofb": "audio/act/m/msg_nofb.mp3","msg.reset": "audio/act/m/msg_reset.mp3","msg.selected": "audio/act/m/msg_selected.mp3","msg.ttsoff": "audio/act/m/msg_ttsoff.mp3","msg.ttson": "audio/act/m/msg_ttson.mp3","q1.ctx": "audio/act/m/q1_ctx.mp3","q1.fbbad": "audio/act/m/q1_fbbad.mp3","q1.fbok": "audio/act/m/q1_fbok.mp3","q1.hint": "audio/act/m/q1_hint.mp3","q1.num": "audio/act/m/q1_num.mp3","q1.o1": "audio/act/m/q1_o1.mp3","q1.o2": "audio/act/m/q1_o2.mp3","q1.o3": "audio/act/m/q1_o3.mp3","q1.o4": "audio/act/m/q1_o4.mp3","q1.q": "audio/act/m/q1_q.mp3","q1.qr": "audio/act/m/q1_qr.mp3","q10.ctx": "audio/act/m/q10_ctx.mp3","q10.fbbad": "audio/act/m/q10_fbbad.mp3","q10.fbok": "audio/act/m/q10_fbok.mp3","q10.hint": "audio/act/m/q10_hint.mp3","q10.num": "audio/act/m/q10_num.mp3","q10.o1": "audio/act/m/q10_o1.mp3","q10.o2": "audio/act/m/q10_o2.mp3","q10.o3": "audio/act/m/q10_o3.mp3","q10.q": "audio/act/m/q10_q.mp3","q10.qr": "audio/act/m/q10_qr.mp3","q2.ctx": "audio/act/m/q2_ctx.mp3","q2.fbbad": "audio/act/m/q2_fbbad.mp3","q2.fbok": "audio/act/m/q2_fbok.mp3","q2.hint": "audio/act/m/q2_hint.mp3","q2.num": "audio/act/m/q2_num.mp3","q2.o1": "audio/act/m/q2_o1.mp3","q2.o2": "audio/act/m/q2_o2.mp3","q2.o3": "audio/act/m/q2_o3.mp3","q2.o4": "audio/act/m/q2_o4.mp3","q2.q": "audio/act/m/q2_q.mp3","q2.qr": "audio/act/m/q2_qr.mp3","q3.ctx": "audio/act/m/q3_ctx.mp3","q3.fbbad": "audio/act/m/q3_fbbad.mp3","q3.fbok": "audio/act/m/q3_fbok.mp3","q3.hint": "audio/act/m/q3_hint.mp3","q3.num": "audio/act/m/q3_num.mp3","q3.o1": "audio/act/m/q3_o1.mp3","q3.o2": "audio/act/m/q3_o2.mp3","q3.o3": "audio/act/m/q3_o3.mp3","q3.o4": "audio/act/m/q3_o4.mp3","q3.q": "audio/act/m/q3_q.mp3","q3.qr": "audio/act/m/q3_qr.mp3","q4.ctx": "audio/act/m/q4_ctx.mp3","q4.fbbad": "audio/act/m/q4_fbbad.mp3","q4.fbok": "audio/act/m/q4_fbok.mp3","q4.hint": "audio/act/m/q4_hint.mp3","q4.num": "audio/act/m/q4_num.mp3","q4.o1": "audio/act/m/q4_o1.mp3","q4.o2": "audio/act/m/q4_o2.mp3","q4.o3": "audio/act/m/q4_o3.mp3","q4.o4": "audio/act/m/q4_o4.mp3","q4.q": "audio/act/m/q4_q.mp3","q4.qr": "audio/act/m/q4_qr.mp3","q5.ctx": "audio/act/m/q5_ctx.mp3","q5.fbbad": "audio/act/m/q5_fbbad.mp3","q5.fbok": "audio/act/m/q5_fbok.mp3","q5.hint": "audio/act/m/q5_hint.mp3","q5.num": "audio/act/m/q5_num.mp3","q5.o1": "audio/act/m/q5_o1.mp3","q5.o2": "audio/act/m/q5_o2.mp3","q5.o3": "audio/act/m/q5_o3.mp3","q5.q": "audio/act/m/q5_q.mp3","q5.qr": "audio/act/m/q5_qr.mp3","q6.ctx": "audio/act/m/q6_ctx.mp3","q6.fbbad": "audio/act/m/q6_fbbad.mp3","q6.fbok": "audio/act/m/q6_fbok.mp3","q6.hint": "audio/act/m/q6_hint.mp3","q6.num": "audio/act/m/q6_num.mp3","q6.o1": "audio/act/m/q6_o1.mp3","q6.o2": "audio/act/m/q6_o2.mp3","q6.o3": "audio/act/m/q6_o3.mp3","q6.o4": "audio/act/m/q6_o4.mp3","q6.q": "audio/act/m/q6_q.mp3","q6.qr": "audio/act/m/q6_qr.mp3","q7.ctx": "audio/act/m/q7_ctx.mp3","q7.fbbad": "audio/act/m/q7_fbbad.mp3","q7.fbok": "audio/act/m/q7_fbok.mp3","q7.hint": "audio/act/m/q7_hint.mp3","q7.num": "audio/act/m/q7_num.mp3","q7.o1": "audio/act/m/q7_o1.mp3","q7.o2": "audio/act/m/q7_o2.mp3","q7.o3": "audio/act/m/q7_o3.mp3","q7.q": "audio/act/m/q7_q.mp3","q7.qr": "audio/act/m/q7_qr.mp3","q8.ctx": "audio/act/m/q8_ctx.mp3","q8.fbbad": "audio/act/m/q8_fbbad.mp3","q8.fbok": "audio/act/m/q8_fbok.mp3","q8.hint": "audio/act/m/q8_hint.mp3","q8.num": "audio/act/m/q8_num.mp3","q8.o1": "audio/act/m/q8_o1.mp3","q8.o2": "audio/act/m/q8_o2.mp3","q8.o3": "audio/act/m/q8_o3.mp3","q8.q": "audio/act/m/q8_q.mp3","q8.qr": "audio/act/m/q8_qr.mp3","q9.ctx": "audio/act/m/q9_ctx.mp3","q9.fbbad": "audio/act/m/q9_fbbad.mp3","q9.fbok": "audio/act/m/q9_fbok.mp3","q9.hint": "audio/act/m/q9_hint.mp3","q9.num": "audio/act/m/q9_num.mp3","q9.o1": "audio/act/m/q9_o1.mp3","q9.o2": "audio/act/m/q9_o2.mp3","q9.o3": "audio/act/m/q9_o3.mp3","q9.q": "audio/act/m/q9_q.mp3","q9.qr": "audio/act/m/q9_qr.mp3","sfx.wait": "audio/act/m/sfx_wait.mp3","sum.a1": "audio/act/m/sum_a1.mp3","sum.a10": "audio/act/m/sum_a10.mp3","sum.a2": "audio/act/m/sum_a2.mp3","sum.a3": "audio/act/m/sum_a3.mp3","sum.a4": "audio/act/m/sum_a4.mp3","sum.a5": "audio/act/m/sum_a5.mp3","sum.a6": "audio/act/m/sum_a6.mp3","sum.a7": "audio/act/m/sum_a7.mp3","sum.a8": "audio/act/m/sum_a8.mp3","sum.a9": "audio/act/m/sum_a9.mp3","sum.c0": "audio/act/m/sum_c0.mp3","sum.c1": "audio/act/m/sum_c1.mp3","sum.c10": "audio/act/m/sum_c10.mp3","sum.c2": "audio/act/m/sum_c2.mp3","sum.c3": "audio/act/m/sum_c3.mp3","sum.c4": "audio/act/m/sum_c4.mp3","sum.c5": "audio/act/m/sum_c5.mp3","sum.c6": "audio/act/m/sum_c6.mp3","sum.c7": "audio/act/m/sum_c7.mp3","sum.c8": "audio/act/m/sum_c8.mp3","sum.c9": "audio/act/m/sum_c9.mp3","sum.none": "audio/act/m/sum_none.mp3","vol.0": "audio/act/m/vol_0.mp3","vol.10": "audio/act/m/vol_10.mp3","vol.100": "audio/act/m/vol_100.mp3","vol.20": "audio/act/m/vol_20.mp3","vol.30": "audio/act/m/vol_30.mp3","vol.40": "audio/act/m/vol_40.mp3","vol.50": "audio/act/m/vol_50.mp3","vol.60": "audio/act/m/vol_60.mp3","vol.70": "audio/act/m/vol_70.mp3","vol.80": "audio/act/m/vol_80.mp3","vol.90": "audio/act/m/vol_90.mp3","sfx.clap": "audio/act/clap.mp3","sfx.buzz": "audio/act/buzz.mp3"},"f": {"fb.bad": "audio/act/f/fb_bad.mp3","fb.incomplete": "audio/act/f/fb_incomplete.mp3","fb.ok": "audio/act/f/fb_ok.mp3","fb.section_done": "audio/act/f/fb_section_done.mp3","help.how": "audio/act/f/help_how.mp3","help.how.btn": "audio/act/f/help_how_btn.mp3","kt.finish": "audio/act/f/kt_finish.mp3","kt.next": "audio/act/f/kt_next.mp3","kt.retry": "audio/act/f/kt_retry.mp3","kt.reveal": "audio/act/f/kt_reveal.mp3","msg.after": "audio/act/f/msg_after.mp3","msg.choices": "audio/act/f/msg_choices.mp3","msg.first": "audio/act/f/msg_first.mp3","msg.last": "audio/act/f/msg_last.mp3","msg.nocheck": "audio/act/f/msg_nocheck.mp3","msg.nocurrent": "audio/act/f/msg_nocurrent.mp3","msg.nofb": "audio/act/f/msg_nofb.mp3","msg.reset": "audio/act/f/msg_reset.mp3","msg.selected": "audio/act/f/msg_selected.mp3","msg.ttsoff": "audio/act/f/msg_ttsoff.mp3","msg.ttson": "audio/act/f/msg_ttson.mp3","q1.ctx": "audio/act/f/q1_ctx.mp3","q1.fbbad": "audio/act/f/q1_fbbad.mp3","q1.fbok": "audio/act/f/q1_fbok.mp3","q1.hint": "audio/act/f/q1_hint.mp3","q1.num": "audio/act/f/q1_num.mp3","q1.o1": "audio/act/f/q1_o1.mp3","q1.o2": "audio/act/f/q1_o2.mp3","q1.o3": "audio/act/f/q1_o3.mp3","q1.o4": "audio/act/f/q1_o4.mp3","q1.q": "audio/act/f/q1_q.mp3","q1.qr": "audio/act/f/q1_qr.mp3","q10.ctx": "audio/act/f/q10_ctx.mp3","q10.fbbad": "audio/act/f/q10_fbbad.mp3","q10.fbok": "audio/act/f/q10_fbok.mp3","q10.hint": "audio/act/f/q10_hint.mp3","q10.num": "audio/act/f/q10_num.mp3","q10.o1": "audio/act/f/q10_o1.mp3","q10.o2": "audio/act/f/q10_o2.mp3","q10.o3": "audio/act/f/q10_o3.mp3","q10.q": "audio/act/f/q10_q.mp3","q10.qr": "audio/act/f/q10_qr.mp3","q2.ctx": "audio/act/f/q2_ctx.mp3","q2.fbbad": "audio/act/f/q2_fbbad.mp3","q2.fbok": "audio/act/f/q2_fbok.mp3","q2.hint": "audio/act/f/q2_hint.mp3","q2.num": "audio/act/f/q2_num.mp3","q2.o1": "audio/act/f/q2_o1.mp3","q2.o2": "audio/act/f/q2_o2.mp3","q2.o3": "audio/act/f/q2_o3.mp3","q2.o4": "audio/act/f/q2_o4.mp3","q2.q": "audio/act/f/q2_q.mp3","q2.qr": "audio/act/f/q2_qr.mp3","q3.ctx": "audio/act/f/q3_ctx.mp3","q3.fbbad": "audio/act/f/q3_fbbad.mp3","q3.fbok": "audio/act/f/q3_fbok.mp3","q3.hint": "audio/act/f/q3_hint.mp3","q3.num": "audio/act/f/q3_num.mp3","q3.o1": "audio/act/f/q3_o1.mp3","q3.o2": "audio/act/f/q3_o2.mp3","q3.o3": "audio/act/f/q3_o3.mp3","q3.o4": "audio/act/f/q3_o4.mp3","q3.q": "audio/act/f/q3_q.mp3","q3.qr": "audio/act/f/q3_qr.mp3","q4.ctx": "audio/act/f/q4_ctx.mp3","q4.fbbad": "audio/act/f/q4_fbbad.mp3","q4.fbok": "audio/act/f/q4_fbok.mp3","q4.hint": "audio/act/f/q4_hint.mp3","q4.num": "audio/act/f/q4_num.mp3","q4.o1": "audio/act/f/q4_o1.mp3","q4.o2": "audio/act/f/q4_o2.mp3","q4.o3": "audio/act/f/q4_o3.mp3","q4.o4": "audio/act/f/q4_o4.mp3","q4.q": "audio/act/f/q4_q.mp3","q4.qr": "audio/act/f/q4_qr.mp3","q5.ctx": "audio/act/f/q5_ctx.mp3","q5.fbbad": "audio/act/f/q5_fbbad.mp3","q5.fbok": "audio/act/f/q5_fbok.mp3","q5.hint": "audio/act/f/q5_hint.mp3","q5.num": "audio/act/f/q5_num.mp3","q5.o1": "audio/act/f/q5_o1.mp3","q5.o2": "audio/act/f/q5_o2.mp3","q5.o3": "audio/act/f/q5_o3.mp3","q5.q": "audio/act/f/q5_q.mp3","q5.qr": "audio/act/f/q5_qr.mp3","q6.ctx": "audio/act/f/q6_ctx.mp3","q6.fbbad": "audio/act/f/q6_fbbad.mp3","q6.fbok": "audio/act/f/q6_fbok.mp3","q6.hint": "audio/act/f/q6_hint.mp3","q6.num": "audio/act/f/q6_num.mp3","q6.o1": "audio/act/f/q6_o1.mp3","q6.o2": "audio/act/f/q6_o2.mp3","q6.o3": "audio/act/f/q6_o3.mp3","q6.o4": "audio/act/f/q6_o4.mp3","q6.q": "audio/act/f/q6_q.mp3","q6.qr": "audio/act/f/q6_qr.mp3","q7.ctx": "audio/act/f/q7_ctx.mp3","q7.fbbad": "audio/act/f/q7_fbbad.mp3","q7.fbok": "audio/act/f/q7_fbok.mp3","q7.hint": "audio/act/f/q7_hint.mp3","q7.num": "audio/act/f/q7_num.mp3","q7.o1": "audio/act/f/q7_o1.mp3","q7.o2": "audio/act/f/q7_o2.mp3","q7.o3": "audio/act/f/q7_o3.mp3","q7.q": "audio/act/f/q7_q.mp3","q7.qr": "audio/act/f/q7_qr.mp3","q8.ctx": "audio/act/f/q8_ctx.mp3","q8.fbbad": "audio/act/f/q8_fbbad.mp3","q8.fbok": "audio/act/f/q8_fbok.mp3","q8.hint": "audio/act/f/q8_hint.mp3","q8.num": "audio/act/f/q8_num.mp3","q8.o1": "audio/act/f/q8_o1.mp3","q8.o2": "audio/act/f/q8_o2.mp3","q8.o3": "audio/act/f/q8_o3.mp3","q8.q": "audio/act/f/q8_q.mp3","q8.qr": "audio/act/f/q8_qr.mp3","q9.ctx": "audio/act/f/q9_ctx.mp3","q9.fbbad": "audio/act/f/q9_fbbad.mp3","q9.fbok": "audio/act/f/q9_fbok.mp3","q9.hint": "audio/act/f/q9_hint.mp3","q9.num": "audio/act/f/q9_num.mp3","q9.o1": "audio/act/f/q9_o1.mp3","q9.o2": "audio/act/f/q9_o2.mp3","q9.o3": "audio/act/f/q9_o3.mp3","q9.q": "audio/act/f/q9_q.mp3","q9.qr": "audio/act/f/q9_qr.mp3","sfx.wait": "audio/act/f/sfx_wait.mp3","sum.a1": "audio/act/f/sum_a1.mp3","sum.a10": "audio/act/f/sum_a10.mp3","sum.a2": "audio/act/f/sum_a2.mp3","sum.a3": "audio/act/f/sum_a3.mp3","sum.a4": "audio/act/f/sum_a4.mp3","sum.a5": "audio/act/f/sum_a5.mp3","sum.a6": "audio/act/f/sum_a6.mp3","sum.a7": "audio/act/f/sum_a7.mp3","sum.a8": "audio/act/f/sum_a8.mp3","sum.a9": "audio/act/f/sum_a9.mp3","sum.c0": "audio/act/f/sum_c0.mp3","sum.c1": "audio/act/f/sum_c1.mp3","sum.c10": "audio/act/f/sum_c10.mp3","sum.c2": "audio/act/f/sum_c2.mp3","sum.c3": "audio/act/f/sum_c3.mp3","sum.c4": "audio/act/f/sum_c4.mp3","sum.c5": "audio/act/f/sum_c5.mp3","sum.c6": "audio/act/f/sum_c6.mp3","sum.c7": "audio/act/f/sum_c7.mp3","sum.c8": "audio/act/f/sum_c8.mp3","sum.c9": "audio/act/f/sum_c9.mp3","sum.none": "audio/act/f/sum_none.mp3","vol.0": "audio/act/f/vol_0.mp3","vol.10": "audio/act/f/vol_10.mp3","vol.100": "audio/act/f/vol_100.mp3","vol.20": "audio/act/f/vol_20.mp3","vol.30": "audio/act/f/vol_30.mp3","vol.40": "audio/act/f/vol_40.mp3","vol.50": "audio/act/f/vol_50.mp3","vol.60": "audio/act/f/vol_60.mp3","vol.70": "audio/act/f/vol_70.mp3","vol.80": "audio/act/f/vol_80.mp3","vol.90": "audio/act/f/vol_90.mp3","sfx.clap": "audio/act/clap.mp3","sfx.buzz": "audio/act/buzz.mp3"}};
+</script>
+<!-- ACT_AUDIO_END -->
+<script>
+const QUESTIONS = [
+  {
+    context: "ظهرت على شاشة جهاز المدرسة رسالة تقول: «تم تعطيل الوصول إلى ملفاتك، ادفع فدية خلال 48 ساعة».",
+    question: "ما أفضل تصرف تقوم به؟",
+    options: [
+      "أدفع الفدية فورًا لاستعادة الملفات.",
+      "أحاول حلّ المشكلة بنفسي ببرامج أبحث عنها.",
+      "أبلغ مسؤول التقنية فورًا ولا أدفع ولا أعبث بالجهاز.",
+      "أعيد تشغيل الجهاز مرارًا حتى تختفي الرسالة."
+    ],
+    correct: 2,
+    feedback: "هذا مثال لبرامج الفدية (Ransomware). لا تدفع ولا تحاول إصلاح الأمر بنفسك، ولا تُعِد التشغيل عشوائيًا؛ الإبلاغ الفوري هو الصواب، والنسخ الاحتياطي هو الوقاية الأساسية."
+  },
+  {
+    context: "وصلتك رسالة بريد إلكتروني باسم «إدارة المدرسة» عنوانها «تحديث بياناتك خلال 24 ساعة»، أُرسلت من النطاق school-update.example.com، وفيها رابط يطلب تسجيل الدخول ببياناتك.",
+    question: "ما أفضل تصرف تقوم به؟",
+    options: [
+      "أفتح الرابط وأسجّل بياناتي بسرعة قبل إغلاق الحساب.",
+      "أتحقق من حسابي عبر بوابة المدرسة المعروفة لدي، وأبلغ مسؤول التقنية بالرسالة.",
+      "أرسل الرسالة إلى زملائي ليعرفوا رأيهم.",
+      "أردّ على الرسالة ببياناتي لتأكيد هويتي."
+    ],
+    correct: 1,
+    feedback: "الرسالة تحمل علامات تصيد احتيالي موجه: استعجال، وتهديد بإغلاق الحساب، ونطاق مرسل غير معروف. التصرف الآمن هو التحقق عبر قناة معروفة مستقلة والإبلاغ. فتح الرابط أو الردّ بالبيانات يمنح المهاجم ما يريد، وإعادة التوجيه قد تعرّض زملاءك للخطر."
+  },
+  {
+    context: "تدربت على تمييز الرسائل الحقيقية من المشبوهة.",
+    question: "أي العلامات الآتية تجعل الرسالة مشبوهة؟",
+    options: [
+      "أن الرسالة وصلت في المساء.",
+      "أنها تطلب بيانات شخصية باستعجال من نطاق غير معتاد.",
+      "أنها مكتوبة بالعربية.",
+      "أنها من شخص تعرفه."
+    ],
+    correct: 1,
+    feedback: "العلامة الحاسمة هي طلب بيانات حساسة باستعجال من نطاق غير معتاد؛ وقت الإرسال أو اللغة ليسا دليلًا على الاشتباه."
+  },
+  {
+    context: "وصلك بريد يقول: «أنا مسؤول في المدرسة» لكنه مُرسَل من حساب بريد شخصي غير تابع لنطاق المدرسة، ويطلب صورة من هويتك.",
+    question: "ما المعيار الأنسب للحكم على الرسالة؟",
+    options: [
+      "نتحقق من نطاق المرسل ونطلب تأكيدًا عبر قناة رسمية معروفة.",
+      "نثق في الرسالة لأن صاحبها أعلن أنه مسؤول.",
+      "نرسل صورة الهوية لتجنب الحرج.",
+      "نحوّل الرسالة لكل الزملاء أولًا."
+    ],
+    correct: 0,
+    feedback: "ادّعاء المسؤولية ليس دليلًا على الهوية. التحقق من النطاق ومن خلال قناة رسمية مستقلة هو المعيار الصحيح، ولا تُرسل البيانات الشخصية دون تأكيد."
+  },
+  {
+    context: "اتصل بك شخص قال إنه «موظف دعم فني في المدرسة» ليعالج مشكلة عاجلة في حسابك، وطلب منك رقمك التعريفي وكلمة المرور.",
+    question: "ما أفضل تصرف تقوم به؟",
+    options: [
+      "أعطيه كلمة المرور لأنه يعمل في المدرسة ويعرف بالمشكلة.",
+      "أعطيه الرقم التعريفي فقط دون كلمة المرور.",
+      "أُنهي الاتصال، وأتصل برقم الدعم الرسمي المعروف لدي للتحقق، ولا أشارك كلمة المرور."
+    ],
+    correct: 2,
+    feedback: "هذا مثال على انتحال الشخصية (Pretexting): قصة جاهزة تصنع الثقة. لا توجد جهة شرعية تطلب كلمة المرور هاتفيًا، والتصرف الصحيح هو التحقق عبر قناة رسمية معروفة لديك."
+  },
+  {
+    context: "وجدت في ساحة المدرسة وحدة تخزين USB مكتوبًا عليها «درجات الفصل الدراسي»، ولا يعرف أحد مالكها.",
+    question: "ما التصرف الصحيح؟",
+    options: [
+      "أوصلها بجهازي لمعرفة الدرجات ثم أعيدها.",
+      "أوصلها بجهاز المدرسة بدلًا من جهازي.",
+      "أسلّمها إلى مسؤول التقنية دون توصيلها بأي جهاز.",
+      "أعطيها لأي زميل قريب مني."
+    ],
+    correct: 2,
+    feedback: "هذا مثال على الاستدراج (Baiting): شيء جذاب قد يخفي خطرًا. توصيل وحدة تخزين مجهولة قد ينقل برنامجًا ضارًا، والتصرف الآمن هو تسليمها دون توصيلها."
+  },
+  {
+    context: "أثناء مناقشة الدرس سُئلت: ما الوصف الدقيق لهجوم الحرمان من الخدمة الموزعة (DDoS)؟",
+    question: "أي الأوصاف التالية هو الصحيح؟",
+    options: [
+      "هجوم يعطّل ملفات الجهاز ويطلب فدية.",
+      "هجوم يرسل طلبات كثيرة جدًا من أجهزة متعددة فتتوقف خدمة عن العمل.",
+      "هجوم يسرق كلمة مرورك من خلال صفحة مزيفة."
+    ],
+    correct: 1,
+    feedback: "DDoS ليس تشفيرًا للملفات ولا سرقة لكلمات المرور، بل إغراق خدمة إلكترونية بطلبات كثيرة من مصادر متعددة حتى تتعذر خدمة الطلبات الشرعية."
+  },
+  {
+    context: "لاحظت أن موقع المدرسة توقف عن العمل فجأة، وأن تراسل الشبكة في الغرفة غير طبيعي وعالٍ.",
+    question: "ما أفضل تصرف تقوم به؟",
+    options: [
+      "أحاول تشغيل أدوات أجهلها قرأت عنها على الإنترنت لحل المشكلة بنفسي.",
+      "أتجاهل الأمر لأنه ليس مسؤوليتي.",
+      "أبلغ مسؤول الشبكة فورًا وأترك الأمر لأصحاب الاختصاص."
+    ],
+    correct: 2,
+    feedback: "العلامات قد تعني مشكلة في الشبكة أو هجومًا. لا تُشغّل أدوات مجهولة ولا تتجاهل الأمر؛ الإبلاغ الفوري هو التصرف المسؤول."
+  },
+  {
+    context: "طلب منك زميل كلمة مرور حسابك المدرسي لإنهاء واجب مشترك على حسابه، ووعد بأنه لن يخبر أحدًا.",
+    question: "ما تصرفك؟",
+    options: [
+      "أرسل كلمة المرور هذه المرة فقط.",
+      "أرفض مشاركة كلمة المرور، وننجز العمل معًا على جهاز واحد أو عبر المعلم.",
+      "أرسل كلمة مرور مؤقتة أعرفها له فقط."
+    ],
+    correct: 1,
+    feedback: "كلمة المرور لا تُشارَك مع أي شخص مهما كان السبب؛ فالبديل الآمن إنجاز الواجب بالتعاون دون مشاركة كلمة المرور."
+  },
+  {
+    context: "وصلتك رسالة نصية من رقم غريب: «أنت رابح جائزة، أرسل رقم هويتك لتفعيل الجائزة خلال ساعتين».",
+    question: "ما التصرف الصحيح؟",
+    options: [
+      "أرسل رقم هويتي قبل انتهاء الوقت.",
+      "أرسل جزءًا من الرقم ليكون أأمن.",
+      "لا أردّ ولا أرسل شيئًا، وأحذف الرسالة وأبلغ عند الحاجة."
+    ],
+    correct: 2,
+    feedback: "الوعد بجائزة مع استعجال وطلب بيانات شخصية أسلوب خداع شائع. الصواب عدم الاستجابة، وحذف الرسالة، والإبلاغ عند الحاجة."
+  }
+];
+
+/* ============================================================
+   طبقة الوصول: تلاوة صوتية + تنقل بين الأسئلة + إعادة جزئية + تحكم في الصوت
+   ============================================================ */
+
+/* ============================================================
+   طبقة الوصول: تلاوة صوتية بملفات عربية + تنقل بين الأسئلة
+   + إعادة جزئية + تحكم في الصوت والسرعة وحجم الخط
+   ============================================================ */
+
+const container = document.getElementById("scenarios");
+const summaryText = document.getElementById("summary-text");
+const state = new Array(QUESTIONS.length).fill(null);
+
+const ORD_Q = ["الأول", "الثاني", "الثالث", "الرابع", "الخامس", "السادس", "السابع", "الثامن", "التاسع", "العاشر", "الحادي عشر", "الثاني عشر"];
+const ORD_O = ["الأول", "الثاني", "الثالث", "الرابع", "الخامس", "السادس"];
+const COUNT_W = { 1: "واحد", 2: "اثنان", 3: "ثلاثة", 4: "أربعة", 5: "خمسة", 6: "ستة", 7: "سبعة", 8: "ثمانية", 9: "تسعة", 10: "عشرة" };
+
+function ordinal(list, n) { return list[n - 1] || ("رقم " + n); }
+function cleanText(t) { return String(t == null ? "" : t).replace(/\s+/g, " ").trim(); }
+
+/* ================= محرّك التشغيل =================
+   الملفات الصوتية العربية هي الأساس (تعمل بلا إنترنت وبلا أصوات نظام)،
+   وspeechSynthesis احتياطي فقط عند غياب الملف. */
+const TTS = {
+  native: (typeof window !== "undefined") && ("speechSynthesis" in window),
+  enabled: true,
+  volume: 0.9,
+  rate: 1,
+  voice: null
+};
+
+const Player = { queue: [], index: 0, audio: null, token: 0, failures: 0 };
+
+/* ---------- اختيار الصوت: f مؤنث (افتراضي) أو m مذكر ----------
+   الترتيب: ?voice= في الرابط، ثم تفضيل الموقع الأم في localStorage،
+   ثم رسالة {hub:"voice"} من الصفحة الأم عند التبديل. */
+var VOICE = "f";
+try {
+  var vq = (location.search.match(/[?&]voice=([mf])(?:&|$)/) || [])[1];
+  if (vq) { VOICE = vq; }
+  else {
+    var prefsRaw = window.localStorage.getItem("hub.sp");
+    if (prefsRaw) {
+      var prefsObj = JSON.parse(prefsRaw);
+      if (prefsObj && (prefsObj.voice === "m" || prefsObj.voice === "f")) { VOICE = prefsObj.voice; }
+    }
+  }
+} catch (e) { /* تجاهل */ }
+
+function audioManifest() {
+  if (typeof ACT_AUDIO === "undefined" || !ACT_AUDIO) return {};
+  return ACT_AUDIO.f ? ACT_AUDIO : { f: ACT_AUDIO };   /* توافق مع مانيفست قديم */
+}
+
+function audioFor(key) {
+  if (!key) return null;
+  var m = audioManifest()[VOICE] || audioManifest().f || {};
+  return m[key] || null;
+}
+
+function setVoice(v) {
+  if (v !== "m" && v !== "f") return;
+  if (v === VOICE) return;
+  VOICE = v;
+  stopSpeech();
+}
+
+function pickVoice() {
+  if (!TTS.native) return null;
+  var voices = [];
+  try { voices = window.speechSynthesis.getVoices() || []; } catch (e) { voices = []; }
+  var arabic = voices.filter(function (v) { return /^ar/i.test(v.lang || ""); });
+  TTS.voice = arabic.filter(function (v) {
+    return /(EG|Egypt|Egyptian)/i.test((v.lang || "") + " " + (v.name || ""));
+  })[0] || arabic[0] || null;
+  return TTS.voice;
+}
+if (TTS.native) {
+  pickVoice();
+  window.speechSynthesis.onvoiceschanged = pickVoice;
+}
+
+function stopSpeech() {
+  Player.token++;
+  Player.queue = [];
+  Player.index = 0;
+  if (Player.audio) {
+    try { Player.audio.pause(); } catch (e) { /* ignore */ }
+    try { Player.audio.src = ""; } catch (e) { /* ignore */ }   // تحرير الملف لمنع التداخل
+    Player.audio = null;
+  }
+  if (TTS.native) { try { window.speechSynthesis.cancel(); } catch (e) { /* ignore */ } }
+}
+
+/* ---------- جسر مع الموقع الأم: منع تداخل الصوت + المرور بالقراءة ---------- */
+var IS_FRAMED = false;
+try { IS_FRAMED = !!(window.parent && window.parent !== window); } catch (e) { IS_FRAMED = false; }
+
+function hubPost(msg) {
+  if (!IS_FRAMED) { return; }
+  try { window.parent.postMessage(msg, "*"); } catch (e) { /* تجاهل */ }
+}
+
+/* ---------- جسر الحروف: عند العرض داخل الرئيسية، مرّر حروف التحكم المفردة
+   للأم حتى تعمل الاختصارات وأنت داخل النشاط. لا نلمس Tab/الأسهم/Enter/Escape. ---------- */
+(function () {
+  if (!IS_FRAMED) { return; }
+  var LETTERS = {
+    KeyR: 1, KeyN: 1, KeyS: 1, KeyB: 1, KeyG: 1, KeyT: 1, KeyE: 1,
+    KeyW: 1, KeyC: 1, KeyK: 1, KeyD: 1, KeyA: 1, KeyH: 1, KeyJ: 1
+  };
+  function codeOf(ev) {
+    if (ev.code && LETTERS[ev.code]) { return ev.code; }
+    var k = (ev.key || "").length === 1 ? ev.key.toUpperCase() : "";
+    return (k && LETTERS["Key" + k]) ? "Key" + k : "";
+  }
+  document.addEventListener("keydown", function (ev) {
+    if (ev.altKey || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.repeat) { return; }
+    var t = ev.target;
+    if (t && (t.tagName === "TEXTAREA" || t.tagName === "SELECT" ||
+        (t.tagName === "INPUT" && t.type === "text") || t.isContentEditable)) { return; }
+    var code = codeOf(ev);
+    if (!code) { return; }
+    ev.preventDefault();
+    hubPost({ hub: "key", code: code });
+  }, true);
+})();
+
+/* خطوة واحدة بالقراءة داخل النشاط؛ وعند الحد تُكمل الصفحة الأم المرور */
+function hubStep(dir) {
+  var target = current + dir;
+  if (target < 0 || target >= QUESTIONS.length) {
+    hubPost({ hub: "edge", dir: dir > 0 ? "next" : "prev" });
+    return;
+  }
+  goTo(target);
+}
+
+window.addEventListener("message", function (e) {
+  var d = e.data || {};
+  if (d.hub === "stop") { stopSpeech(); return; }
+  if (d.hub === "enter") {
+    if (d.dir === "next") goTo(0);
+    else if (d.dir === "prev") goTo(QUESTIONS.length - 1);
+    else goTo(current);
+    return;
+  }
+  if (d.hub === "read") { hubStep(d.dir === "prev" ? -1 : 1); return; }
+  if (d.hub === "voice") { setVoice(d.voice); return; }
+});
+
+function ttsSay(text) {
+  if (!text || !TTS.native) { playNext(); return; }
+  hubPost({ hub: "speaking" });
+  try {
+    var u = new SpeechSynthesisUtterance(String(text));
+    u.lang = "ar-EG";
+    if (TTS.voice) u.voice = TTS.voice;
+    u.volume = TTS.volume;
+    u.rate = TTS.rate;
+    u.onend = playNext;
+    u.onerror = playNext;
+    window.speechSynthesis.speak(u);
+  } catch (e) {
+    playNext();
+  }
+}
+
+function playNext() {
+  if (Player.index >= Player.queue.length) { Player.audio = null; return; }
+  var part = Player.queue[Player.index++];
+  var token = Player.token;
+  var src = audioFor(part && part.k);
+
+  /* إن فشل الصوت مرتين، نعتمد على النطق الاحتياطي بلا انتظار */
+  if (!src || Player.failures >= 2) { ttsSay(part && part.t); return; }
+
+  var a = new Audio(src);
+  Player.audio = a;
+  a.volume = TTS.volume;
+  a.playbackRate = TTS.rate;
+  a.preload = "auto";
+
+  /* إشعار الصفحة الأم بالتحدث قبل بدء التشغيل لمنع تداخل الصوتين */
+  hubPost({ hub: "speaking" });
+
+  /* حماية: إذا لم يبدأ الملف خلال 3 ثوانٍ ننتقل للاحتياطي بدل أن يتوقف التنقل */
+  var watchdog = window.setTimeout(function () {
+    if (token !== Player.token) return;
+    Player.failures++;
+    try { a.pause(); } catch (e) { /* ignore */ }
+    a.onended = null;
+    a.onerror = null;
+    Player.audio = null;
+    ttsSay(part && part.t);
+  }, 3000);
+
+  a.onplaying = function () { window.clearTimeout(watchdog); Player.failures = 0; };
+  a.onended = function () {
+    window.clearTimeout(watchdog);
+    if (token === Player.token) playNext();
+  };
+  a.onerror = function () {
+    window.clearTimeout(watchdog);
+    Player.failures++;
+    if (token === Player.token) ttsSay(part && part.t);
+  };
+
+  var p = null;
+  try { p = a.play(); } catch (e) {
+    window.clearTimeout(watchdog);
+    ttsSay(part && part.t);
+    return;
+  }
+  if (p && p.catch) {
+    p.catch(function () {
+      window.clearTimeout(watchdog);
+      if (token === Player.token) ttsSay(part && part.t);
+    });
+  }
+}
+
+function speakParts(parts, force) {
+  if (!TTS.enabled && !force) return;
+  /* إشعار الصفحة الأم بالتحدث قبل أي شيء لمنع تداخل الصوتين */
+  hubPost({ hub: "speaking" });
+  stopSpeech();
+  Player.queue = (parts || []).filter(Boolean);
+  Player.index = 0;
+  playNext();
+}
+
+/* ================= حالة التنقل ================= */
+var current = 0;
+var suppressFocusAnnounce = false;
+var announcedFor = -1;
+
+function questionLabel(i) { return "السؤال " + ordinal(ORD_Q, i + 1) + " من " + QUESTIONS.length; }
+function secOf(i) { return document.getElementById("q" + (i + 1)); }
+function fbOf(i) { return document.getElementById("fb" + (i + 1)); }
+function qKey(i, suffix) { return "q" + (i + 1) + "." + suffix; }
+
+function updatePosition() {
+  var pos = document.getElementById("a11y-pos");
+  if (pos) pos.textContent = questionLabel(current);
+}
+
+/* ================= الإعلانات ================= */
+function questionParts(i) {
+  var q = QUESTIONS[i];
+  if (!q) return [];
+  var n = q.options.length;
+  return [
+    { k: qKey(i, "num"), t: questionLabel(i) + "." },
+    { k: qKey(i, "ctx"), t: "الموقف: " + q.context },
+    { k: qKey(i, "q"), t: "السؤال: " + q.question },
+    { k: qKey(i, "hint"), t: "عدد البدائل " + (COUNT_W[n] || n) + ". استخدم السهم لأعلى أو أسفل لسماع البدائل، ثم اضغط إنتر للاختيار، وبعده تب إلى زر تحقق من الإجابة ثم إنتر." }
+  ];
+}
+
+function announceQuestion(i, lead) {
+  if (!QUESTIONS[i]) return;
+  announcedFor = i;
+  var parts = [];
+  if (lead) parts.push(lead);
+  parts = parts.concat(questionParts(i));
+  speakParts(parts);
+}
+
+/* شرح طريقة الحل: يُقرأ من زر «طريقة الحل» ومن عنوان القسم، أو بمفتاح Alt+5 */
+var HOWTO_TEXT =
+  "طريقة حل المواقف في أربع خطوات. " +
+  "أولًا: اقرأ الموقف. عند وصولك إلى أول بديل في أي موقف يُقرأ لك الموقف كاملًا، ثم السؤال، ثم البديل. " +
+  "ثانيًا: اختر. تنقّل بين البدائل بالسهم لأعلى ولأسفل، ويُعلَن كل بديل لحظة الوصول إليه، ثم اضغط إنتر للاختيار، والمسافة تعمل أيضًا. " +
+  "ثالثًا: تحقق. اضغط تب حتى تصل إلى زر تحقق من الإجابة، ثم إنتر، فتسمع إجابة صحيحة أو إجابة غير صحيحة مع التفسير. " +
+  "رابعًا: أكمل. بعد التحقق تظهر ثلاثة أزرار: السؤال التالي، وإعادة الإجابة على هذا السؤال، واسمَع الإجابة الصحيحة والتفسير؛ " +
+  "تنقّل بينها بمفتاح تب، وشغّل الذي تريده بمفتاح إنتر. " +
+  "وبعد آخر موقف يتحول زر السؤال التالي إلى «عرض النتيجة»؛ اضغطه بالإنتر فتسمع درجتك النهائية، ثم تجد نفسك في قسم «نتيجة النشاط». " +
+  "وفي أي لحظة: إسكيب يوقف الصوت، وألت مع واحد يعيد الموقف، وألت مع اثنين يعيد السؤال، وألت مع ثلاثة يعيد البديل، وألت مع أربعة يعيد التغذية الراجعة.";
+
+function howTo() {
+  speakParts([{ k: "help.how", t: HOWTO_TEXT }], true);
+}
+
+function replayContext() {
+  var q = QUESTIONS[current];
+  if (q) speakParts([{ k: qKey(current, "ctx"), t: "الموقف: " + q.context }]);
+}
+
+function replayQuestion() {
+  var q = QUESTIONS[current];
+  if (q) speakParts([{ k: qKey(current, "qr"), t: "السؤال " + ordinal(ORD_Q, current + 1) + ": " + q.question }]);
+}
+
+function optionParts(i, j) {
+  var q = QUESTIONS[i];
+  if (!q || !q.options[j]) return [];
+  var input = document.querySelector('#q' + (i + 1) + ' input[value="' + j + '"]');
+  var chosen = !!(input && input.checked);
+  var parts = [{
+    k: qKey(i, "o" + (j + 1)),
+    t: "البديل " + ordinal(ORD_O, j + 1) + " من " + (COUNT_W[q.options.length] || q.options.length) + ": " + q.options[j]
+  }];
+  if (chosen) parts.push({ k: "msg.selected", t: "محدد." });
+  return parts;
+}
+
+function announceOption(i, j) { speakParts(optionParts(i, j)); }
+
+/* إعلان البديل بعد أن يستقر التحديد (focus قد يسبق checked في مجموعة الراديو) */
+var optionTimer = null;
+var optionTarget = null;
+function scheduleOptionAnnounce(el) {
+  optionTarget = el;
+  if (optionTimer) window.clearTimeout(optionTimer);
+  optionTimer = window.setTimeout(function () {
+    optionTimer = null;
+    var t = optionTarget;
+    if (!t) return;
+    var sec = t.closest ? t.closest(".scenario") : null;
+    if (!sec) return;
+    current = Number(sec.id.slice(1)) - 1;
+    updatePosition();
+    if (announcedFor !== current) {
+      announcedFor = current;
+      var q = QUESTIONS[current];
+      /* الموقف يُقرأ كاملًا أول وصول للسؤال: المتعلم لا يرى الشاشة، فلا يُترك له سياق مجهول */
+      speakParts([
+        { k: qKey(current, "num"), t: questionLabel(current) + "." },
+        { k: qKey(current, "ctx"), t: "الموقف: " + q.context },
+        { k: qKey(current, "q"), t: "السؤال: " + q.question }
+      ].concat(optionParts(current, Number(t.value))));
+      return;
+    }
+    announceOption(current, Number(t.value));
+  }, 40);
+}
+
+function currentOptionIndex() {
+  var checked = document.querySelector('#q' + (current + 1) + ' input:checked');
+  if (checked) return Number(checked.value);
+  var active = document.activeElement;
+  if (active && active.matches && active.matches('input[type="radio"]')) {
+    var sec = active.closest(".scenario");
+    if (sec && sec.id === "q" + (current + 1)) return Number(active.value);
+  }
+  return -1;
+}
+
+function replayOption() {
+  var j = currentOptionIndex();
+  if (j < 0) {
+    speakParts([{ k: "msg.nocurrent", t: "لم تختر بديلًا بعد في هذا السؤال. استخدم السهم لأعلى أو لأسفل لسماع البدائل، ثم مسافة للاختيار." }]);
+    return;
+  }
+  announceOption(current, j);
+}
+
+function announceFeedback() {
+  var fb = fbOf(current);
+  if (!fb || !fb.classList.contains("show") || !cleanText(fb.textContent)) {
+    speakParts([{ k: "msg.nofb", t: "لم تتحقق من إجابة هذا السؤال بعد. اختر بديلًا ثم اضغط زر تحقق من الإجابة." }]);
+    return;
+  }
+  var ok = fb.classList.contains("ok");
+  speakParts([{
+    k: qKey(current, ok ? "fbok" : "fbbad"),
+    t: cleanText(fb.textContent)
+  }]);
+}
+
+function summaryParts() {
+  var answered = state.filter(function (v) { return v !== null; }).length;
+  var correct = state.filter(function (v) { return v === true; }).length;
+  if (answered === 0) {
+    return [{ k: "sum.none", t: "لم تُجب عن أي سؤال بعد." }];
+  }
+  return [
+    { k: "sum.a" + answered, t: "أجبت عن " + answered + " من " + QUESTIONS.length + "." },
+    { k: "sum.c" + correct, t: "وأصبت في " + correct + "." }
+  ];
+}
+
+/* نهاية النشاط: نعلن الدرجة كاملة ثم ننقل التركيز إلى عنوان «نتيجة النشاط»
+   حتى يعرف المتعلم أنه وصل إلى النهاية ويستطيع مراجعة درجته. */
+var suppressSummaryAnnounce = false;
+function finishActivity() {
+  speakParts(
+    [{ k: "fb.section_done", t: "ممتاز. أكملت المواقف كلها." }].concat(summaryParts())
+  );
+  var head = document.getElementById("summary-heading");
+  if (!head) { return; }
+  suppressSummaryAnnounce = true;
+  try { head.focus({ preventScroll: true }); } catch (e) { try { head.focus(); } catch (e2) { /* ignore */ } }
+  window.setTimeout(function () { suppressSummaryAnnounce = false; }, 0);
+  var box = head.closest ? head.closest(".summary") : null;
+  if (box && box.scrollIntoView) {
+    try { box.scrollIntoView({ block: "center", behavior: "smooth" }); } catch (e3) { try { box.scrollIntoView(); } catch (e4) { /* ignore */ } }
+  }
+}
+
+var summaryHeading = document.getElementById("summary-heading");
+if (summaryHeading) {
+  summaryHeading.addEventListener("focus", function () {
+    if (suppressSummaryAnnounce) { return; }
+    speakParts(summaryParts());
+  });
+}
+
+/* ================= الانتقال إلى سؤال ================= */
+function goTo(i, opts) {
+  var target = Math.max(0, Math.min(QUESTIONS.length - 1, i));
+  var sec = secOf(target);
+  if (!sec) return;
+  current = target;
+  updatePosition();
+  suppressFocusAnnounce = true;
+  try { sec.focus({ preventScroll: true }); } catch (e) { try { sec.focus(); } catch (e2) { /* ignore */ } }
+  suppressFocusAnnounce = false;
+  if (typeof sec.scrollIntoView === "function") {
+    try { sec.scrollIntoView({ block: "start", behavior: "smooth" }); } catch (e) { sec.scrollIntoView(); }
+  }
+  announceQuestion(current, opts && opts.lead);
+}
+
+/* ================= بناء الصفحة ================= */
+function render() {
+  container.innerHTML = "";
+  current = 0;
+  announcedFor = -1;
+  QUESTIONS.forEach(function (q, i) {
+    var n = i + 1;
+    var sec = document.createElement("section");
+    sec.className = "scenario";
+    sec.id = "q" + n;
+    sec.tabIndex = -1;
+    sec.setAttribute("role", "group");
+    sec.setAttribute("aria-labelledby", "q" + n + "-title");
+    sec.setAttribute("aria-describedby", "q" + n + "-hint");
+
+    var h = document.createElement("h3");
+    h.id = "q" + n + "-title";
+    h.textContent = "الموقف " + n;
+    sec.appendChild(h);
+
+    var ctx = document.createElement("p");
+    ctx.className = "context";
+    ctx.textContent = q.context;
+    sec.appendChild(ctx);
+
+    var hint = document.createElement("p");
+    hint.className = "sr-only";
+    hint.id = "q" + n + "-hint";
+    hint.textContent = "سؤال " + ordinal(ORD_Q, n) + " من " + QUESTIONS.length +
+      ". استخدم السهم لأعلى أو لأسفل بين البدائل، ويُعلن كل بديل عند الوصول إليه، ثم اضغط إنتر للاختيار، وبعده تب إلى زر تحقق من الإجابة ثم إنتر.";
+    sec.appendChild(hint);
+
+    var fs = document.createElement("fieldset");
+    var lg = document.createElement("legend");
+    lg.textContent = q.question;
+    fs.appendChild(lg);
+
+    q.options.forEach(function (opt, j) {
+      var label = document.createElement("label");
+      label.className = "option";
+      var input = document.createElement("input");
+      input.type = "radio";
+      input.name = "q" + i;
+      input.value = String(j);
+      input.setAttribute("aria-describedby", "q" + n + "-hint");
+      label.appendChild(input);
+      label.appendChild(document.createTextNode(opt));
+      fs.appendChild(label);
+    });
+    sec.appendChild(fs);
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = "تحقق من الإجابة";
+    sec.appendChild(btn);
+
+    var fb = document.createElement("p");
+    fb.className = "feedback";
+    fb.id = "fb" + n;
+    fb.setAttribute("role", "status");
+    fb.setAttribute("aria-live", "polite");
+    fb.setAttribute("aria-atomic", "true");
+    sec.appendChild(fb);
+
+    btn.addEventListener("click", function () {
+      var chosen = sec.querySelector('input[name="q' + i + '"]:checked');
+      if (!chosen) {
+        fb.className = "feedback bad show";
+        fb.innerHTML = '<span class="verdict">تنبيه: لم تختر بديلًا.</span> الرجاء اختيار أحد البدائل ثم إعادة التحقق.';
+        speakParts([{ k: "sfx.wait", t: "اختر إجابتك الآن." }]);
+        return;
+      }
+      var ok = Number(chosen.value) === q.correct;
+      state[i] = ok;
+      fb.className = "feedback show " + (ok ? "ok" : "bad");
+      var verdict = ok ? "إجابة صحيحة." : "إجابة غير صحيحة.";
+      fb.innerHTML = '<span class="verdict">' + verdict + "</span>";
+      updateSummary();
+      current = i;
+      announcedFor = i;
+      updatePosition();
+
+      /* أزرار الإجراءات: التالي، إعادة، اسمع الإجابة الصحيحة */
+      var old = sec.querySelectorAll(".action-btn");
+      Array.prototype.forEach.call(old, function (b) { b.remove(); });
+
+      var isLast = (i + 1 >= QUESTIONS.length);
+      var nextBtn = document.createElement("button");
+      nextBtn.type = "button";
+      nextBtn.className = "action-btn next";
+      nextBtn.textContent = isLast ? "عرض النتيجة" : "السؤال التالي";
+      nextBtn.setAttribute("data-speak", isLast ? "kt.finish" : "kt.next");
+      nextBtn.setAttribute("data-read", "");
+      nextBtn.addEventListener("click", function () {
+        if (!isLast) { goTo(i + 1); } else { finishActivity(); }
+      });
+
+      var retryBtn = document.createElement("button");
+      retryBtn.type = "button";
+      retryBtn.className = "action-btn retry";
+      retryBtn.textContent = "إعادة الإجابة على هذا السؤال";
+      retryBtn.setAttribute("data-speak", "kt.retry");
+      retryBtn.setAttribute("data-read", "");
+      retryBtn.addEventListener("click", function () {
+        state[i] = null;
+        updateSummary();
+        var inputs = sec.querySelectorAll('input[type="radio"]');
+        Array.prototype.forEach.call(inputs, function (r) { r.checked = false; });
+        fb.className = "feedback";
+        fb.innerHTML = "";
+        Array.prototype.forEach.call(sec.querySelectorAll(".action-btn"), function (b) { b.remove(); });
+        speakParts([{ k: "sfx.wait", t: "اختر إجابتك الآن." }]);
+      });
+
+      var revealBtn = document.createElement("button");
+      revealBtn.type = "button";
+      revealBtn.className = "action-btn reveal";
+      revealBtn.textContent = "اسمع الإجابة الصحيحة والتفسير";
+      revealBtn.setAttribute("data-speak", "kt.reveal");
+      revealBtn.setAttribute("data-read", "");
+      revealBtn.addEventListener("click", function () {
+        /* الإجابة الصحيحة تُعرض نصًا أيضًا، لا صوتًا فقط */
+        if (!sec.querySelector(".explain")) {
+          var p = document.createElement("p");
+          p.className = "explain";
+          p.textContent = "الإجابة الصحيحة: " + q.options[q.correct] + ". " + q.feedback;
+          fb.appendChild(p);
+        }
+        speakParts([
+          { k: qKey(i, ok ? "fbok" : "fbbad"), t: verdict + " " + q.feedback }
+        ]);
+      });
+
+      sec.appendChild(nextBtn);
+      sec.appendChild(retryBtn);
+      sec.appendChild(revealBtn);
+
+      /* مؤثر حقيقي (تصفيق / تنبيه) ثم حكم صوتي ثم عرض الأزرار الثلاثة */
+      speakParts(
+        [{ k: ok ? "sfx.clap" : "sfx.buzz", t: "" }]
+          .concat([{ k: ok ? "fb.ok" : "fb.bad", t: ok ? "أحسنت. إجابة صحيحة." : "خطأ. حاول مرة أخرى." }])
+          .concat([{ k: "msg.choices", t: "هناك ثلاثة أزرار: السؤال التالي، وإعادة الإجابة، واسمِع الإجابة الصحيحة والتفسير. اضغط Tab للوصول إليها، ثم Enter." }])
+      );
+    });
+
+    container.appendChild(sec);
+  });
+  updatePosition();
+}
+
+function updateSummary() {
+  var answered = state.filter(function (v) { return v !== null; }).length;
+  var correct = state.filter(function (v) { return v === true; }).length;
+  if (answered === 0) {
+    summaryText.textContent = "لم تُجب عن أي موقف بعد.";
+  } else {
+    summaryText.textContent = "أجبت عن " + answered + " من " + QUESTIONS.length +
+      " موقفًا، وإجاباتك الصحيحة: " + correct + ".";
+  }
+}
+
+/* ================= الإعلان التلقائي أثناء التنقل ================= */
+container.addEventListener("focusin", function (e) {
+  var t = e.target;
+  /* أزرار الإجراءات (تخطي / إعادة) تقرأ data-speak عند التركيز */
+  if (t && t.getAttribute && t.getAttribute("data-speak")) {
+    var key = t.getAttribute("data-speak");
+    var SP = {
+      "kt.skip": "تخطي السؤال والانتقال للسؤال التالي. زر. اضغط Enter للانتقال.",
+      "kt.next": "السؤال التالي. زر. اضغط Enter للانتقال إلى السؤال التالي.",
+      "kt.finish": "عرض النتيجة. زر. اضغط إنتر لتسمع درجتك النهائية في النشاط.",
+      "kt.retry": "إعادة الإجابة على هذا السؤال. زر. اضغط Enter لإعادة المحاولة.",
+      "kt.reveal": "اسمع الإجابة الصحيحة والتفسير. زر. اضغط Enter لتسمع الإجابة الصحيحة مع التفسير."
+    };
+    speakParts([{ k: key, t: SP[key] || "" }]);
+    return;
+  }
+  if (t && t.classList && t.classList.contains("scenario")) {
+    if (suppressFocusAnnounce) return;
+    current = Number(t.id.slice(1)) - 1;
+    updatePosition();
+    announceQuestion(current);
+    return;
+  }
+  if (t && t.matches && t.matches('input[type="radio"]')) {
+    var sec = t.closest(".scenario");
+    if (!sec) return;
+    current = Number(sec.id.slice(1)) - 1;
+    updatePosition();
+    scheduleOptionAnnounce(t);
+  }
+});
+
+/* عناصر خارج قائمة المواقف (قسم طريقة الحل) تُقرأ أيضًا عند التركيز */
+document.addEventListener("focusin", function (e) {
+  var el = e.target;
+  if (!el || !el.closest || el.closest("#scenarios")) { return; }
+  var host = el.closest("[data-speak]");
+  if (!host) { return; }
+  var key = host.getAttribute("data-speak");
+  var txt = host.getAttribute("data-speak-text") || "";
+  if (key === "help.how" && !txt) { txt = HOWTO_TEXT; }
+  if (!key && !txt) { return; }
+  speakParts([{ k: key || null, t: txt }]);
+});
+
+container.addEventListener("change", function (e) {
+  var t = e.target;
+  if (!t || !t.matches || !t.matches('input[type="radio"]')) return;
+  var sec = t.closest(".scenario");
+  if (!sec) return;
+  current = Number(sec.id.slice(1)) - 1;
+  updatePosition();
+  /* بعد اكتمال التحديد: نعلن البديل بحالته الصحيحة */
+  scheduleOptionAnnounce(t);
+});
+
+container.addEventListener("keydown", function (e) {
+  var t = e.target;
+  if (t && t.matches && t.matches('input[type="radio"]')) {
+    /* Enter يختار البديل كما تفعل المسافة: المتعلم لا يعرف أي المفتاحين يستخدم */
+    if (e.key === "Enter") {
+      e.preventDefault();
+      t.checked = true;
+      t.dispatchEvent(new Event("change", { bubbles: true }));
+      return;
+    }
+    /* Home وEnd ينتقلان لأول/آخر موقف حتى لو كان التركيز داخل البدائل */
+    if (e.key === "Home" || e.key === "End") {
+      e.preventDefault();
+      e.stopPropagation();
+      goTo(e.key === "Home" ? 0 : QUESTIONS.length - 1);
+      return;
+    }
+    return; /* الأسهم والمسافة تبقى سلوك المتصفح */
+  }
+  if (e.altKey || e.ctrlKey || e.metaKey) return;
+  var handled = true;
+  if (e.key === "ArrowDown") goTo(current + 1);
+  else if (e.key === "ArrowUp") goTo(current - 1);
+  else if (e.key === "Home") goTo(0);
+  else if (e.key === "End") goTo(QUESTIONS.length - 1);
+  else handled = false;
+  if (handled) e.preventDefault();
+});
+
+/* ================= اختصارات عامة ================= */
+document.addEventListener("keydown", function (e) {
+  /* Enter على جسم المستند بعد الدخول إلى الإطار: أعلن السؤال الحالي */
+  if (e.key === "Enter" && !e.altKey && !e.ctrlKey && !e.metaKey &&
+      (document.activeElement === document.body || document.activeElement === document.documentElement)) {
+    e.preventDefault();
+    goTo(current);
+    return;
+  }
+  if (e.key === "Escape") { stopSpeech(); return; }
+  if (!e.altKey || e.ctrlKey || e.metaKey) return;
+  var actions = {
+    "1": replayContext,
+    "2": replayQuestion,
+    "3": replayOption,
+    "4": announceFeedback
+  };
+  if (e.key === "ArrowDown") { e.preventDefault(); hubStep(1); return; }
+  if (e.key === "ArrowUp") { e.preventDefault(); hubStep(-1); return; }
+  if (e.key === "5") { e.preventDefault(); howTo(); return; }
+  if (e.key === "6") { e.preventDefault(); toggleTTS(); return; }
+  if (actions[e.key]) { e.preventDefault(); actions[e.key](); }
+});
+
+/* ================= لوحة التحكم ================= */
+function store(k, v) { try { localStorage.setItem("a11y." + k, String(v)); } catch (e) { /* ignore */ } }
+function load(k, d) { try { var v = localStorage.getItem("a11y." + k); return v === null ? d : v; } catch (e) { return d; } }
+
+function updateVoiceNotice() {
+  var box = document.getElementById("a11y-voice-note");
+  if (!box) return;
+  var hasAudio = Object.keys(audioManifest()[VOICE] || audioManifest().f || {}).length > 0;
+  if (hasAudio) { box.hidden = true; box.textContent = ""; return; }
+  box.hidden = false;
+  box.textContent = "لم تُعثر ملفات الصوت المرفقة، وسيُستخدم صوت النظام. إن لم تسمع شيئًا فثبِّت حزمة اللغة العربية أو استخدم قارئ شاشة مثل NVDA.";
+}
+
+function syncTTSButton() {
+  var b = document.getElementById("a11y-tts");
+  if (!b) return;
+  b.setAttribute("aria-pressed", TTS.enabled ? "true" : "false");
+  b.textContent = TTS.enabled ? "التلاوة الصوتية: مفعّلة" : "التلاوة الصوتية: متوقفة";
+}
+
+function toggleTTS() {
+  TTS.enabled = !TTS.enabled;
+  store("tts", TTS.enabled ? "1" : "0");
+  syncTTSButton();
+  if (!TTS.enabled) { stopSpeech(); return; }
+  speakParts([{ k: "msg.ttson", t: "التلاوة الصوتية مفعّلة. للتنقل بين الأسئلة استخدم السهم لأعلى أو لأسفل، ولكل بديل إعلان عند الوصول إليه." }]);
+}
+
+function setVolume(v, announce) {
+  v = Math.max(0, Math.min(100, Number(v) || 0));
+  TTS.volume = v / 100;
+  if (Player.audio) { try { Player.audio.volume = TTS.volume; } catch (e) { /* ignore */ } }
+  store("vol", v);
+  var out = document.getElementById("a11y-vol-val");
+  var range = document.getElementById("a11y-vol");
+  if (out) out.textContent = v + "%";
+  if (range) range.value = String(v);
+  if (announce) speakParts([{ k: "vol." + v, t: "مستوى الصوت " + v + " بالمئة." }], true);
+}
+
+function setRate(v, announce) {
+  v = Math.max(60, Math.min(140, Number(v) || 100));
+  TTS.rate = v / 100;
+  store("rate", v);
+  var out = document.getElementById("a11y-rate-val");
+  var range = document.getElementById("a11y-rate");
+  if (out) out.textContent = (v / 100).toFixed(1) + "×";
+  if (range) range.value = String(v);
+  if (announce) speakParts([{ k: null, t: "سرعة القراءة " + (v / 100).toFixed(1) + " مرة." }], true);
+}
+
+function setZoom(v, announce) {
+  v = Math.max(100, Math.min(150, Number(v) || 100));
+  store("zoom", v);
+  document.documentElement.style.setProperty("--ui-zoom", String(v / 100));
+  var out = document.getElementById("a11y-zoom-val");
+  var range = document.getElementById("a11y-zoom");
+  if (out) out.textContent = v + "%";
+  if (range) range.value = String(v);
+  if (announce) speakParts([{ k: null, t: "حجم الخط " + v + " بالمئة." }], true);
+}
+
+function wireToolbar() {
+  var ttsBtn = document.getElementById("a11y-tts");
+  var prev = document.getElementById("a11y-prev");
+  var next = document.getElementById("a11y-next");
+  var howBtn = document.getElementById("a11y-how");
+
+  if (ttsBtn) ttsBtn.addEventListener("click", toggleTTS);
+  if (howBtn) howBtn.addEventListener("click", howTo);
+
+  if (prev) prev.addEventListener("click", function () {
+    if (current === 0) {
+      speakParts([{ k: "msg.first", t: "هذا أول سؤال." }].concat(questionParts(0)));
+      return;
+    }
+    goTo(current - 1);
+  });
+  if (next) next.addEventListener("click", function () {
+    if (current === QUESTIONS.length - 1) {
+      speakParts([{ k: "msg.last", t: "هذا آخر سؤال." }].concat(questionParts(current)));
+      return;
+    }
+    goTo(current + 1);
+  });
+
+  [["a11y-ctx", replayContext], ["a11y-q", replayQuestion], ["a11y-opt", replayOption], ["a11y-fb", announceFeedback]]
+    .forEach(function (pair) {
+      var el = document.getElementById(pair[0]);
+      if (el) el.addEventListener("click", pair[1]);
+    });
+
+  var vol = document.getElementById("a11y-vol");
+  if (vol) {
+    vol.addEventListener("input", function () { setVolume(vol.value, false); });
+    vol.addEventListener("change", function () { setVolume(vol.value, true); });
+  }
+  var rate = document.getElementById("a11y-rate");
+  if (rate) {
+    rate.addEventListener("input", function () { setRate(rate.value, false); });
+    rate.addEventListener("change", function () { setRate(rate.value, true); });
+  }
+  var zoom = document.getElementById("a11y-zoom");
+  if (zoom) {
+    zoom.addEventListener("input", function () { setZoom(zoom.value, false); });
+    zoom.addEventListener("change", function () { setZoom(zoom.value, true); });
+  }
+}
+
+/* ================= التشغيل ================= */
+TTS.enabled = load("tts", "1") === "1";
+syncTTSButton();
+updateVoiceNotice();
+setVolume(load("vol", 90), false);
+setRate(load("rate", 100), false);
+setZoom(load("zoom", 100), false);
+
+wireToolbar();
+render();
+updateSummary();
+
+document.getElementById("reset").addEventListener("click", function () {
+  state.fill(null);
+  render();
+  updateSummary();
+  goTo(0, { lead: { k: "msg.reset", t: "تمت إعادة المحاولة. جميع الإجابات محيت." } });
+});
+
+var skipLink = document.querySelector("a.skip");
+if (skipLink) {
+  skipLink.addEventListener("click", function (e) {
+    e.preventDefault();
+    goTo(current);
+  });
+}
+</script>
+
+<!-- ============================================================
+     المحاكاة الواقعية المسموعة + تحدي الإشعارات
+     تعتمد على نفس محرك الصوت أعلاه (ملفات عربية + قارئ شاشة)،
+     وتضيف "ماذا يحدث لك الآن" و"ماذا كانت ستكون نتيجة تصرفك".
+     ============================================================ -->
+<!-- SIM_DATA_START -->
+<script>
+/* SIM_TEXTS_START */
+const SIM_TEXTS = {
+  "sim.intro": "المحاكاة الواقعية. عشرة مواقف تسمعها كما تحدث لك، ولكل موقف تصرفات تختار بينها، ثم تسمع نتيجة تصرفك فورًا.",
+  "sim.how": "طريقة المحاكاة في أربع خطوات. أولًا: عند وصولك إلى أول تصرف في أي موقف، يُقرأ عليك الموقف كاملًا. ثانيًا: تنقّل بين التصرفات بالسهم لأعلى أو لأسفل، ويُعلَن كل تصرف عند الوصول إليه، ثم اضغط إنتر أو مسافة للاختيار. ثالثًا: اضغط تب حتى تصل إلى زر تحقق من الإجابة ثم إنتر، فتسمع نتيجة تصرفك والتفسير والعلامة التي دلّتك على الخطر. رابعًا: يمكنك إعادة الموقف أو سماع العلامة مرة أخرى من الأزرار الموجودة معه. وفي أي لحظة إسكيب يوقف الصوت، وألت مع سبعة يعيد شرح الطريقة.",
+  "sim.nochoice": "لم تختر تصرفًا بعد. استخدم السهم لأعلى أو لأسفل لسماع التصرفات، ثم مسافة للاختيار.",
+  "sim.selected": "تم اختيار التصرف.",
+  "sim.outcome.ok": "نتيجة آمنة.",
+  "sim.outcome.bad": "نتيجة خطرة.",
+  "sim.correctprefix": "إجابة صحيحة.",
+  "sim.wrongprefix": "إجابة غير صحيحة.",
+  "sim.next": "الموقف التالي.",
+  "sim.hintbtn": "اسمع علامة الخطر",
+  "sim.q1.scene": "أنت أمام جهاز المدرسة. توقّف قارئ الشاشة فجأة، ثم ظهرت رسالة عاجلة تقول: تم تعطيل الوصول إلى ملفاتك، ادفع فدية خلال ثماني وأربعين ساعة. حاولت فتح ملف درجتك فلم يستجب الجهاز. ما تصرفك الآن؟",
+  "sim.q1.out1": "دفع الفدية لا يضمن استعادة الملفات، وقد يشجّع المحتال على طلب المزيد.",
+  "sim.q1.out2": "البرامج المجهولة قد تزيد الضرر وتفتح بابًا جديدًا للخطر.",
+  "sim.q1.out3": "أحسنت. أبلغت المسؤول، وبقي الجهاز آمنًا، واستُعيدت الملفات من نسخة احتياطية.",
+  "sim.q1.out4": "إعادة التشغيل لا تفك التشفير، وضيّعت وقتًا كان يمكن أن يُستخدم للإبلاغ.",
+  "sim.q1.clue": "العلامة: طلب مال مقابل فتح ملفاتك. لا تدفع، وأبلغ فورًا.",
+  "sim.q2.scene": "وصل إلى بريدك إشعار جديد. قارئ الشاشة يقرأ: من إدارة المدرسة، الموضوع: تحديث بياناتك خلال أربع وعشرين ساعة، مُرسَل من نطاق غير رسمي، وفيه رابط يطلب تسجيل الدخول ببياناتك. ما تصرفك الآن؟",
+  "sim.q2.out1": "فتحت صفحة مزيفة، ووقعت بياناتك في يد المحتال.",
+  "sim.q2.out2": "أحسنت. تحققت عبر قناة معروفة وأبلغت المسؤول، فبقي حسابك سليمًا.",
+  "sim.q2.out3": "إعادة التوجيه قد تنقل الخطر إلى زملائك أيضًا.",
+  "sim.q2.out4": "الرد بالبيانات أعطى المحتال بالضبط ما أراد.",
+  "sim.q2.clue": "العلامة: استعجال وتهديد ونطاق غير رسمي. تحقق من قناة معروفة.",
+  "sim.q3.scene": "أمامك رسالة وصلت في المساء، مكتوبة بالعربية، من شخص تعرفه، لكنها تطلب بياناتك الشخصية فورًا من نطاق لم تعهده. أي علامة فيها تستحق الانتباه؟",
+  "sim.q3.out1": "وقت الوصول وحده ليس علامة على الاشتباه.",
+  "sim.q3.out2": "أحسنت. هذا هو الجمع الذي يدل على الاشتباه.",
+  "sim.q3.out3": "اللغة وحدها ليست دليلًا.",
+  "sim.q3.out4": "معرفة المرسل لا تكفي؛ المهم ما تطلبه الرسالة.",
+  "sim.q3.clue": "العلامة: طلب بيانات باستعجال من نطاق غير معتاد.",
+  "sim.q4.scene": "وصلك بريد يقول: أنا مسؤول في المدرسة. لكنه مُرسَل من بريد شخصي لا يتبع نطاق المدرسة، ويطلب صورة من هويتك الآن. ما المعيار الذي تحكم به؟",
+  "sim.q4.out1": "أحسنت. التحقق من النطاق ومن قناة رسمية هو المعيار الصحيح.",
+  "sim.q4.out2": "الادعاء وحده ليس دليل هوية.",
+  "sim.q4.out3": "أرسلت بيانات حساسة إلى جهة لم تتحقق منها.",
+  "sim.q4.out4": "التحويل يوسّع دائرة الخطر بدل حلّه.",
+  "sim.q4.clue": "العلامة: ادعاء المسؤولية بلا نطاق رسمي ولا تأكيد مستقل.",
+  "sim.q5.scene": "هاتفك يرنّ. المتصل يقول: أنا موظف دعم فني في المدرسة، لديّ مشكلة عاجلة في حسابك، أعطني رقمك التعريفي وكلمة المرور الآن. ما تصرفك؟",
+  "sim.q5.out1": "أعطيت السر لشخص لم تتحقق من هويته.",
+  "sim.q5.out2": "حتى الرقم التعريفي معلومة تساعد المحتال.",
+  "sim.q5.out3": "أحسنت. أنهيت المكالمة وتحققت من الرقم الرسمي، فبقي حسابك آمنًا.",
+  "sim.q5.clue": "العلامة: طلب كلمة مرور هاتفيًا. لا جهة شرعية تفعل ذلك.",
+  "sim.q6.scene": "أثناء الفسحة، وجدت وحدة تخزين يو إس بي ملقاة في ساحة المدرسة، وعليها ملصق مكتوب: درجات الفصل الدراسي. لا يعرف أحد مالكها. ما التصرف الصحيح؟",
+  "sim.q6.out1": "بمجرد التوصيل، قد يُنفَّذ برنامج ضار في جهازك.",
+  "sim.q6.out2": "نقلت الخطر إلى جهاز المدرسة أيضًا.",
+  "sim.q6.out3": "أحسنت. سلّمتها دون توصيل، وبقي الجميع آمنًا.",
+  "sim.q6.out4": "نقلت الخطر إلى زميل لم يعرف مصدره.",
+  "sim.q6.clue": "العلامة: إغراء بدرجات على وحدة تخزين مجهولة. لا توصلها.",
+  "sim.q7.scene": "في حصة الحاسوب، سُئلت عن الوصف الدقيق لهجوم الحرمان من الخدمة الموزعة، دي دي أو إس. أمامك أوصاف متعددة. أي وصف هو الصحيح؟",
+  "sim.q7.out1": "هذا وصف لبرامج الفدية، لا لهجوم الحرمان من الخدمة.",
+  "sim.q7.out2": "أحسنت. هذا هو الوصف الدقيق لهجوم دي دي أو إس.",
+  "sim.q7.out3": "هذا وصف للتصيد، لا لهجوم الحرمان من الخدمة.",
+  "sim.q7.clue": "العلامة: طلبات كثيرة جدًا من مصادر متعددة تُوقف الخدمة.",
+  "sim.q8.scene": "موقع المدرسة توقف عن العمل فجأة، وارتفع صوت تراسل الشبكة في الغرفة، والصفحات لا تُفتح. ما أفضل تصرف؟",
+  "sim.q8.out1": "الأدوات المجهولة قد تزيد المشكلة.",
+  "sim.q8.out2": "التجاهل يترك المشكلة تتسع.",
+  "sim.q8.out3": "أحسنت. أبلغت المختص فورًا دون عبث بالأجهزة.",
+  "sim.q8.clue": "العلامة: تغيّر غير متوقع وصوت شبكة مرتفع. لا أدوات مجهولة، وأبلغ فورًا.",
+  "sim.q9.scene": "طلب منك زميل في المحادثة كلمة مرور حسابك المدرسي ليكمل واجبًا مشتركًا، وقال إنه لن يخبر أحدًا. ما تصرفك؟",
+  "sim.q9.out1": "مرة واحدة تكفي لوقوع السرّ في يد غيرك.",
+  "sim.q9.out2": "أحسنت. أنجزتم العمل دون مشاركة السرّ.",
+  "sim.q9.out3": "كلمة مؤقتة تظل سرًّا شاركته مع غيرك.",
+  "sim.q9.clue": "العلامة: طلب سرّك من صديق. كلمة المرور لا تشارك.",
+  "sim.q10.scene": "وصلتك رسالة نصية من رقم غريب تقول: أنت رابح جائزة، أرسل رقم هويتك لتفعيل الجائزة خلال ساعتين. ما التصرف الصحيح؟",
+  "sim.q10.out1": "أرسلت بياناتك لجهة مجهولة.",
+  "sim.q10.out2": "الجزء نفسه يكفي للخداع.",
+  "sim.q10.out3": "أحسنت. حذفت الرسالة ولم تُرسل أي بيانات.",
+  "sim.q10.clue": "العلامة: جائزة غير متوقعة مع استعجال وطلب بيانات.",
+  "sim.ch.intro": "تحدي الإشعارات. خمسة إشعارات تصل الواحد بعد الآخر، وأمامك ثلاثون ثانية لكل إشعار. الوقت يُقال لك عند بقاء خمس عشرة وخمس ثوانٍ، ويمكنك الإيقاف المؤقت وطلب عشر ثوانٍ إضافية.",
+  "sim.ch.new": "إشعار جديد.",
+  "sim.ch.warn20": "بقيت عشرون ثانية.",
+  "sim.ch.warn15": "بقيت خمس عشرة ثانية.",
+  "sim.ch.warn10": "بقيت عشر ثوانٍ.",
+  "sim.ch.warn5": "بقيت خمس ثوانٍ.",
+  "sim.ch.timeout": "انتهى الوقت دون قرار.",
+  "sim.ch.extra": "حصلت على عشر ثوانٍ إضافية.",
+  "sim.ch.pause": "الوقت متوقف مؤقتًا.",
+  "sim.ch.resume": "الوقت مستمر.",
+  "sim.ch.time": "الوقت المتبقي.",
+  "sim.ch.score": "نقاط التحدي.",
+  "sim.ch.next": "الإشعار التالي.",
+  "sim.ch.done": "انتهى التحدي.",
+  "sim.ch.correctprefix": "تصرف آمن.",
+  "sim.ch.wrongprefix": "تصرف غير آمن."
+};
+/* SIM_TEXTS_END */
+
+/* SIM_AUDIO_START */
+const SIM_AUDIO = {"m":{"sim.ch.correctprefix":"audio/sim/m/sim_ch_correctprefix.mp3","sim.ch.done":"audio/sim/m/sim_ch_done.mp3","sim.ch.extra":"audio/sim/m/sim_ch_extra.mp3","sim.ch.intro":"audio/sim/m/sim_ch_intro.mp3","sim.ch.new":"audio/sim/m/sim_ch_new.mp3","sim.ch.next":"audio/sim/m/sim_ch_next.mp3","sim.ch.pause":"audio/sim/m/sim_ch_pause.mp3","sim.ch.resume":"audio/sim/m/sim_ch_resume.mp3","sim.ch.score":"audio/sim/m/sim_ch_score.mp3","sim.ch.time":"audio/sim/m/sim_ch_time.mp3","sim.ch.timeout":"audio/sim/m/sim_ch_timeout.mp3","sim.ch.warn10":"audio/sim/m/sim_ch_warn10.mp3","sim.ch.warn15":"audio/sim/m/sim_ch_warn15.mp3","sim.ch.warn20":"audio/sim/m/sim_ch_warn20.mp3","sim.ch.warn5":"audio/sim/m/sim_ch_warn5.mp3","sim.ch.wrongprefix":"audio/sim/m/sim_ch_wrongprefix.mp3","sim.correctprefix":"audio/sim/m/sim_correctprefix.mp3","sim.hintbtn":"audio/sim/m/sim_hintbtn.mp3","sim.how":"audio/sim/m/sim_how.mp3","sim.intro":"audio/sim/m/sim_intro.mp3","sim.next":"audio/sim/m/sim_next.mp3","sim.nochoice":"audio/sim/m/sim_nochoice.mp3","sim.outcome.bad":"audio/sim/m/sim_outcome_bad.mp3","sim.outcome.ok":"audio/sim/m/sim_outcome_ok.mp3","sim.q1.clue":"audio/sim/m/sim_q1_clue.mp3","sim.q1.out1":"audio/sim/m/sim_q1_out1.mp3","sim.q1.out2":"audio/sim/m/sim_q1_out2.mp3","sim.q1.out3":"audio/sim/m/sim_q1_out3.mp3","sim.q1.out4":"audio/sim/m/sim_q1_out4.mp3","sim.q1.scene":"audio/sim/m/sim_q1_scene.mp3","sim.q10.clue":"audio/sim/m/sim_q10_clue.mp3","sim.q10.out1":"audio/sim/m/sim_q10_out1.mp3","sim.q10.out2":"audio/sim/m/sim_q10_out2.mp3","sim.q10.out3":"audio/sim/m/sim_q10_out3.mp3","sim.q10.scene":"audio/sim/m/sim_q10_scene.mp3","sim.q2.clue":"audio/sim/m/sim_q2_clue.mp3","sim.q2.out1":"audio/sim/m/sim_q2_out1.mp3","sim.q2.out2":"audio/sim/m/sim_q2_out2.mp3","sim.q2.out3":"audio/sim/m/sim_q2_out3.mp3","sim.q2.out4":"audio/sim/m/sim_q2_out4.mp3","sim.q2.scene":"audio/sim/m/sim_q2_scene.mp3","sim.q3.clue":"audio/sim/m/sim_q3_clue.mp3","sim.q3.out1":"audio/sim/m/sim_q3_out1.mp3","sim.q3.out2":"audio/sim/m/sim_q3_out2.mp3","sim.q3.out3":"audio/sim/m/sim_q3_out3.mp3","sim.q3.out4":"audio/sim/m/sim_q3_out4.mp3","sim.q3.scene":"audio/sim/m/sim_q3_scene.mp3","sim.q4.clue":"audio/sim/m/sim_q4_clue.mp3","sim.q4.out1":"audio/sim/m/sim_q4_out1.mp3","sim.q4.out2":"audio/sim/m/sim_q4_out2.mp3","sim.q4.out3":"audio/sim/m/sim_q4_out3.mp3","sim.q4.out4":"audio/sim/m/sim_q4_out4.mp3","sim.q4.scene":"audio/sim/m/sim_q4_scene.mp3","sim.q5.clue":"audio/sim/m/sim_q5_clue.mp3","sim.q5.out1":"audio/sim/m/sim_q5_out1.mp3","sim.q5.out2":"audio/sim/m/sim_q5_out2.mp3","sim.q5.out3":"audio/sim/m/sim_q5_out3.mp3","sim.q5.scene":"audio/sim/m/sim_q5_scene.mp3","sim.q6.clue":"audio/sim/m/sim_q6_clue.mp3","sim.q6.out1":"audio/sim/m/sim_q6_out1.mp3","sim.q6.out2":"audio/sim/m/sim_q6_out2.mp3","sim.q6.out3":"audio/sim/m/sim_q6_out3.mp3","sim.q6.out4":"audio/sim/m/sim_q6_out4.mp3","sim.q6.scene":"audio/sim/m/sim_q6_scene.mp3","sim.q7.clue":"audio/sim/m/sim_q7_clue.mp3","sim.q7.out1":"audio/sim/m/sim_q7_out1.mp3","sim.q7.out2":"audio/sim/m/sim_q7_out2.mp3","sim.q7.out3":"audio/sim/m/sim_q7_out3.mp3","sim.q7.scene":"audio/sim/m/sim_q7_scene.mp3","sim.q8.clue":"audio/sim/m/sim_q8_clue.mp3","sim.q8.out1":"audio/sim/m/sim_q8_out1.mp3","sim.q8.out2":"audio/sim/m/sim_q8_out2.mp3","sim.q8.out3":"audio/sim/m/sim_q8_out3.mp3","sim.q8.scene":"audio/sim/m/sim_q8_scene.mp3","sim.q9.clue":"audio/sim/m/sim_q9_clue.mp3","sim.q9.out1":"audio/sim/m/sim_q9_out1.mp3","sim.q9.out2":"audio/sim/m/sim_q9_out2.mp3","sim.q9.out3":"audio/sim/m/sim_q9_out3.mp3","sim.q9.scene":"audio/sim/m/sim_q9_scene.mp3","sim.selected":"audio/sim/m/sim_selected.mp3","sim.wrongprefix":"audio/sim/m/sim_wrongprefix.mp3","sfx.clap":"audio/act/clap.mp3","sfx.buzz":"audio/act/buzz.mp3"},"f":{"sim.ch.correctprefix":"audio/sim/f/sim_ch_correctprefix.mp3","sim.ch.done":"audio/sim/f/sim_ch_done.mp3","sim.ch.extra":"audio/sim/f/sim_ch_extra.mp3","sim.ch.intro":"audio/sim/f/sim_ch_intro.mp3","sim.ch.new":"audio/sim/f/sim_ch_new.mp3","sim.ch.next":"audio/sim/f/sim_ch_next.mp3","sim.ch.pause":"audio/sim/f/sim_ch_pause.mp3","sim.ch.resume":"audio/sim/f/sim_ch_resume.mp3","sim.ch.score":"audio/sim/f/sim_ch_score.mp3","sim.ch.time":"audio/sim/f/sim_ch_time.mp3","sim.ch.timeout":"audio/sim/f/sim_ch_timeout.mp3","sim.ch.warn10":"audio/sim/f/sim_ch_warn10.mp3","sim.ch.warn15":"audio/sim/f/sim_ch_warn15.mp3","sim.ch.warn20":"audio/sim/f/sim_ch_warn20.mp3","sim.ch.warn5":"audio/sim/f/sim_ch_warn5.mp3","sim.ch.wrongprefix":"audio/sim/f/sim_ch_wrongprefix.mp3","sim.correctprefix":"audio/sim/f/sim_correctprefix.mp3","sim.hintbtn":"audio/sim/f/sim_hintbtn.mp3","sim.how":"audio/sim/f/sim_how.mp3","sim.intro":"audio/sim/f/sim_intro.mp3","sim.next":"audio/sim/f/sim_next.mp3","sim.nochoice":"audio/sim/f/sim_nochoice.mp3","sim.outcome.bad":"audio/sim/f/sim_outcome_bad.mp3","sim.outcome.ok":"audio/sim/f/sim_outcome_ok.mp3","sim.q1.clue":"audio/sim/f/sim_q1_clue.mp3","sim.q1.out1":"audio/sim/f/sim_q1_out1.mp3","sim.q1.out2":"audio/sim/f/sim_q1_out2.mp3","sim.q1.out3":"audio/sim/f/sim_q1_out3.mp3","sim.q1.out4":"audio/sim/f/sim_q1_out4.mp3","sim.q1.scene":"audio/sim/f/sim_q1_scene.mp3","sim.q10.clue":"audio/sim/f/sim_q10_clue.mp3","sim.q10.out1":"audio/sim/f/sim_q10_out1.mp3","sim.q10.out2":"audio/sim/f/sim_q10_out2.mp3","sim.q10.out3":"audio/sim/f/sim_q10_out3.mp3","sim.q10.scene":"audio/sim/f/sim_q10_scene.mp3","sim.q2.clue":"audio/sim/f/sim_q2_clue.mp3","sim.q2.out1":"audio/sim/f/sim_q2_out1.mp3","sim.q2.out2":"audio/sim/f/sim_q2_out2.mp3","sim.q2.out3":"audio/sim/f/sim_q2_out3.mp3","sim.q2.out4":"audio/sim/f/sim_q2_out4.mp3","sim.q2.scene":"audio/sim/f/sim_q2_scene.mp3","sim.q3.clue":"audio/sim/f/sim_q3_clue.mp3","sim.q3.out1":"audio/sim/f/sim_q3_out1.mp3","sim.q3.out2":"audio/sim/f/sim_q3_out2.mp3","sim.q3.out3":"audio/sim/f/sim_q3_out3.mp3","sim.q3.out4":"audio/sim/f/sim_q3_out4.mp3","sim.q3.scene":"audio/sim/f/sim_q3_scene.mp3","sim.q4.clue":"audio/sim/f/sim_q4_clue.mp3","sim.q4.out1":"audio/sim/f/sim_q4_out1.mp3","sim.q4.out2":"audio/sim/f/sim_q4_out2.mp3","sim.q4.out3":"audio/sim/f/sim_q4_out3.mp3","sim.q4.out4":"audio/sim/f/sim_q4_out4.mp3","sim.q4.scene":"audio/sim/f/sim_q4_scene.mp3","sim.q5.clue":"audio/sim/f/sim_q5_clue.mp3","sim.q5.out1":"audio/sim/f/sim_q5_out1.mp3","sim.q5.out2":"audio/sim/f/sim_q5_out2.mp3","sim.q5.out3":"audio/sim/f/sim_q5_out3.mp3","sim.q5.scene":"audio/sim/f/sim_q5_scene.mp3","sim.q6.clue":"audio/sim/f/sim_q6_clue.mp3","sim.q6.out1":"audio/sim/f/sim_q6_out1.mp3","sim.q6.out2":"audio/sim/f/sim_q6_out2.mp3","sim.q6.out3":"audio/sim/f/sim_q6_out3.mp3","sim.q6.out4":"audio/sim/f/sim_q6_out4.mp3","sim.q6.scene":"audio/sim/f/sim_q6_scene.mp3","sim.q7.clue":"audio/sim/f/sim_q7_clue.mp3","sim.q7.out1":"audio/sim/f/sim_q7_out1.mp3","sim.q7.out2":"audio/sim/f/sim_q7_out2.mp3","sim.q7.out3":"audio/sim/f/sim_q7_out3.mp3","sim.q7.scene":"audio/sim/f/sim_q7_scene.mp3","sim.q8.clue":"audio/sim/f/sim_q8_clue.mp3","sim.q8.out1":"audio/sim/f/sim_q8_out1.mp3","sim.q8.out2":"audio/sim/f/sim_q8_out2.mp3","sim.q8.out3":"audio/sim/f/sim_q8_out3.mp3","sim.q8.scene":"audio/sim/f/sim_q8_scene.mp3","sim.q9.clue":"audio/sim/f/sim_q9_clue.mp3","sim.q9.out1":"audio/sim/f/sim_q9_out1.mp3","sim.q9.out2":"audio/sim/f/sim_q9_out2.mp3","sim.q9.out3":"audio/sim/f/sim_q9_out3.mp3","sim.q9.scene":"audio/sim/f/sim_q9_scene.mp3","sim.selected":"audio/sim/f/sim_selected.mp3","sim.wrongprefix":"audio/sim/f/sim_wrongprefix.mp3","sfx.clap":"audio/act/clap.mp3","sfx.buzz":"audio/act/buzz.mp3"}};
+/* SIM_AUDIO_END */
+
+(function () {
+  "use strict";
+
+  /* دمج مانيفست المحاكاة مع مانيفست النشاط الأصلي دون فقد أي مقطع قديم */
+  var baseManifest = audioManifest;
+  audioManifest = function () {
+    var m = baseManifest();
+    if (!m.f) { m = { f: m, m: {} }; }
+    var out = {
+      f: Object.assign({}, m.f || {}, SIM_AUDIO.f || {}),
+      m: Object.assign({}, m.m || {}, SIM_AUDIO.m || {})
+    };
+    return out;
+  };
+
+  function ar(n) { return String(n).replace(/[0-9]/g, function (d) { return "٠١٢٣٤٥٦٧٨٩"[+d]; }); }
+  function txt(k) { return SIM_TEXTS[k] || ""; }
+  function say(k) { if (txt(k)) { speakParts([{ k: k, t: txt(k) }]); } }
+  function sayText(t) { speakParts([{ k: null, t: t }]); }
+  function label(n) { return "الموقف " + ar(n) + " من " + ar(QUESTIONS.length); }
+
+  /* ---------------- المحاكاة الواقعية ---------------- */
+  var simList = document.getElementById("simList");
+  var simCurrent = 0;
+  var simAnnounced = -1;
+  var simState = {};
+
+  function simParts(i, extra) {
+    var q = QUESTIONS[i];
+    var parts = [
+      { k: "sim.q" + (i + 1) + ".scene", t: txt("sim.q" + (i + 1) + ".scene") },
+      { k: "q" + (i + 1) + ".q", t: "السؤال: " + q.question }
+    ];
+    return parts.concat(extra || []);
+  }
+
+  function buildSimulation() {
+    if (!simList) { return; }
+    simList.innerHTML = "";
+    QUESTIONS.forEach(function (q, i) {
+      var n = i + 1;
+      var sec = document.createElement("section");
+      sec.className = "scenario";
+      sec.id = "sim" + n;
+      sec.tabIndex = -1;
+      sec.setAttribute("role", "group");
+      sec.setAttribute("aria-labelledby", "sim" + n + "-title");
+      sec.setAttribute("aria-describedby", "sim" + n + "-hint");
+
+      var h = document.createElement("h3");
+      h.id = "sim" + n + "-title";
+      h.textContent = "الموقف " + n + ": " + q.context.slice(0, 42);
+      sec.appendChild(h);
+
+      var live = document.createElement("p");
+      live.className = "sim-live";
+      live.innerHTML = "<span class='lead'>ما الذي يحدث الآن؟</span>";
+      live.appendChild(document.createTextNode(txt("sim.q" + n + ".scene")));
+      sec.appendChild(live);
+
+      var hint = document.createElement("p");
+      hint.className = "sr-only";
+      hint.id = "sim" + n + "-hint";
+      hint.textContent = label(n) + ". استخدم السهم لأعلى أو لأسفل بين التصرفات، ويُعلن كل تصرف عند الوصول إليه، ثم اضغط إنتر للاختيار، وبعده تب إلى زر تحقق من الإجابة.";
+      sec.appendChild(hint);
+
+      var fs = document.createElement("fieldset");
+      var lg = document.createElement("legend");
+      lg.textContent = q.question;
+      fs.appendChild(lg);
+      q.options.forEach(function (opt, j) {
+        var lab = document.createElement("label");
+        lab.className = "option";
+        var input = document.createElement("input");
+        input.type = "radio";
+        input.name = "sim" + i;
+        input.value = String(j);
+        input.setAttribute("aria-describedby", "sim" + n + "-hint");
+        lab.appendChild(input);
+        lab.appendChild(document.createTextNode(opt));
+        fs.appendChild(lab);
+      });
+      sec.appendChild(fs);
+
+      var tools = document.createElement("div");
+      tools.className = "a11y-row";
+      var check = document.createElement("button");
+      check.type = "button";
+      check.textContent = "تحقق من الإجابة";
+      var repeat = document.createElement("button");
+      repeat.type = "button";
+      repeat.className = "secondary";
+      repeat.textContent = "إعادة الموقف";
+      var clue = document.createElement("button");
+      clue.type = "button";
+      clue.className = "secondary";
+      clue.textContent = txt("sim.hintbtn");
+      tools.appendChild(check);
+      tools.appendChild(repeat);
+      tools.appendChild(clue);
+      sec.appendChild(tools);
+
+      var out = document.createElement("p");
+      out.className = "sim-outcome";
+      out.setAttribute("role", "status");
+      out.setAttribute("aria-live", "polite");
+      out.setAttribute("aria-atomic", "true");
+      sec.appendChild(out);
+
+      var fb = document.createElement("p");
+      fb.className = "feedback";
+      fb.id = "simfb" + n;
+      fb.setAttribute("role", "status");
+      fb.setAttribute("aria-live", "polite");
+      fb.setAttribute("aria-atomic", "true");
+      sec.appendChild(fb);
+
+      check.addEventListener("click", function () { simCheck(i); });
+      repeat.addEventListener("click", function () { speakParts(simParts(i)); });
+      clue.addEventListener("click", function () { say("sim.q" + n + ".clue"); });
+
+      simList.appendChild(sec);
+    });
+    updateSimPosition();
+  }
+
+  function updateSimPosition() {
+    var el = document.getElementById("simPos");
+    if (el) { el.textContent = label(simCurrent + 1); }
+  }
+
+  function simGoTo(i) {
+    var sec = document.getElementById("sim" + (i + 1));
+    if (!sec) { return; }
+    simCurrent = i;
+    updateSimPosition();
+    try { sec.focus({ preventScroll: true }); } catch (e) { try { sec.focus(); } catch (e2) {} }
+    if (sec.scrollIntoView) {
+      try { sec.scrollIntoView({ block: "start", behavior: "smooth" }); } catch (e3) { sec.scrollIntoView(); }
+    }
+    speakParts(simParts(i));
+  }
+
+  function simCheck(i) {
+    var sec = document.getElementById("sim" + (i + 1));
+    var chosen = sec.querySelector('input[name="sim' + i + '"]:checked');
+    var out = sec.querySelector(".sim-outcome");
+    var fb = sec.querySelector(".feedback");
+    if (!chosen) {
+      out.className = "sim-outcome show bad";
+      out.innerHTML = "<span class='verdict'>تنبيه.</span>" + txt("sim.nochoice");
+      say("sim.nochoice");
+      return;
+    }
+    var j = Number(chosen.value);
+    var ok = j === QUESTIONS[i].correct;
+    simState[i] = ok;
+    out.className = "sim-outcome show " + (ok ? "ok" : "bad");
+    out.innerHTML = "<span class='verdict'>" + (ok ? txt("sim.outcome.ok") : txt("sim.outcome.bad")) + "</span>" +
+      txt("sim.q" + (i + 1) + ".out" + (j + 1)) +
+      "<span class='sim-clue'>" + txt("sim.q" + (i + 1) + ".clue") + "</span>";
+    fb.className = "feedback show " + (ok ? "ok" : "bad");
+    fb.textContent = (ok ? txt("sim.correctprefix") : txt("sim.wrongprefix")) + " " + QUESTIONS[i].feedback;
+    simCurrent = i;
+    simAnnounced = i;
+    updateSimPosition();
+    speakParts([
+      { k: ok ? "sfx.clap" : "sfx.buzz", t: "" },
+      { k: "sim.outcome." + (ok ? "ok" : "bad"), t: txt("sim.outcome." + (ok ? "ok" : "bad")) },
+      { k: "sim.q" + (i + 1) + ".out" + (j + 1), t: txt("sim.q" + (i + 1) + ".out" + (j + 1)) },
+      { k: "sim.q" + (i + 1) + ".clue", t: txt("sim.q" + (i + 1) + ".clue") },
+      { k: "q" + (i + 1) + (ok ? ".fbok" : ".fbbad"), t: QUESTIONS[i].feedback }
+    ]);
+  }
+
+  if (simList) {
+    simList.addEventListener("focusin", function (e) {
+      var t = e.target;
+      if (!t || !t.matches || !t.matches('input[type="radio"]')) { return; }
+      var sec = t.closest(".scenario");
+      if (!sec) { return; }
+      var i = Number(sec.id.slice(3)) - 1;
+      simCurrent = i;
+      updateSimPosition();
+      if (simAnnounced !== i) {
+        simAnnounced = i;
+        speakParts(simParts(i, [{
+          k: "q" + (i + 1) + ".o" + (Number(t.value) + 1),
+          t: "البديل " + (Number(t.value) + 1) + ": " + QUESTIONS[i].options[Number(t.value)]
+        }]));
+      } else {
+        speakParts([{
+          k: "q" + (i + 1) + ".o" + (Number(t.value) + 1),
+          t: "البديل " + (Number(t.value) + 1) + ": " + QUESTIONS[i].options[Number(t.value)]
+        }]);
+      }
+    });
+    simList.addEventListener("keydown", function (e) {
+      var t = e.target;
+      if (t && t.matches && t.matches('input[type="radio"]') && e.key === "Enter") {
+        e.preventDefault();
+        t.checked = true;
+        say("sim.selected");
+        return;
+      }
+      if (e.altKey || e.ctrlKey || e.metaKey) { return; }
+      if (e.key === "ArrowDown") { e.preventDefault(); simGoTo(simCurrent + 1); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); simGoTo(simCurrent - 1); }
+      else if (e.key === "Home") { e.preventDefault(); simGoTo(0); }
+      else if (e.key === "End") { e.preventDefault(); simGoTo(QUESTIONS.length - 1); }
+    });
+  }
+
+  /* ---------------- تحدي الإشعارات بالوقت المسموع ---------------- */
+  var CH_IDS = [0, 1, 4, 5, 9];
+  var CH_LIMIT = 30;
+  var chState = {
+    on: false, paused: false, pos: 0, score: 0, answered: false,
+    remaining: CH_LIMIT, endAt: 0, tick: null,
+    warned20: false, warned15: false, warned10: false, warned5: false,
+    extraUsed: false, results: []
+  };
+  var lastChStatus = "";
+  var chNotice = document.getElementById("chNotice");
+  var chChoices = document.getElementById("chChoices");
+  var chOutcome = document.getElementById("chOutcome");
+  var chStage = document.getElementById("chStage");
+  var chResult = document.getElementById("chResult");
+  var chStatus = document.getElementById("chStatus");
+
+  function chBtn(id) { return document.getElementById(id); }
+
+  function setChButtons(started, canAnswer) {
+    [["chPause", started], ["chExtra", started && canAnswer],
+     ["chTime", started], ["chStop", started]].forEach(function (p) {
+      var b = chBtn(p[0]);
+      if (b) { b.disabled = !p[1]; }
+    });
+    var start = chBtn("chStart");
+    if (start) { start.disabled = started; }
+  }
+
+  function paintChStatus(force) {
+    if (!chStatus) { return; }
+    var secs = Math.ceil(chState.remaining);
+    /* لا نُغرق قارئ الشاشة بإعلان كل ثانية: العدّاد يُعلَن كل خمس ثوانٍ */
+    if (!force && chState.on && !chState.answered && !chState.paused && secs % 5 !== 0) { return; }
+    var s = chState.answered ? "تم اتخاذ القرار." :
+      (chState.paused ? "الوقت متوقف مؤقتًا." : "الوقت المتبقي: " + ar(secs) + " ثانية");
+    var str = chState.on ?
+      ("الإشعار " + ar(chState.pos + 1) + " من " + ar(CH_IDS.length) + " — " + s +
+       " — نقاط التحدي: " + ar(chState.score) + " من " + ar(CH_IDS.length)) :
+      "التحدي لم يبدأ بعد.";
+    if (str !== lastChStatus) { chStatus.textContent = str; lastChStatus = str; }
+  }
+
+  function stopChTick() {
+    if (chState.tick) { window.clearInterval(chState.tick); chState.tick = null; }
+  }
+
+  function startChTick() {
+    stopChTick();
+    chState.endAt = Date.now() + chState.remaining * 1000;
+    chState.tick = window.setInterval(function () {
+      if (!chState.on || chState.paused || chState.answered) { return; }
+      chState.remaining = Math.max(0, (chState.endAt - Date.now()) / 1000);
+      paintChStatus();
+      if (chState.remaining <= 20 && !chState.warned20) {
+        chState.warned20 = true; say("sim.ch.warn20");
+      }
+      if (chState.remaining <= 15 && !chState.warned15) {
+        chState.warned15 = true; say("sim.ch.warn15");
+      }
+      if (chState.remaining <= 10 && !chState.warned10) {
+        chState.warned10 = true; say("sim.ch.warn10");
+      }
+      if (chState.remaining <= 5 && !chState.warned5) {
+        chState.warned5 = true; say("sim.ch.warn5");
+      }
+      if (chState.remaining <= 0) { chAnswer(-1, true); }
+    }, 250);
+  }
+
+  function chRenderChoices(qi, q) {
+    if (!chChoices) { return; }
+    chChoices.innerHTML = "";
+    /* أزرار لا بدائل راديو: الأسهم لا تختار عن المتعلم قبل أن يسمع كل البدائل */
+    q.options.forEach(function (opt, j) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "action-btn";
+      b.setAttribute("data-ch", String(j));
+      b.textContent = "البديل " + (j + 1) + ": " + opt;
+      chChoices.appendChild(b);
+    });
+    var first = chChoices.querySelector("button");
+    if (first) { try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); } }
+  }
+
+  function chNext() {
+    stopChTick();
+    if (chState.pos >= CH_IDS.length) { chFinish(); return; }
+    var qi = CH_IDS[chState.pos];
+    var q = QUESTIONS[qi];
+    chState.answered = false;
+    chState.paused = false;
+    chState.remaining = CH_LIMIT;
+    chState.warned20 = false;
+    chState.warned15 = false;
+    chState.warned10 = false;
+    chState.warned5 = false;
+    chState.extraUsed = false;
+    if (chStage) { chStage.hidden = false; }
+    if (chNotice) { chNotice.textContent = txt("sim.q" + (qi + 1) + ".scene"); }
+    if (chOutcome) { chOutcome.className = "sim-outcome"; chOutcome.textContent = ""; }
+    var next = chBtn("chNext");
+    if (next) { next.hidden = true; }
+    setChButtons(true, true);
+    chRenderChoices(qi, q);
+    paintChStatus(true);
+    speakParts([
+      { k: "sim.ch.new", t: txt("sim.ch.new") },
+      { k: "sim.q" + (qi + 1) + ".scene", t: txt("sim.q" + (qi + 1) + ".scene") },
+      { k: "q" + (qi + 1) + ".q", t: "السؤال: " + q.question }
+    ]);
+    startChTick();
+  }
+
+  function chAnswer(index, timedOut) {
+    if (!chState.on || chState.answered) { return; }
+    chState.answered = true;
+    stopChTick();
+    var qi = CH_IDS[chState.pos];
+    var q = QUESTIONS[qi];
+    var ok = !timedOut && index === q.correct;
+    if (ok) { chState.score++; }
+    chState.results.push({ qi: qi, ok: ok, timedOut: timedOut });
+    if (chOutcome) {
+      chOutcome.className = "sim-outcome show " + (ok ? "ok" : "bad");
+      var resultText = timedOut ? txt("sim.ch.timeout") + " " + txt("sim.q" + (qi + 1) + ".clue") :
+        txt("sim.q" + (qi + 1) + ".out" + (index + 1));
+      chOutcome.textContent = (ok ? txt("sim.ch.correctprefix") : txt("sim.ch.wrongprefix")) + " " +
+        resultText + " " + txt("sim.correctprefix") + " " + q.options[q.correct];
+    }
+    if (chNotice) { chNotice.textContent += "  " + (ok ? txt("sim.ch.correctprefix") : txt("sim.ch.wrongprefix")); }
+    var next = chBtn("chNext");
+    if (next) {
+      next.hidden = false;
+      next.textContent = (chState.pos === CH_IDS.length - 1) ? "عرض النتيجة" : txt("sim.ch.next");
+      try { next.focus({ preventScroll: true }); } catch (e) { next.focus(); }
+    }
+    setChButtons(true, false);
+    paintChStatus(true);
+    var parts = [
+      { k: ok ? "sfx.clap" : "sfx.buzz", t: "" },
+      { k: ok ? "sim.ch.correctprefix" : "sim.ch.wrongprefix", t: txt(ok ? "sim.ch.correctprefix" : "sim.ch.wrongprefix") }
+    ];
+    if (timedOut) { parts.push({ k: "sim.ch.timeout", t: txt("sim.ch.timeout") }); }
+    parts.push({
+      k: timedOut ? ("sim.q" + (qi + 1) + ".clue") : ("sim.q" + (qi + 1) + ".out" + (index + 1)),
+      t: timedOut ? txt("sim.q" + (qi + 1) + ".clue") : txt("sim.q" + (qi + 1) + ".out" + (index + 1))
+    });
+    parts.push({ k: "q" + (qi + 1) + ".fbok", t: txt("sim.correctprefix") + " " + q.options[q.correct] + ". " + q.feedback });
+    speakParts(parts);
+    chState.pos++;
+  }
+
+  function chFinish() {
+    stopChTick();
+    chState.on = false;
+    if (chStage) { chStage.hidden = true; }
+    if (chStatus) { chStatus.textContent = "انتهى التحدي."; }
+    setChButtons(false, false);
+    if (!chResult) { return; }
+    var html = "<p>" + txt("sim.ch.done") + " " + txt("sim.ch.score") + ": " +
+      ar(chState.score) + " من " + ar(CH_IDS.length) + ".</p><ol>";
+    chState.results.forEach(function (r) {
+      html += "<li>" + (r.ok ? "✔" : "✘") + " " + QUESTIONS[r.qi].question + " — " +
+        (r.timedOut ? txt("sim.ch.timeout") : (r.ok ? txt("sim.ch.correctprefix") : txt("sim.ch.wrongprefix"))) +
+        ". " + txt("sim.correctprefix") + " " + QUESTIONS[r.qi].options[QUESTIONS[r.qi].correct] + "</li>";
+    });
+    html += "</ol>";
+    chResult.innerHTML = html;
+    chResult.className = "challenge-result show";
+    try { chResult.focus({ preventScroll: true }); } catch (e) { chResult.focus(); }
+    speakParts([
+      { k: "sim.ch.done", t: txt("sim.ch.done") },
+      { k: null, t: "نقاطك " + ar(chState.score) + " من " + ar(CH_IDS.length) + "." }
+    ]);
+  }
+
+  function chStart() {
+    if (chResult) { chResult.className = "challenge-result"; chResult.innerHTML = ""; }
+    chState.on = true;
+    chState.paused = false;
+    chState.pos = 0;
+    chState.score = 0;
+    chState.answered = false;
+    chState.remaining = CH_LIMIT;
+    chState.results = [];
+    lastChStatus = "";
+    paintChStatus(true);
+    speakParts([{ k: "sim.ch.intro", t: txt("sim.ch.intro") }, { k: "sim.ch.new", t: txt("sim.ch.new") }]);
+    chNext();
+  }
+
+  if (chChoices) {
+    chChoices.addEventListener("focusin", function (e) {
+      var t = e.target;
+      if (!t || !t.matches || !t.matches("button[data-ch]")) { return; }
+      var qi = CH_IDS[chState.pos];
+      var j = Number(t.getAttribute("data-ch"));
+      speakParts([{
+        k: "q" + (qi + 1) + ".o" + (j + 1),
+        t: "البديل " + (j + 1) + ": " + QUESTIONS[qi].options[j]
+      }]);
+    });
+    chChoices.addEventListener("click", function (e) {
+      var t = e.target.closest ? e.target.closest("button[data-ch]") : null;
+      if (t && chState.on && !chState.answered && !chState.paused) {
+        chAnswer(Number(t.getAttribute("data-ch")), false);
+      }
+    });
+  }
+
+  var bStart = chBtn("chStart"); if (bStart) { bStart.addEventListener("click", chStart); }
+  var bPause = chBtn("chPause");
+  if (bPause) {
+    bPause.addEventListener("click", function () {
+      if (!chState.on || chState.answered) { return; }
+      chState.paused = !chState.paused;
+      if (chState.paused) {
+        stopChTick();
+        bPause.textContent = "متابعة";
+        say("sim.ch.pause");
+      } else {
+        bPause.textContent = "إيقاف مؤقت";
+        startChTick();
+        say("sim.ch.resume");
+      }
+      paintChStatus(true);
+    });
+  }
+  var bExtra = chBtn("chExtra");
+  if (bExtra) {
+    bExtra.addEventListener("click", function () {
+      if (!chState.on || chState.answered || chState.extraUsed) { return; }
+      chState.extraUsed = true;
+      chState.remaining += 10;
+      chState.endAt += 10000;
+      chState.warned20 = false;
+      chState.warned15 = false;
+      chState.warned10 = false;
+      chState.warned5 = false;
+      bExtra.disabled = true;
+      say("sim.ch.extra");
+      paintChStatus(true);
+    });
+  }
+  var bTime = chBtn("chTime");
+  if (bTime) {
+    bTime.addEventListener("click", function () {
+      if (!chState.on) { return; }
+      paintChStatus(true);
+      sayText(txt("sim.ch.time") + " " + ar(Math.ceil(chState.remaining)) + " ثانية.");
+    });
+  }
+  var bStop = chBtn("chStop");
+  if (bStop) { bStop.addEventListener("click", function () { chFinish(); }); }
+  var bNextCh = chBtn("chNext");
+  if (bNextCh) { bNextCh.addEventListener("click", function () { chNext(); }); }
+
+  /* ---------------- التنقل بين الطريقتين والاختصارات ---------------- */
+  function setMode(id) {
+    [["goSimulation", id === "goSimulation"],
+     ["goChallenge", id === "goChallenge"],
+     ["goClassic", id === "goClassic"]].forEach(function (p) {
+      var b = chBtn(p[0]);
+      if (b) { b.setAttribute("aria-pressed", p[1] ? "true" : "false"); }
+    });
+    var target = chBtn(id === "goChallenge" ? "challenge" : (id === "goClassic" ? "classic" : "simulation"));
+    if (target && target.scrollIntoView) {
+      try { target.scrollIntoView({ block: "start", behavior: "smooth" }); } catch (e) { target.scrollIntoView(); }
+    }
+  }
+  ["goSimulation", "goChallenge", "goClassic"].forEach(function (id) {
+    var b = chBtn(id);
+    if (b) { b.addEventListener("click", function () { setMode(id); }); }
+  });
+  var bHow = chBtn("simHow");
+  if (bHow) { bHow.addEventListener("click", function () { say("sim.how"); }); }
+  var bPrev = chBtn("simPrev");
+  if (bPrev) { bPrev.addEventListener("click", function () { simGoTo(simCurrent - 1); }); }
+  var bNextSim = chBtn("simNext");
+  if (bNextSim) { bNextSim.addEventListener("click", function () { simGoTo(simCurrent + 1); }); }
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { stopSpeech(); return; }
+    if (!e.altKey || e.ctrlKey || e.metaKey) { return; }
+    if (e.key === "7") { e.preventDefault(); say("sim.how"); return; }
+    if (e.key === "8") { e.preventDefault(); setMode("goChallenge"); return; }
+  });
+
+  buildSimulation();
+  setChButtons(false, false);
+  paintChStatus();
+})();
+</script>
+<!-- SIM_DATA_END -->
+</body>
+</html>
